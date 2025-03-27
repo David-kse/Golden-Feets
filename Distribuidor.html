@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Feets</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Helvetica+Neue:400&display=swap">
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4D1C95;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+        }
+        .distributor {
+            font-size: 14px;
+            position: absolute;
+            right: 20px; /* Cambiado a la derecha */
+            top: 20px;
+        }
+        .icon-user-distributor {
+            font-size: 16px; /* Tamaño del icono de usuario */
+            margin-left: 5px; /* Espacio entre texto e icono */
+            vertical-align: middle; /* Alineación vertical */
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #4D1C95;
+        }
+        .icon-user {
+            font-size: 20px;
+            position: absolute;
+            right: 50px; /* Ajustado para no solaparse con "Distribuidor" */
+            top: 20px;
+        }
+        .content {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        .info-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4D1C95;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin: 5px;
+            border-radius: 5px; /* Bordes redondeados */
+            
+        }
+        select {
+      width: 30%;
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: border-color 0.3s ease;
+      background-color: white;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='%232c3e50' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      font-family: Helvetica;
+    }
+
+        button:hover {
+            opacity: 0.8; /* Ligera transparencia al pasar el ratón */
+        }
+        .arrow {
+            cursor: pointer;
+            width: 40px; /* Ancho del botón de flecha */
+            height: 40px; /* Alto del botón de flecha */
+            background-color: #4D1C95; /* Color de fondo para visibilidad */
+            color: white; /* Color de la flecha */
+            display: flex; /* Centrar el icono dentro del botón */
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+            border-radius: 50%; /* Forma circular */
+            position:absolute; /* Posición absoluta para el encabezado */
+            top:15px; /* Ajuste en la parte superior del encabezado */
+        }
+        .arrow-left {
+            left: 10px; /* Posición para la flecha izquierda */
+        }
+        textarea {
+            width: calc(100% - 22px); /* Ancho completo menos el padding */
+            height: 100px; /* Altura fija para el textarea */
+            padding: 10px; /* Padding dentro del textarea */
+            border-radius: 5px; /* Bordes redondeados */
+            border: 1px solid #ccc; /* Estilo del borde */
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Golden Feets</h1>
+    <i class="fas fa-user icon-user"></i>
+    <div class="distributor">Distribuidor <i class="fas fa-user icon-user-distributor"></i></div>
+
+    <!-- Flecha para navegar hacia atrás (solo visible en ciertas páginas) -->
+    <div class="arrow arrow-left" onclick="navegar('prev')" style="display:none;">←</div>
+</header>
+
+<!-- Primera Vista (Inicio Perfil) -->
+<div id="perfil" class="content">
+    <h2>PERFIL</h2>
+    <div class="info-box">
+        <p><strong>Nombre:</strong> Juan Pérez</p>
+        <p><strong>Sexo:</strong> Masculino</p>
+        <p><strong>Fecha de nacimiento:</strong> 01/01/1990</p>
+        <p><strong>Rol:</strong> Distribuidor</p>
+    </div>
+
+    <h2>INFORMACIÓN DE CONTACTO</h2>
+    <div class="info-box">
+        <p><strong>Correo electrónico:</strong> juan.perez@example.com</p>
+        <p><strong>Número telefónico:</strong> +34 600 123 456</p>
+        <p><strong>Dirección:</strong> Calle Falsa 123, Madrid, España</p>
+    </div>
+
+    <div class="button-container">
+        <a href="index.html" > <button onclick="cerrarSesion()">Cerrar Sesión</button></a>
+        <button onclick="consultarEntregas()">Consultar Entregas</button>
+    </div>
+
+</div>
+
+<!-- Segunda Vista (Consultar Entrega) -->
+<div id="consultar-entrega" class="content" style="display:none;">
+    <h2>Consultar Entrega</h2>
+
+    <select class="select">
+        <option value="">Seleccione una entrega...</option>
+        <option value="1">Entrega #1</option>
+        <option value="2">Entrega #2</option>
+        <option value="3">Entrega #3</option>
+    </select>
+
+    <button onclick="buscarEntrega()">Buscar</button>
+
+    <div id="info-entrega" style="display:none;">
+        <div class="info-box">
+            <p><strong>Número de entrega:</strong> 12345</p>
+            <p><strong>Persona a la que se le entrega:</strong> Ana Gómez</p>
+            <p><strong>Dirección de entrega:</strong> Avenida Siempre Viva, Springfield</p>
+            <p><strong>Número de productos:</strong> 5</p>
+            <p><strong>Información de contacto:</strong> ana.gomez@example.com</p>
+        </div>
+
+        <div class="button-container">
+            <button onclick="confirmarEntrega()">Confirmar Entrega</button>
+            <button onclick="cancelarEntrega()">Cancelar Entrega</button>
+        </div>
+
+         <!-- Mostrar flechas en el encabezado -->
+         <script>
+             document.querySelector('.arrow-left').style.display = 'block';
+         </script>
+
+         <!-- Flechas para navegar -->
+         <!-- Las flechas ya están en el encabezado -->
+    </div>
+</div>
+
+<!-- Tercera Vista (Cancelación de Entrega) -->
+<div id="cancelacion-entrega" class="content" style="display:none;">
+    <h2>Cancelación de Entrega</h2>
+
+    <div style="border:1px solid #ccc; padding:10px; border-radius:5px;">
+        <h3>Informar Cancelación</h3>
+
+        <label for="motivo">Ingrese el motivo (obligatorio):</label><br/>
+        <textarea id="motivo" required></textarea><br/>
+
+        <button onclick="cancelarEntregaFinal()">Cancelar Entrega</button>
+
+         <!-- Mostrar flechas en el encabezado -->
+         <script>
+             document.querySelector('.arrow-left').style.display = 'block';
+         </script>
+
+         <!-- Flechas para navegar -->
+         <!-- Las flechas ya están en el encabezado -->
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+// Funciones para manejar la navegación y acciones
+function cerrarSesion() {
+    alert("Sesión cerrada.");
+}
+
+function consultarEntregas() {
+    document.getElementById('perfil').style.display = 'none';
+    document.getElementById('consultar-entrega').style.display = 'block';
+}
+
+function buscarEntrega() {
+    document.getElementById('info-entrega').style.display = 'block';
+}
+
+function confirmarEntrega() {
+    alert("Su entrega ha sido confirmada con éxito.");
+}
+
+function cancelarEntrega() {
+    document.getElementById('consultar-entrega').style.display = 'none';
+    document.getElementById('cancelacion-entrega').style.display = 'block';
+}
+
+function cancelarEntregaFinal() {
+    const motivo = document.getElementById('motivo').value.trim();
+    
+    if (motivo === "") {
+       alert("El motivo es obligatorio.");
+       return; // No continuar si el motivo está vacío
+   }
+
+   alert("Entrega cancelada.");
+}
+
+function navegar(direction) {
+    const perfil = document.getElementById('perfil');
+    const consultarEntrega = document.getElementById('consultar-entrega');
+    const cancelacionEntrega = document.getElementById('cancelacion-entrega');
+
+    if (direction === 'next') {
+       if (perfil.style.display !== 'none') {
+           perfil.style.display = 'none';
+           consultarEntrega.style.display = 'block';
+       } else if (consultarEntrega.style.display !== 'none') {
+           consultarEntrega.style.display = 'none';
+           cancelacionEntrega.style.display = 'block';
+       }
+   } else if (direction === 'prev') {
+       if (cancelacionEntrega.style.display !== 'none') {
+           cancelacionEntrega.style.display = 'none';
+           consultarEntrega.style.display = 'block';
+       } else if (consultarEntrega.style.display !== 'none') {
+           consultarEntrega.style.display = 'none';
+           perfil.style.display = 'block';
+       }
+   }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Feets</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #4D1C95;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+        }
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon {
+            font-size: 1.5em;
+        }
+        .back-arrow {
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+        }
+        .back-arrow.active {
+            display: block;
+        }
+        h1, h2 {
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        button {
+            background-color: #4D1C95;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #4D1C95;
+        }
+        .hidden {
+            display: none;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .confirmation-section {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="back-arrow" id="back-arrow" onclick="retroceder()">←</div>
+    <div class="logo-title">
+        <div class="icon"></div>
+        <h2>Gerente de Entregas</h2>
+    </div>
+    <div class="icon-wrapper">
+        <p>Golden Feets</p>
+    </div>
+</header>
+
+<main id="vista-perfil">
+    <h2>PERFIL</h2>
+    <p><strong>Nombre:</strong> Juan Pérez</p>
+    <p><strong>Sexo:</strong> Masculino</p>
+    <p><strong>Fecha de Nacimiento:</strong> 15/05/1985</p>
+    <p><strong>Rol:</strong> Gerente de Entregas</p>
+
+    <h3>INFORMACIÓN DE CONTACTO:</h3>
+    <p><strong>Correo Electrónico:</strong> juan.perez@example.com</p>
+    <p><strong>Número Telefónico:</strong> +1234567890</p>
+    <p><strong>Dirección:</strong> Calle Falsa 123, Ciudad Ejemplo</p>
+
+    <button onclick="navegar('vista-consultar')">Consultar Entregas</button>
+   <a href="index.html" ><button onclick="cerrarSesion()">Cerrar Sesión</button></a>
+</main>
+
+<main id="vista-consultar" class="hidden">
+    <h2>CONSULTAR ENTREGAS</h2>
+    <div class="input-container">
+        <input type="text" id="numero-entrega" placeholder="Número de entrega">
+        <button onclick="buscarEntregaEspecifica()">Buscar</button>
+    </div>
+
+    <div class="input-container">
+        <select id="filtro-entregas">
+            <option value="todas">Todas las entregas</option>
+            <option value="recientes">Entregas recientes</option>
+            <option value="semana">Última semana</option>
+            <option value="mes">Último mes</option>
+        </select>
+        <button onclick="buscarEntregas()">Buscar</button>
+    </div>
+
+    <div class="table-container hidden" id="tabla-entregas">
+        <table id="entregas-table">
+            <thead>
+                <tr>
+                    <th>Número de Entrega</th>
+                    <th>Persona que Entregó</th>
+                    <th>Dirección de Entrega</th>
+                    <th>Número de Productos</th>
+                    <th>Información de Contacto</th>
+                </tr>
+            </thead>
+            <tbody id="entregas-body">
+                <tr>
+                    <td>001</td>
+                    <td>Juan López</td>
+                    <td>Calle A 123</td>
+                    <td>5</td>
+                    <td>+123456789</td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Maria García</td>
+                    <td>Avenida B 456</td>
+                    <td>3</td>
+                    <td>+987654321</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button onclick="navegar('vista-cancelar')">Cancelar Entrega</button>
+    <button onclick="navegar('vista-distribuidor')">Distribuidor</button>
+</main>
+
+<main id="vista-distribuidor" class="hidden">
+    <h2>Asignar Distribuidor</h2>
+    <div class="input-container">
+        <select id="entrega-distribuidor">
+            <option value="">Seleccionar Entrega</option>
+            <option value="001">Entrega 001 - Juan López</option>
+            <option value="002">Entrega 002 - Maria García</option>
+        </select>
+    </div>
+    <div class="input-container">
+        <select id="distribuidor-elegido">
+            <option value="">Seleccionar Distribuidor</option>
+            <option value="dist1">Carlos Martínez</option>
+            <option value="dist2">Ana Rodríguez</option>
+            <option value="dist3">Luis Fernández</option>
+        </select>
+    </div>
+    <div class="confirmation-section">
+        <button onclick="confirmarDistribuidor()">Confirmar Asignación</button>
+    </div>
+</main>
+
+<main id="vista-cancelar" class="hidden">
+    <h2>Cancelar Entrega</h2>
+    <div class="input-container">
+        <select id="entrega-cancelar">
+            <option value="">Seleccionar Entrega</option>
+            <option value="001">Entrega 001 - Juan López</option>
+            <option value="002">Entrega 002 - Maria García</option>
+        </select>
+    </div>
+    <div class="input-container">
+        <select id="razon-cancelacion">
+            <option value="">Razón de Cancelación</option>
+            <option value="error">Error en la dirección</option>
+            <option value="cliente">Solicitud del cliente</option>
+            <option value="producto">Problemas con el producto</option>
+            <option value="otra">Otra razón</option>
+        </select>
+    </div>
+    <div class="confirmation-section">
+        <button onclick="confirmarCancelacion()">Confirmar Cancelación</button>
+    </div>
+</main>
+
+<script>
+    let historial = ['vista-perfil'];
+
+    function navegar(vista) {
+        historial.push(vista);
+        actualizarVistas();
+    }
+
+    function retroceder() {
+        historial.pop();
+        actualizarVistas();
+    }
+
+    function actualizarVistas() {
+        document.querySelectorAll('main').forEach(main => main.classList.add('hidden'));
+        document.getElementById(historial[historial.length - 1]).classList.remove('hidden');
+        document.getElementById('back-arrow').classList.toggle('active', historial.length > 1);
+    }
+
+    function buscarEntregas() {
+        document.getElementById('tabla-entregas').classList.remove('hidden');
+    }
+
+    function buscarEntregaEspecifica() {
+        alert("Buscando entrega específica...");
+    }
+
+    function cerrarSesion() {
+        alert('Sesión cerrada.');
+    }
+
+    function confirmarDistribuidor() {
+        const entrega = document.getElementById('entrega-distribuidor').value;
+        const distribuidor = document.getElementById('distribuidor-elegido').value;
+
+        if (entrega && distribuidor) {
+            alert(`Distribuidor confirmado:\nEntrega: ${entrega}\nDistribuidor: ${distribuidor}`);
+        } else {
+            alert('Por favor, seleccione una entrega y un distribuidor.');
+        }
+    }
+
+    function confirmarCancelacion() {
+        const entrega = document.getElementById('entrega-cancelar').value;
+        const razon = document.getElementById('razon-cancelacion').value;
+
+        if (entrega && razon) {
+            alert(`Cancelación confirmada:\nEntrega: ${entrega}\nRazón: ${razon}`);
+        } else {
+            alert('Por favor, seleccione una entrega y una razón de cancelación.');
+        }
+    }
+</script>
+
+</body>
+</html>
