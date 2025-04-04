@@ -4,129 +4,646 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golden Feets - Inventario</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4D1C95;
+            --primary-dark: #3a146e;
+            --secondary-color: #6C4AB6;
+            --accent-color: #B9E0FF;
+            --text-color: #2D2727;
+            --light-bg: #F5F5F5;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --error-color: #F44336;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .delivery-icon {
+            font-size: 1.8em;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .delivery-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .back-arrow {
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+        
+        .back-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px) scale(1.1);
+        }
+        
+        .back-arrow.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        h1, h2, h3 {
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+            position: relative;
+            padding-right: 15px;
+        }
+        
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        /* Vista de Inventario */
+        #vista-inventario {
+            padding: 30px;
+        }
+        
+        .inventario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .inventario-header h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+        
+        .btn-agregar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(108, 74, 182, 0.3);
+        }
+        
+        .btn-agregar:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(108, 74, 182, 0.4);
+        }
+        
+        .producto-form {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: rgba(108, 74, 182, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .producto-form:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .imagen-upload {
+            width: 150px;
+            height: 150px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .imagen-upload:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .imagen-upload img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .imagen-upload i {
+            font-size: 30px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+        }
+        
+        .imagen-upload span {
+            font-size: 14px;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+        
+        .imagen-upload input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .producto-campos {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .input-group label {
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+        
+        .input-group input, .input-group select, .input-group textarea {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.2);
+        }
+        
+        .cantidad-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cantidad-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .cantidad-btn:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .cantidad-input {
+            width: 60px;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        .btn-eliminar {
+            background-color: rgba(244, 67, 54, 0.1);
+            color: var(--error-color);
+            border: 1px solid var(--error-color);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+            align-self: flex-start;
+        }
+        
+        .btn-eliminar:hover {
+            background-color: rgba(244, 67, 54, 0.2);
+        }
+        
+        .botones-inferiores {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .btn-secundario {
+            background-color: rgba(108, 74, 182, 0.1);
+            color: var(--secondary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-secundario:hover {
+            background-color: rgba(108, 74, 182, 0.2);
+        }
+        
+        .btn-primario {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(108, 74, 182, 0.3);
+        }
+        
+        .btn-primario:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(108, 74, 182, 0.4);
+        }
+        
+        /* Resultado */
+        .resultado-container {
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .resultado-icon {
+            font-size: 60px;
+            color: var(--success-color);
+            margin-bottom: 20px;
+        }
+        
+        .resultado-mensaje {
+            font-size: 20px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .resultado-detalle {
+            background-color: rgba(108, 74, 182, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-5px);}
+            60% {transform: translateY(-3px);}
+        }
+        
+        .bounce-animation {
+            animation: bounce 1.5s infinite;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .producto-form {
+                flex-direction: column;
+            }
+            
+            .imagen-upload {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .brand-name {
+                font-size: 1.2em;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Navegación -->
-    <nav class="bg-purple-900">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="text-xl font-bold text-white">Golden Feets</div>
-                <div class="hidden md:flex space-x-8">
-                  
-                </div>
-            </div>
+<body>
+
+<header>
+    <div class="back-arrow" id="back-arrow" onclick="retroceder()">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+    <div class="logo-title">
+        <div class="delivery-icon bounce-animation">
+            <i class="fas fa-boxes"></i>
         </div>
-    </nav>
+        <h2>Gestión de Inventario</h2>
+    </div>
+    <div class="icon-wrapper">
+        <span class="brand-name">Golden Feets</span>
+    </div>
+</header>
 
-    <!-- Contenido Principal -->
-    <main class="max-w-4xl mx-auto mt-8 mb-16 px-4">
-        <div class="bg-white rounded-lg shadow-md p-6">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold">Inventario</h1>
-                <a href="stock_inventario.html" class="text-gray-600 hover:text-gray-900">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                </a>
+<!-- Vista de Inventario -->
+<main id="vista-inventario">
+    <div class="inventario-header">
+        <h1>AGREGAR PRODUCTOS AL INVENTARIO</h1>
+        <button class="btn-agregar" onclick="agregarProducto()">
+            <i class="fas fa-plus"></i> Nuevo Producto
+        </button>
+    </div>
+    
+    <div id="formularios-productos">
+        <!-- Los formularios de productos se agregarán dinámicamente aquí -->
+    </div>
+    
+    <div class="botones-inferiores">
+        <button class="btn-secundario" onclick="limpiarFormularios()">
+            <i class="fas fa-trash-alt"></i> Limpiar Todo
+        </button>
+        <button class="btn-primario" onclick="confirmarInventario()">
+            <i class="fas fa-check-circle"></i> Confirmar Inventario
+        </button>
+    </div>
+</main>
+
+<!-- Vista de Resultado -->
+
+
+<script>
+    let historial = ['vista-inventario'];
+    let contadorProductos = 0;
+    let productos = [];
+
+    function navegar(vista) {
+        historial.push(vista);
+        actualizarVistas();
+    }
+
+    function retroceder() {
+        if (historial.length > 1) {
+            historial.pop();
+            actualizarVistas();
+        }
+    }
+
+    function actualizarVistas() {
+        document.querySelectorAll('main').forEach(main => main.classList.add('hidden'));
+        document.getElementById(historial[historial.length - 1]).classList.remove('hidden');
+        document.getElementById('back-arrow').classList.toggle('active', historial.length > 1);
+    }
+
+    function agregarProducto() {
+        contadorProductos++;
+        const id = `producto-${contadorProductos}`;
+        
+        const productoForm = document.createElement('div');
+        productoForm.className = 'producto-form';
+        productoForm.id = id;
+        productoForm.innerHTML = `
+            <div class="imagen-upload" onclick="document.getElementById('imagen-${id}').click()">
+                <input type="file" id="imagen-${id}" accept="image/*" onchange="mostrarVistaPrevia(this, 'preview-${id}')">
+                <img id="preview-${id}" src="" alt="Vista previa">
+                <i class="fas fa-camera"></i>
+                <span>Haz clic para subir una imagen</span>
             </div>
-
-            <h2 class="text-xl font-semibold mb-6">Agregar producto</h2>
-
-            <div class="space-y-6">
-                <!-- Producto 1 -->
-                <div class="flex space-x-4">
-                    <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <input type="text" placeholder="Nombre del producto" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Codigo" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Descripción" class="w-full p-2 border rounded">
-                        <div class="flex items-center space-x-2">
-                            <span>Unid</span>
-                            <input type="number" value="3" min="0" class="w-16 p-2 border rounded">
-                        </div>
+            
+            <div class="producto-campos">
+                <div class="input-group">
+                    <label for="nombre-${id}">Nombre del Producto</label>
+                    <input type="text" id="nombre-${id}" placeholder="Ej: Zapatillas Running Pro">
+                </div>
+                
+                <div class="input-group">
+                    <label for="codigo-${id}">Código del Producto</label>
+                    <input type="text" id="codigo-${id}" placeholder="Ej: ZRP-001">
+                </div>
+                
+                <div class="input-group">
+                    <label for="categoria-${id}">Categoría</label>
+                    <select id="categoria-${id}">
+                        <option value="">Seleccione una categoría</option>
+                        <option value="zapatillas">Zapatillas</option>
+                        <option value="ropa">Ropa deportiva</option>
+                        <option value="accesorios">Accesorios</option>
+                        <option value="otros">Otros</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="descripcion-${id}">Descripción</label>
+                    <textarea id="descripcion-${id}" rows="2" placeholder="Descripción detallada del producto"></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label>Cantidad en Inventario</label>
+                    <div class="cantidad-control">
+                        <button class="cantidad-btn" onclick="modificarCantidad('${id}', -1)">-</button>
+                        <input type="number" id="cantidad-${id}" value="1" min="0" class="cantidad-input">
+                        <button class="cantidad-btn" onclick="modificarCantidad('${id}', 1)">+</button>
                     </div>
                 </div>
-
-                <!-- Producto 2 -->
-                <div class="flex space-x-4">
-                    <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <input type="text" placeholder="Nombre del producto" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Codigo" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Descripción" class="w-full p-2 border rounded">
-                        <div class="flex items-center space-x-2">
-                            <span>Unid</span>
-                            <input type="number" value="3" min="0" class="w-16 p-2 border rounded">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Producto 3 -->
-                <div class="flex space-x-4">
-                    <div class="w-32 h-32 bg-gray-200 flex items-center justify-center">
-                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <div class="flex-1 space-y-2">
-                        <input type="text" placeholder="Nombre del producto" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Codigo" class="w-full p-2 border rounded">
-                        <input type="text" placeholder="Descripción" class="w-full p-2 border rounded">
-                        <div class="flex items-center space-x-2">
-                            <span>Unid</span>
-                            <input type="number" value="3" min="0" class="w-16 p-2 border rounded">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-end mt-6">
-                <button class="bg-purple-900 text-white px-6 py-2 rounded hover:bg-blue-700">
-                    Confirmar
+                
+                <button class="btn-eliminar" onclick="eliminarProducto('${id}')">
+                    <i class="fas fa-trash"></i> Eliminar
                 </button>
             </div>
-        </div>
-    </main>
+        `;
+        
+        document.getElementById('formularios-productos').appendChild(productoForm);
+        productos.push({ id, form: productoForm });
+    }
 
-    <!-- Footer -->
-    <footer class="bg-purple-900 text-white py-12">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Contacto</h4>
-                    <p>Email: info@calzadoselegantes.com</p>
-                    <p>Teléfono: (123) 456-7890</p>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Enlaces rápidos</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="hover:text-gray-300">Sobre nosotros</a></li>
-                        <li><a href="#" class="hover:text-gray-300">Política de devolución</a></li>
-                        <li><a href="#" class="hover:text-gray-300">Términos y condiciones</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold mb-4">Síguenos</h4>
-                    <div class="flex space-x-4">
-                        <a href="#" class="hover:text-gray-300">Facebook</a>
-                        <a href="#" class="hover:text-gray-300">Instagram</a>
-                        <a href="#" class="hover:text-gray-300">Twitter</a>
-                    </div>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
-                <p>© 2024 Calzados Elegantes. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    function mostrarVistaPrevia(input, previewId) {
+        const preview = document.getElementById(previewId);
+        const file = input.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            input.parentElement.querySelector('i').style.display = 'none';
+            input.parentElement.querySelector('span').style.display = 'none';
+        }
+        
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function modificarCantidad(id, cambio) {
+        const input = document.getElementById(`cantidad-${id}`);
+        let valor = parseInt(input.value) + cambio;
+        if (valor < 0) valor = 0;
+        input.value = valor;
+    }
+
+    function eliminarProducto(id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+            const producto = document.getElementById(id);
+            producto.remove();
+            productos = productos.filter(p => p.id !== id);
+        }
+    }
+
+    function limpiarFormularios() {
+        if (confirm('¿Estás seguro de que deseas limpiar todos los formularios?')) {
+            document.getElementById('formularios-productos').innerHTML = '';
+            productos = [];
+            contadorProductos = 0;
+        }
+    }
+
+    function confirmarInventario() {
+        // Validar formularios
+        let hayErrores = false;
+        let productosAgregados = [];
+        
+        productos.forEach(producto => {
+            const id = producto.id;
+            const nombre = document.getElementById(`nombre-${id}`).value.trim();
+            const codigo = document.getElementById(`codigo-${id}`).value.trim();
+            const categoria = document.getElementById(`categoria-${id}`).value;
+            const cantidad = document.getElementById(`cantidad-${id}`).value;
+            
+            if (!nombre || !codigo || !categoria || cantidad <= 0) {
+                hayErrores = true;
+                document.getElementById(id).style.borderLeft = '4px solid var(--error-color)';
+            } else {
+                document.getElementById(id).style.borderLeft = '4px solid var(--secondary-color)';
+                productosAgregados.push({
+                    nombre,
+                    codigo,
+                    categoria,
+                    cantidad,
+                    imagen: document.getElementById(`preview-${id}`).src || ''
+                });
+            }
+        });
+        
+        if (hayErrores) {
+            alert('Por favor complete todos los campos requeridos para cada producto.');
+            return;
+        }
+        
+        if (productosAgregados.length === 0) {
+            alert('No hay productos para agregar al inventario.');
+            return;
+        }
+        window.location.href = 'confirmacion_inv.html';
+        // Generar resumen
+        const resumen = document.getElementById('resumen-inventario');
+        resumen.innerHTML = `
+            <h3>Resumen del Inventario</h3>
+            <p>Total de productos agregados: <strong>${productosAgregados.length}</strong></p>
+            <p>Total de unidades: <strong>${productosAgregados.reduce((total, p) => total + parseInt(p.cantidad), 0)}</strong></p>
+            
+            <h4 style="margin-top: 15px;">Detalle de Productos:</h4>
+            <ul style="list-style-type: none; padding-left: 0;">
+                ${productosAgregados.map(p => `
+                    <li style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                        <strong>${p.nombre}</strong> (${p.codigo})<br>
+                        Categoría: ${p.categoria} | Cantidad: ${p.cantidad}
+                    </li>
+                `).join('')}
+            </ul>
+        `;
+        
+        // Navegar a vista de resultado
+        navegar('vista-resultado');
+        
+        // Limpiar formularios después de 3 segundos (simulando envío)
+        setTimeout(() => {
+            limpiarFormularios();
+        }, 3000);
+    }
+
+    // Inicializar con un formulario vacío
+    document.addEventListener('DOMContentLoaded', () => {
+        agregarProducto();
+        actualizarVistas();
+    });
+</script>
 </body>
 </html>
