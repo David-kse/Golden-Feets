@@ -1,0 +1,513 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap'); /* Ejemplo: Poppins */
+
+/* ===== Variables Globales ===== */
+:root {
+  /* --- Paleta de Colores --- */
+  --primary-color: #4D1C95;     /* Morado principal */
+  --primary-darker: #3a1670;    /* Morado más oscuro para hover */
+  /* --secondary-color: #OTRO_COLOR;  Si decides usar un color secundario distinto */
+  --accent-color: #e74c3c;      /* Rojo/Naranja para ofertas, favoritos activos */
+  --success-color: #28a745;     /* Verde para éxito (añadido al carrito, notificaciones) */
+  --warning-color: #ffc107;     /* Amarillo para estrellas de calificación (Bootstrap default) */
+
+  /* --- Colores UI - Modo Claro --- */
+  --light-bg: #f4f6f9;          /* Fondo general claro */
+  --light-card-bg: white;       /* Fondo de tarjetas/navbar/filtros */
+  --light-text: #212529;        /* Texto principal oscuro */
+  --light-text-muted: #6c757d;  /* Texto secundario/grisáceo */
+  --light-border: #dee2e6;      /* Bordes sutiles */
+  --light-hover-bg: #f8f9fa;    /* Fondo para hover en elementos claros (listas) */
+
+  /* --- Colores UI - Modo Oscuro --- */
+  --dark-bg: #181818;           /* Fondo general oscuro */
+  --dark-card-bg: #2c2c2c;      /* Fondo de tarjetas/navbar/filtros oscuros */
+  --dark-text: #f0f0f0;         /* Texto principal claro */
+  --dark-text-muted: #aaa;      /* Texto secundario/grisáceo oscuro */
+  --dark-border: #444;          /* Bordes oscuros */
+  --dark-hover-bg: #3c3c3c;     /* Fondo para hover en elementos oscuros */
+  --dark-form-bg: #333;         /* Fondo para inputs en modo oscuro */
+
+  /* --- Tipografía --- */
+  /* Fuente principal para párrafos, botones, etc. (Reemplaza 'Poppins' si eliges otra) */
+  --font-body: 'Poppins', Arial, Helvetica, sans-serif;
+  /* Fuente para títulos principales o marca (Reemplaza 'Relieve' si la usas y la importaste, o usa --font-body) */
+  --font-heading: 'Poppins', sans-serif; /* Usando Poppins para títulos también como default */
+  /* Si usas Relieve: */
+  /* --font-heading: 'Relieve', var(--font-body); */
+
+  /* --- Transiciones --- */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+
+  /* --- Otros --- */
+  --default-border-radius: 8px; /* Radio de borde consistente */
+  --card-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  --card-shadow-hover: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* ===== Estilos Base ===== */
+body {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+  font-family: var(--font-body);
+  transition: background-color var(--transition-base), color var(--transition-base);
+  font-size: 16px; /* Base font size */
+  line-height: 1.6; /* Improved readability */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700; /* Ejemplo: Títulos en negrita con Poppins */
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h5 { font-size: 1.25rem; }
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+a:hover {
+  color: var(--primary-darker);
+}
+
+/* ===== Componentes Principales ===== */
+
+/* --- Navbar --- */
+.navbar {
+  background-color: var(--light-card-bg) !important;
+  border-bottom: 1px solid var(--light-border); /* Borde sutil */
+  box-shadow: var(--card-shadow); /* Usar variable de sombra */
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+/* Ajustes para botones dentro del navbar si es necesario */
+.navbar .btn {
+    font-size: 0.9rem; /* Botones un poco más pequeños */
+}
+.navbar .input-group .form-control {
+    font-size: 0.9rem;
+}
+
+/* --- Tarjetas de Producto --- */
+.product-card {
+  background-color: var(--light-card-bg);
+  border: 1px solid var(--light-border);
+  border-radius: var(--default-border-radius);
+  box-shadow: var(--card-shadow);
+  height: 100%; /* Mantiene la altura completa */
+  display: flex; /* Permite que el card-body crezca */
+  flex-direction: column; /* Apila imagen y cuerpo */
+  transition: all var(--transition-base);
+  overflow: hidden; /* Asegura que el contenido respete el borde redondeado */
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--card-shadow-hover);
+}
+.product-card .card-img-top {
+  height: 220px; /* Un poco más de altura para la imagen */
+  object-fit: cover;
+  /* El borde redondeado superior ya no es necesario si overflow: hidden está en .product-card */
+}
+.product-card .card-body {
+  display: flex;
+  flex-direction: column; /* Estructura interna del cuerpo */
+  flex-grow: 1; /* Hace que el cuerpo ocupe el espacio restante */
+  padding: 1rem; /* Espaciado interno */
+}
+.product-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 500; /* Peso medio para Poppins */
+  margin-bottom: 0.5rem;
+}
+.product-card .card-text {
+  font-size: 0.9rem;
+  color: var(--light-text-muted);
+  flex-grow: 1; /* Empuja el precio/botones hacia abajo */
+  margin-bottom: 1rem;
+}
+.product-card .h5 { /* Estilo del precio */
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Botón Añadir al Carrito en Tarjeta */
+.product-card .btn-add-cart {
+  background-color: var(--primary-color);
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  transition: background-color var(--transition-fast);
+}
+.product-card .btn-add-cart:hover {
+  background-color: var(--primary-darker);
+  color: white;
+}
+.product-card .btn-add-cart.added-to-cart {
+  background-color: var(--success-color);
+}
+
+/* Botón Ver en Tarjeta */
+.product-card .btn-outline-secondary {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 5px;
+}
+
+/* --- Filtros Sidebar --- */
+.filter-container {
+  background-color: var(--light-card-bg);
+  border-radius: var(--default-border-radius);
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--light-border);
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
+}
+.filter-section { /* Estilos para cada sección dentro del contenedor */
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--light-border);
+}
+.filter-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.filter-section h5 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: none; /* Quitar doble borde si .filter-section ya tiene uno */
+}
+/* Lista de Categorías */
+.category-list .list-group-item {
+  border: none; /* Quitar bordes de items individuales */
+  padding: 0.5rem 0; /* Ajustar padding */
+  font-size: 0.95rem;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 2px;
+}
+.category-list .list-group-item:hover {
+  background-color: var(--light-hover-bg);
+  color: var(--primary-color);
+}
+.category-list .list-group-item.active {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: 500;
+}
+/* Rango de Precio y Checkboxes */
+.filter-section .form-label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+.filter-section .form-range {
+    cursor: pointer;
+}
+.filter-section .form-check-label {
+    font-size: 0.9rem;
+}
+#price-range-value {
+  font-weight: 500; /* Peso medio */
+  color: var(--primary-color);
+}
+
+/* --- Botones de Talla --- */
+.size-btn {
+  width: 38px; /* Ligeramente más pequeños */
+  height: 38px;
+  margin: 2px;
+  border-radius: 50%; /* Redondos */
+  background-color: var(--light-hover-bg);
+  border: 1px solid var(--light-border);
+  color: var(--light-text);
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+.size-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: white; /* Fondo blanco en hover */
+}
+.size-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  font-weight: 500;
+}
+
+/* --- Botón Favorito --- */
+.favorite-btn {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(255,255,255,0.8);
+  border: 1px solid var(--light-border); /* Añadir un borde sutil */
+  border-radius: 50%;
+  width: 34px; /* Ligeramente más grande */
+  height: 34px;
+  color: var(--light-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  z-index: 2; /* Asegurar que esté sobre la imagen */
+}
+.favorite-btn i {
+    font-size: 0.9rem; /* Tamaño del icono corazón */
+}
+.favorite-btn:hover {
+  background-color: white;
+  color: var(--accent-color); /* Color de acento al pasar el ratón */
+  border-color: var(--accent-color);
+  transform: scale(1.1); /* Efecto de escala */
+}
+.favorite-btn.active {
+    background-color: var(--accent-color); /* Fondo rojo cuando activo */
+    border-color: var(--accent-color);
+}
+.favorite-btn.active i {
+  color: white; /* Icono blanco cuando activo */
+}
+
+/* --- Badge de Oferta --- */
+.sale-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700; /* Más bold */
+  z-index: 2;
+}
+
+/* --- Notificación --- */
+.notification {
+  position: fixed;
+  top: 80px; /* Debajo del navbar */
+  right: 20px;
+  padding: 1rem 1.5rem; /* Más padding */
+  background-color: var(--success-color);
+  color: white;
+  border-radius: var(--default-border-radius);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  z-index: 1055; /* Asegurar que esté sobre otros elementos */
+  transform: translateX(110%);
+  transition: transform var(--transition-base);
+}
+.notification.show {
+  transform: translateX(0);
+}
+.notification:not(.show) { /* Para ocultar sin JS inicialmente si es necesario */
+    visibility: hidden;
+}
+
+/* --- Estrellas Calificación --- */
+.bi-star-fill, .bi-star-half {
+  color: var(--warning-color);
+  font-size: 0.9rem; /* Ajustar tamaño si es necesario */
+}
+
+/* --- Botones Cantidad Modal/Carrito --- */
+.btn-quantity {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-color: var(--light-border);
+  color: var(--light-text-muted);
+}
+.btn-quantity:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: var(--light-hover-bg);
+}
+.input-group .form-control[readonly] { /* Estilo del input de cantidad */
+    background-color: white;
+}
+
+
+/* ===== Modo Oscuro ===== */
+body.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* Links en modo oscuro */
+body.dark-mode a {
+    color: var(--primary-color); /* Mantener color primario o elegir uno más brillante */
+}
+body.dark-mode a:hover {
+    color: lighten(var(--primary-color), 15%); /* Aclarar en hover */
+}
+
+/* Componentes base en modo oscuro */
+body.dark-mode .navbar,
+body.dark-mode .filter-container,
+body.dark-mode .offcanvas,
+body.dark-mode .modal-content {
+  background-color: var(--dark-card-bg) !important;
+  color: var(--dark-text);
+  border-color: var(--dark-border) !important; /* Asegura que bordes cambien */
+}
+
+body.dark-mode .product-card {
+  background-color: var(--dark-card-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Sombra más visible en oscuro */
+}
+body.dark-mode .product-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+body.dark-mode .product-card .card-text {
+  color: var(--dark-text-muted);
+}
+
+/* Lista categorías modo oscuro */
+body.dark-mode .category-list .list-group-item {
+  background-color: transparent; /* Hereda fondo del contenedor */
+  color: var(--dark-text);
+  border-color: var(--dark-border); /* Borde interno si es necesario */
+}
+body.dark-mode .category-list .list-group-item:hover {
+  background-color: var(--dark-hover-bg);
+  color: white;
+}
+body.dark-mode .category-list .list-group-item.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Formularios modo oscuro */
+body.dark-mode .form-control,
+body.dark-mode .form-select,
+body.dark-mode .input-group .form-control[readonly] {
+  background-color: var(--dark-form-bg);
+  color: var(--dark-text);
+  border-color: var(--dark-border);
+}
+body.dark-mode .form-control::placeholder {
+    color: var(--dark-text-muted);
+}
+body.dark-mode .form-range::-webkit-slider-thumb { /* Estilo thumb del range */
+    background: var(--primary-color);
+}
+body.dark-mode .form-range::-moz-range-thumb {
+    background: var(--primary-color);
+}
+
+/* Texto Muted modo oscuro */
+body.dark-mode .text-muted {
+  color: var(--dark-text-muted) !important;
+}
+
+/* Botón Favorito modo oscuro */
+body.dark-mode .favorite-btn {
+   background-color: rgba(44,44,44,0.7); /* Ligeramente más transparente */
+   color: var(--dark-text-muted);
+   border-color: var(--dark-border);
+}
+body.dark-mode .favorite-btn:hover {
+   background-color: rgba(60,60,60,1);
+   color: var(--accent-color); /* Mantener color acento en hover */
+   border-color: var(--accent-color);
+}
+body.dark-mode .favorite-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+body.dark-mode .favorite-btn.active i {
+    color: white;
+}
+
+/* Botones Talla modo oscuro */
+body.dark-mode .size-btn {
+  background-color: var(--dark-form-bg); /* Fondo más oscuro */
+  border-color: var(--dark-border);
+  color: var(--dark-text-muted); /* Texto más apagado */
+}
+body.dark-mode .size-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--dark-hover-bg); /* Fondo hover oscuro */
+}
+body.dark-mode .size-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* Botones Cantidad modo oscuro */
+body.dark-mode .btn-quantity {
+  border-color: var(--dark-border);
+  color: var(--dark-text-muted);
+}
+body.dark-mode .btn-quantity:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: var(--dark-hover-bg);
+}
+
+/* Footer Modo Oscuro (Ejemplo) */
+body.dark-mode footer {
+  background-color: #111; /* Aún más oscuro */
+  color: var(--dark-text-muted);
+  border-top: 1px solid var(--dark-border);
+}
+body.dark-mode footer a {
+   color: var(--dark-text);
+}
+body.dark-mode footer a:hover {
+   color: white;
+}
+
+/* ===== Animaciones y Otros ===== */
+@keyframes slideIn {
+  from {
+    transform: translateY(50px); /* Menos distancia */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: slideIn 0.5s ease-out; /* Un poco más rápido */
+}
+
+#featured-products {
+  margin-bottom: 3rem; /* Más espacio después del carrusel */
+}
+
+/* Estilos específicos que no requieren cambios de color/fuente */
+.btn-close {
+  cursor: pointer;
+}
+#price-range-value {
+  font-weight: 500;
+}
