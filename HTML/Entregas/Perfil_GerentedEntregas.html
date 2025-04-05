@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -300,7 +299,33 @@
             box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
         }
         
-   
+        .btn-secondary {
+            background: linear-gradient(135deg, #4a5568, #718096);
+            box-shadow: 0 4px 10px rgba(74, 85, 104, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 15px rgba(74, 85, 104, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #66BB6A);
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-success:hover {
+            box-shadow: 0 6px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--error-color), #EF5350);
+            box-shadow: 0 4px 10px rgba(244, 67, 54, 0.3);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 6px 15px rgba(244, 67, 54, 0.4);
+        }
+        
         .hidden {
             display: none;
         }
@@ -311,7 +336,7 @@
             margin-bottom: 20px;
         }
         
-        input, select {
+        input, select, textarea {
             padding: 12px 15px;
             font-size: 16px;
             width: 100%;
@@ -321,7 +346,7 @@
             font-family: 'Poppins', sans-serif;
         }
         
-        input:focus, select:focus {
+        input:focus, select:focus, textarea:focus {
             border-color: var(--secondary-color);
             outline: none;
             box-shadow: 0 0 0 3px rgba(128, 90, 213, 0.2);
@@ -547,7 +572,122 @@
             margin-bottom: 5px;
         }
         
-      
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        
+        .action-buttons button {
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+        
+        .distributor-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s;
+        }
+        
+        .distributor-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+        
+        .distributor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .distributor-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .distributor-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .detail-item {
+            flex: 1 1 200px;
+        }
+        
+        .detail-item strong {
+            display: block;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .detail-item p {
+            margin: 0;
+            font-size: 15px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--secondary-color);
+        }
+        
+        .empty-state i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+        }
+        
+        .empty-state p {
+            margin-bottom: 20px;
+        }
+        
+        .form-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        
+        .form-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .two-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .two-columns > div {
+            flex: 1;
+        }
+        
         @media (max-width: 768px) {
             .profile-info {
                 flex-direction: column;
@@ -575,6 +715,16 @@
             
             .brand-name {
                 font-size: 1.2em;
+            }
+            
+            .two-columns {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .distributor-details {
+                flex-direction: column;
+                gap: 10px;
             }
         }
     </style>
@@ -648,6 +798,9 @@
             <button onclick="navegar('vista-consultar')">
                 <i class="fas fa-search"></i> Consultar Entregas
             </button>
+            <button onclick="navegar('vista-distribuidores')">
+                <i class="fas fa-truck"></i> Gestión de Distribuidores
+            </button>
             <a href="index.html" style="text-decoration: none;">
                 <button class="btn-logout" onclick="cerrarSesion()">
                     <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
@@ -714,34 +867,14 @@
                     </tr>
                 </thead>
                 <tbody id="entregas-body">
-                    <tr>
-                        <td>001</td>
-                        <td>Juan López</td>
-                        <td>Calle A 123</td>
-                        <td>5</td>
-                        <td>+123456789</td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>Maria García</td>
-                        <td>Avenida B 456</td>
-                        <td>3</td>
-                        <td>+987654321</td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>Carlos Martínez</td>
-                        <td>Boulevard C 789</td>
-                        <td>2</td>
-                        <td>+456123789</td>
-                    </tr>
+                    <!-- Las entregas se cargarán dinámicamente -->
                 </tbody>
             </table>
         </div>
 
         <div class="button-container" style="justify-content: flex-start; margin-top: 30px;">
             <button onclick="navegar('vista-cancelar')"><i class="fas fa-times-circle"></i> Cancelar Entrega</button>
-            <button onclick="navegar('vista-distribuidor')"><i class="fas fa-truck"></i> Distribuidor</button>
+            <button onclick="navegar('vista-distribuidor')"><i class="fas fa-truck"></i> Asignar Distribuidor</button>
         </div>
     </div>
 </main>
@@ -752,17 +885,13 @@
         <div class="input-container">
             <select id="entrega-distribuidor">
                 <option value="">Seleccionar Entrega</option>
-                <option value="001">Entrega 001 - Juan López</option>
-                <option value="002">Entrega 002 - Maria García</option>
-                <option value="003">Entrega 003 - Carlos Martínez</option>
+                <!-- Las opciones se cargarán dinámicamente -->
             </select>
         </div>
         <div class="input-container">
             <select id="distribuidor-elegido">
                 <option value="">Seleccionar Distribuidor</option>
-                <option value="dist1">Carlos Martínez</option>
-                <option value="dist2">Ana Rodríguez</option>
-                <option value="dist3">Luis Fernández</option>
+                <!-- Opciones se llenarán dinámicamente -->
             </select>
         </div>
         <div class="confirmation-section">
@@ -770,7 +899,7 @@
         </div>
         
 
-        <div id="resultado-distribuidor" class="result-container hidden">
+        <div id="resultado-asignacion" class="result-container hidden">
             <div class="result-title">
                 <i class="fas fa-check-circle"></i>
                 <span>Distribuidor asignado correctamente</span>
@@ -799,9 +928,7 @@
         <div class="input-container">
             <select id="entrega-cancelar">
                 <option value="">Seleccionar Entrega</option>
-                <option value="001">Entrega 001 - Juan López</option>
-                <option value="002">Entrega 002 - Maria García</option>
-                <option value="003">Entrega 003 - Carlos Martínez</option>
+                <!-- Las opciones se cargarán dinámicamente -->
             </select>
         </div>
         <div class="input-container">
@@ -841,6 +968,78 @@
     </div>
 </main>
 
+<main id="vista-distribuidores" class="hidden">
+    <div style="padding: 30px;">
+        <h2>Gestión de Distribuidores</h2>
+        
+        <div class="form-section">
+            <h3>Agregar Nuevo Distribuidor</h3>
+            <form id="form-distribuidor">
+                <div class="two-columns">
+                    <div>
+                        <div class="form-group">
+                            <label for="nombre-distribuidor">Nombre Completo</label>
+                            <input type="text" id="nombre-distribuidor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono-distribuidor">Teléfono</label>
+                            <input type="tel" id="telefono-distribuidor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-distribuidor">Correo Electrónico</label>
+                            <input type="email" id="email-distribuidor" required>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="direccion-distribuidor">Dirección</label>
+                            <input type="text" id="direccion-distribuidor" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="vehiculo-distribuidor">Tipo de Vehículo</label>
+                            <select id="vehiculo-distribuidor" required>
+                                <option value="">Seleccionar</option>
+                                <option value="moto">Motocicleta</option>
+                                <option value="auto">Automóvil</option>
+                                <option value="camioneta">Camioneta</option>
+                                <option value="bicicleta">Bicicleta</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="placa-distribuidor">Placa/Identificación Vehículo</label>
+                            <input type="text" id="placa-distribuidor">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="notas-distribuidor">Notas Adicionales</label>
+                    <textarea id="notas-distribuidor" rows="3"></textarea>
+                </div>
+                <div class="button-container" style="justify-content: flex-end; margin-top: 20px;">
+                    <button type="button" class="btn-secondary" onclick="limpiarFormularioDistribuidor()">
+                        <i class="fas fa-eraser"></i> Limpiar
+                    </button>
+                    <button type="button" class="btn-success" onclick="agregarDistribuidor()">
+                        <i class="fas fa-save"></i> Guardar Distribuidor
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <h3>Lista de Distribuidores</h3>
+            <div id="lista-distribuidores">
+                <!-- Distribuidores se cargarán aquí dinámicamente -->
+                <div class="empty-state">
+                    <i class="fas fa-truck-loading"></i>
+                    <h3>No hay distribuidores registrados</h3>
+                    <p>Agrega tu primer distribuidor usando el formulario superior</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
 
 <div id="confirmation-modal" class="confirmation-modal">
     <div class="modal-content">
@@ -858,53 +1057,111 @@
 </div>
 
 <script>
+    // Variables globales
     let historial = ['vista-perfil'];
     let accionActual = null;
     let datosAccion = {};
+    let distribuidores = [
+        {
+            id: 'dist1',
+            nombre: 'Carlos Martínez',
+            telefono: '+1234567890',
+            email: 'carlos@example.com',
+            direccion: 'Calle Principal 123',
+            vehiculo: 'moto',
+            placa: 'MOT-123',
+            notas: 'Experiencia en entregas rápidas',
+            fechaRegistro: '2023-05-15'
+        },
+        {
+            id: 'dist2',
+            nombre: 'Ana Rodríguez',
+            telefono: '+9876543210',
+            email: 'ana@example.com',
+            direccion: 'Avenida Central 456',
+            vehiculo: 'auto',
+            placa: 'AUT-456',
+            notas: 'Especialista en paquetes frágiles',
+            fechaRegistro: '2023-06-20'
+        },
+        {
+            id: 'dist3',
+            nombre: 'Luis Fernández',
+            telefono: '+4561237890',
+            email: 'luis@example.com',
+            direccion: 'Boulevard Norte 789',
+            vehiculo: 'camioneta',
+            placa: 'CAM-789',
+            notas: 'Capacidad para paquetes grandes',
+            fechaRegistro: '2023-07-10'
+        }
+    ];
 
-
-    const entregasDB = {
+    // Base de datos de entregas
+    let entregasDB = {
         "001": {
             persona: "Juan López",
             direccion: "Calle A 123",
             productos: "5",
-            contacto: "+123456789"
+            contacto: "+123456789",
+            estado: "activa"
         },
         "002": {
             persona: "Maria García",
             direccion: "Avenida B 456",
             productos: "3",
-            contacto: "+987654321"
+            contacto: "+987654321",
+            estado: "activa"
         },
         "003": {
             persona: "Carlos Martínez",
             direccion: "Boulevard C 789",
             productos: "2",
-            contacto: "+456123789"
+            contacto: "+456123789",
+            estado: "activa"
         }
     };
 
+    // Inicialización al cargar la página
+    document.addEventListener('DOMContentLoaded', function() {
+        actualizarVistas();
+        actualizarSelectoresDistribuidores();
+        renderizarListaDistribuidores();
+        cargarEntregasEnSelectores();
+        renderizarTablaEntregas();
+    });
+
+    // Funciones de navegación
     function navegar(vista) {
         historial.push(vista);
         actualizarVistas();
     }
 
     function retroceder() {
-        historial.pop();
-        actualizarVistas();
+        if (historial.length > 1) {
+            historial.pop();
+            actualizarVistas();
+        }
     }
 
     function actualizarVistas() {
+        // Ocultar todas las vistas
         document.querySelectorAll('main').forEach(main => main.classList.add('hidden'));
-        document.getElementById(historial[historial.length - 1]).classList.remove('hidden');
+        
+        // Mostrar la vista actual
+        const vistaActual = historial[historial.length - 1];
+        document.getElementById(vistaActual).classList.remove('hidden');
+        
+        // Actualizar flecha de retroceso
         document.getElementById('back-arrow').classList.toggle('active', historial.length > 1);
         
- 
-        document.getElementById('resultado-distribuidor').classList.add('hidden');
+        // Resetear resultados
+        document.getElementById('resultado-asignacion').classList.add('hidden');
         document.getElementById('resultado-cancelacion').classList.add('hidden');
         document.getElementById('entrega-especifica').classList.add('hidden');
     }
 
+    // Funciones para la gestión de entregas
     function buscarEntregas() {
         document.getElementById('tabla-entregas').classList.remove('hidden');
     }
@@ -914,8 +1171,8 @@
         const entregaEspecifica = document.getElementById('entrega-especifica');
         
         if (numeroEntrega) {
-            if (entregasDB[numeroEntrega]) {
-              
+            if (entregasDB[numeroEntrega] && entregasDB[numeroEntrega].estado === "activa") {
+                // Mostrar información de la entrega específica
                 document.getElementById('entrega-numero').textContent = numeroEntrega;
                 document.getElementById('entrega-persona').textContent = entregasDB[numeroEntrega].persona;
                 document.getElementById('entrega-direccion').textContent = entregasDB[numeroEntrega].direccion;
@@ -925,7 +1182,7 @@
                 entregaEspecifica.classList.remove('hidden');
                 document.getElementById('tabla-entregas').classList.add('hidden');
             } else {
-                alert(`No se encontró la entrega #${numeroEntrega}`);
+                alert(`No se encontró la entrega #${numeroEntrega} o ha sido cancelada`);
                 entregaEspecifica.classList.add('hidden');
                 document.getElementById('tabla-entregas').classList.remove('hidden');
             }
@@ -936,14 +1193,294 @@
         }
     }
 
-    function cerrarSesion() {
-        if (confirm('¿Está seguro que desea cerrar sesión?')) {
-            alert('Sesión cerrada correctamente.');
+    function cargarEntregasEnSelectores() {
+        const selectAsignacion = document.getElementById('entrega-distribuidor');
+        const selectCancelacion = document.getElementById('entrega-cancelar');
+        
+        // Limpiar selectores
+        [selectAsignacion, selectCancelacion].forEach(select => {
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+        });
+        
+        // Agregar solo entregas activas
+        Object.keys(entregasDB).forEach(key => {
+            if (entregasDB[key].estado === "activa") {
+                const entrega = entregasDB[key];
+                const optionText = `${key} - ${entrega.persona}`;
+                
+                // Para selector de asignación
+                const optionAsignacion = document.createElement('option');
+                optionAsignacion.value = key;
+                optionAsignacion.textContent = optionText;
+                selectAsignacion.appendChild(optionAsignacion);
+                
+                // Para selector de cancelación
+                const optionCancelacion = document.createElement('option');
+                optionCancelacion.value = key;
+                optionCancelacion.textContent = optionText;
+                selectCancelacion.appendChild(optionCancelacion);
+            }
+        });
+    }
 
-            window.location.href = "index.html";
+    function renderizarTablaEntregas() {
+        const tbody = document.getElementById('entregas-body');
+        tbody.innerHTML = '';
+        
+        // Mostrar solo entregas activas
+        Object.keys(entregasDB).forEach(key => {
+            if (entregasDB[key].estado === "activa") {
+                const entrega = entregasDB[key];
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${key}</td>
+                    <td>${entrega.persona}</td>
+                    <td>${entrega.direccion}</td>
+                    <td>${entrega.productos}</td>
+                    <td>${entrega.contacto}</td>
+                `;
+                tbody.appendChild(row);
+            }
+        });
+    }
+
+    // Funciones para la gestión de distribuidores
+    function obtenerTipoVehiculo(codigo) {
+        const tipos = {
+            'moto': 'Motocicleta',
+            'auto': 'Automóvil',
+            'camioneta': 'Camioneta',
+            'bicicleta': 'Bicicleta'
+        };
+        return tipos[codigo] || codigo;
+    }
+
+    function actualizarSelectoresDistribuidores() {
+        // Selector en la vista de asignación
+        const selectAsignacion = document.getElementById('distribuidor-elegido');
+        
+        // Limpiar y reconstruir ambos selectores
+        [selectAsignacion].forEach(select => {
+            // Guardar la opción seleccionada
+            const selectedValue = select.value;
+            
+            // Limpiar opciones excepto la primera
+            while (select.options.length > 1) {
+                select.remove(1);
+            }
+            
+            // Agregar distribuidores
+            distribuidores.forEach(dist => {
+                const option = document.createElement('option');
+                option.value = dist.id;
+                option.textContent = `${dist.nombre} (${obtenerTipoVehiculo(dist.vehiculo)})`;
+                select.appendChild(option);
+            });
+            
+            // Restaurar la selección si aún existe
+            if (selectedValue && distribuidores.some(d => d.id === selectedValue)) {
+                select.value = selectedValue;
+            }
+        });
+    }
+
+    function renderizarListaDistribuidores() {
+        const contenedor = document.getElementById('lista-distribuidores');
+        
+        if (distribuidores.length === 0) {
+            contenedor.innerHTML = `
+                <div class="empty-state">
+                    <i class="fas fa-truck-loading"></i>
+                    <h3>No hay distribuidores registrados</h3>
+                    <p>Agrega tu primer distribuidor usando el formulario superior</p>
+                </div>
+            `;
+            return;
+        }
+        
+        contenedor.innerHTML = '';
+        
+        distribuidores.forEach(dist => {
+            const card = document.createElement('div');
+            card.className = 'distributor-card';
+            card.innerHTML = `
+                <div class="distributor-header">
+                    <div class="distributor-name">${dist.nombre}</div>
+                    <div class="action-buttons">
+                        <button class="btn-danger" onclick="mostrarConfirmacionEliminarDistribuidor('${dist.id}')">
+                            <i class="fas fa-trash-alt"></i> Eliminar
+                        </button>
+                    </div>
+                </div>
+                <div class="distributor-details">
+                    <div class="detail-item">
+                        <strong>Contacto</strong>
+                        <p>${dist.telefono} | ${dist.email}</p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Dirección</strong>
+                        <p>${dist.direccion}</p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Vehículo</strong>
+                        <p>${obtenerTipoVehiculo(dist.vehiculo)} ${dist.placa ? `(${dist.placa})` : ''}</p>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Fecha de Registro</strong>
+                        <p>${dist.fechaRegistro}</p>
+                    </div>
+                    ${dist.notas ? `
+                    <div class="detail-item" style="flex: 1 1 100%;">
+                        <strong>Notas</strong>
+                        <p>${dist.notas}</p>
+                    </div>` : ''}
+                </div>
+            `;
+            contenedor.appendChild(card);
+        });
+    }
+
+    function agregarDistribuidor() {
+        const nombre = document.getElementById('nombre-distribuidor').value.trim();
+        const telefono = document.getElementById('telefono-distribuidor').value.trim();
+        const email = document.getElementById('email-distribuidor').value.trim();
+        const direccion = document.getElementById('direccion-distribuidor').value.trim();
+        const vehiculo = document.getElementById('vehiculo-distribuidor').value;
+        const placa = document.getElementById('placa-distribuidor').value.trim();
+        const notas = document.getElementById('notas-distribuidor').value.trim();
+        
+        // Validación básica
+        if (!nombre || !telefono || !email || !direccion || !vehiculo) {
+            alert('Por favor complete todos los campos obligatorios');
+            return;
+        }
+        
+        // Crear nuevo distribuidor
+        const nuevoDistribuidor = {
+            id: 'dist' + (distribuidores.length + 1),
+            nombre,
+            telefono,
+            email,
+            direccion,
+            vehiculo,
+            placa,
+            notas,
+            fechaRegistro: new Date().toISOString().split('T')[0] // Fecha actual en formato YYYY-MM-DD
+        };
+        
+        // Agregar a la lista
+        distribuidores.push(nuevoDistribuidor);
+        
+        // Actualizar la interfaz
+        actualizarSelectoresDistribuidores();
+        renderizarListaDistribuidores();
+        limpiarFormularioDistribuidor();
+        
+        // Mostrar feedback
+        alert('Distribuidor agregado correctamente');
+    }
+
+    function limpiarFormularioDistribuidor() {
+        document.getElementById('form-distribuidor').reset();
+    }
+
+    function mostrarConfirmacionEliminarDistribuidor(idDistribuidor) {
+        const distribuidor = distribuidores.find(d => d.id === idDistribuidor);
+        if (!distribuidor) return;
+        
+        accionActual = 'eliminar_distribuidor';
+        datosAccion = { id: idDistribuidor };
+        
+        document.getElementById('modal-title').textContent = 'Confirmar Eliminación';
+        document.getElementById('modal-message').innerHTML = `
+            <p>¿Está seguro que desea eliminar al distribuidor <strong>${distribuidor.nombre}</strong>?</p>
+            <p>Esta acción no se puede deshacer.</p>
+        `;
+        
+        mostrarModal();
+    }
+
+    function eliminarDistribuidor(id) {
+        distribuidores = distribuidores.filter(d => d.id !== id);
+        actualizarSelectoresDistribuidores();
+        renderizarListaDistribuidores();
+        
+        // Mostrar feedback
+        const resultado = document.getElementById('resultado-asignacion');
+        resultado.querySelector('.result-title i').className = 'fas fa-check-circle';
+        resultado.querySelector('.result-title span').textContent = 'Distribuidor eliminado correctamente';
+        resultado.style.borderLeftColor = 'var(--success-color)';
+        resultado.classList.remove('hidden');
+        
+        setTimeout(() => {
+            resultado.classList.add('hidden');
+        }, 3000);
+    }
+
+    // Funciones para el modal de confirmación
+    function mostrarModal() {
+        document.getElementById('confirmation-modal').classList.add('active');
+    }
+
+    function cerrarModal() {
+        document.getElementById('confirmation-modal').classList.remove('active');
+    }
+
+    function confirmarAccion() {
+        cerrarModal();
+        
+        if (accionActual === 'asignar_distribuidor') {
+            confirmarAsignacion();
+        } else if (accionActual === 'cancelar_entrega') {
+            confirmarCancelacion();
+        } else if (accionActual === 'eliminar_distribuidor') {
+            eliminarDistribuidor(datosAccion.id);
         }
     }
 
+    // Funciones para confirmar acciones
+    function confirmarAsignacion() {
+        const { entrega, distribuidor } = datosAccion;
+        const distribuidorObj = distribuidores.find(d => d.id === distribuidor);
+        const distribuidorText = distribuidorObj ? distribuidorObj.nombre : 'Desconocido';
+        const entregaText = document.querySelector(`#entrega-distribuidor option[value="${entrega}"]`).text;
+        
+        // Mostrar resultados
+        document.getElementById('result-entrega-dist').textContent = entregaText;
+        document.getElementById('result-distribuidor').textContent = distribuidorText;
+        document.getElementById('result-fecha-dist').textContent = new Date().toLocaleString();
+        
+        const resultado = document.getElementById('resultado-asignacion');
+        resultado.querySelector('.result-title i').className = 'fas fa-check-circle';
+        resultado.querySelector('.result-title span').textContent = 'Distribuidor asignado correctamente';
+        resultado.style.borderLeftColor = 'var(--success-color)';
+        resultado.classList.remove('hidden');
+
+        console.log(`Distribuidor ${distribuidor} asignado a entrega ${entrega}`);
+    }
+
+    function confirmarCancelacion() {
+        const { entrega, razon } = datosAccion;
+        const razonText = document.querySelector(`#razon-cancelacion option[value="${razon}"]`).text;
+        const entregaText = document.querySelector(`#entrega-cancelar option[value="${entrega}"]`).text;
+        
+        // Marcar la entrega como cancelada
+        entregasDB[entrega].estado = "cancelada";
+        
+        // Actualizar la interfaz
+        cargarEntregasEnSelectores();
+        renderizarTablaEntregas();
+        
+        // Mostrar resultados
+        document.getElementById('result-entrega-cancel').textContent = entregaText;
+        document.getElementById('result-razon').textContent = razonText;
+        document.getElementById('result-fecha-cancel').textContent = new Date().toLocaleString();
+        document.getElementById('resultado-cancelacion').classList.remove('hidden');
+        
+        console.log(`Entrega ${entrega} cancelada por razón: ${razon}`);
+    }
 
     function mostrarConfirmacionDistribuidor() {
         const entrega = document.getElementById('entrega-distribuidor').value;
@@ -954,14 +1491,14 @@
             return;
         }
         
-
         accionActual = 'asignar_distribuidor';
         datosAccion = {
             entrega: entrega,
             distribuidor: distribuidor
         };
         
-        const distribuidorText = document.querySelector(`#distribuidor-elegido option[value="${distribuidor}"]`).text;
+        const distribuidorObj = distribuidores.find(d => d.id === distribuidor);
+        const distribuidorText = distribuidorObj ? distribuidorObj.nombre : 'Desconocido';
         const entregaText = document.querySelector(`#entrega-distribuidor option[value="${entrega}"]`).text;
         
         document.getElementById('modal-title').textContent = 'Confirmar Asignación de Distribuidor';
@@ -981,7 +1518,6 @@
             return;
         }
         
-
         accionActual = 'cancelar_entrega';
         datosAccion = {
             entrega: entrega,
@@ -1000,53 +1536,11 @@
         mostrarModal();
     }
 
-
-    function mostrarModal() {
-        document.getElementById('confirmation-modal').classList.add('active');
-    }
-
-    function cerrarModal() {
-        document.getElementById('confirmation-modal').classList.remove('active');
-    }
-
-    function confirmarAccion() {
-        cerrarModal();
-        
-        if (accionActual === 'asignar_distribuidor') {
-            confirmarDistribuidor();
-        } else if (accionActual === 'cancelar_entrega') {
-            confirmarCancelacion();
+    function cerrarSesion() {
+        if (confirm('¿Está seguro que desea cerrar sesión?')) {
+            alert('Sesión cerrada correctamente.');
+            window.location.href = "index.html";
         }
-    }
-
-
-    function confirmarDistribuidor() {
-        const { entrega, distribuidor } = datosAccion;
-        const distribuidorText = document.querySelector(`#distribuidor-elegido option[value="${distribuidor}"]`).text;
-        const entregaText = document.querySelector(`#entrega-distribuidor option[value="${entrega}"]`).text;
-        
- 
-        document.getElementById('result-entrega-dist').textContent = entregaText;
-        document.getElementById('result-distribuidor').textContent = distribuidorText;
-        document.getElementById('result-fecha-dist').textContent = new Date().toLocaleString();
-        document.getElementById('resultado-distribuidor').classList.remove('hidden');
-
-        console.log(`Distribuidor ${distribuidor} asignado a entrega ${entrega}`);
-    }
-
-    function confirmarCancelacion() {
-        const { entrega, razon } = datosAccion;
-        const razonText = document.querySelector(`#razon-cancelacion option[value="${razon}"]`).text;
-        const entregaText = document.querySelector(`#entrega-cancelar option[value="${entrega}"]`).text;
-        
-
-        document.getElementById('result-entrega-cancel').textContent = entregaText;
-        document.getElementById('result-razon').textContent = razonText;
-        document.getElementById('result-fecha-cancel').textContent = new Date().toLocaleString();
-        document.getElementById('resultado-cancelacion').classList.remove('hidden');
-        
-
-        console.log(`Entrega ${entrega} cancelada por razón: ${razon}`);
     }
 </script>
 </body>
