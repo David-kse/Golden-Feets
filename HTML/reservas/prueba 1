@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Feets - Reserva Exclusiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4D1C95;
+            --primary-dark: #3a146e;
+            --secondary-color: #6C4AB6;
+            --accent-color: #B9E0FF;
+            --text-color: #2D2727;
+            --light-bg: #F5F5F5;
+            --success-color: #28a745;
+            --gold-color: #FFD700;
+            --limited-color: #E91E63;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        /* Header Estilizado */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: var(--gold-color);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--gold-color), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .user-profile:hover {
+            transform: translateY(-2px);
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        /* Contenido Principal */
+        .main-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .page-title h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .page-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .page-title::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+        
+        /* Grid de Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background-color: var(--limited-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .product-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .product-stock {
+            font-size: 0.9rem;
+            color: var(--limited-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .product-stock i {
+            font-size: 1rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            flex-grow: 1;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-color));
+            box-shadow: 0 5px 15px rgba(77, 28, 149, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(77, 28, 149, 0.1);
+        }
+        
+        /* Formulario de Reserva */
+        .reservation-form-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .reservation-form {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 600px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            animation: slideUp 0.5s ease-out;
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .close-form {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            transition: var(--transition);
+        }
+        
+        .close-form:hover {
+            color: var(--limited-color);
+            transform: rotate(90deg);
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .form-header h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-header p {
+            color: #666;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(77, 28, 149, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .size-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .size-option {
+            flex: 1 0 calc(20% - 0.5rem);
+            min-width: 0;
+        }
+        
+        .size-radio {
+            display: none;
+        }
+        
+        .size-label {
+            display: block;
+            padding: 0.8rem;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .size-radio:checked + .size-label {
+            border-color: var(--primary-color);
+            background-color: rgba(77, 28, 149, 0.1);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-color));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(77, 28, 149, 0.4);
+        }
+        
+        /* Notificación de Éxito */
+        .success-notification {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .success-content {
+            background: white;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .success-icon {
+            font-size: 4rem;
+            color: var(--success-color);
+            margin-bottom: 1.5rem;
+            animation: bounce 1s;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        .success-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .success-message {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .back-to-shop {
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .back-to-shop:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(77, 28, 149, 0.4);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .page-title h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+            
+            .brand-name {
+                font-size: 1.5rem;
+            }
+            
+            .logo-icon {
+                font-size: 1.5rem;
+            }
+            
+            .reservation-form {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo-container">
+        <div class="logo-icon">
+            <i class="fas fa-shoe-prints"></i>
+        </div>
+        <div class="brand-name">Golden Feets</div>
+    </div>
+    <div class="user-profile">
+        <div class="user-avatar">
+            <i class="fas fa-user"></i>
+        </div>
+    </div>
+</header>
+
+<!-- Contenido Principal -->
+<div class="main-container">
+    <div class="page-title">
+        <h1>Nuestra Colección Exclusiva</h1>
+        <p>Descubre los zapatos más codiciados del mercado. Reserva ahora antes de que se agoten.</p>
+    </div>
+    
+    <div class="products-grid">
+        <!-- Producto 1 - Edición Limitada -->
+        <div class="product-card">
+            <div class="product-badge">Edición Limitada</div>
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Zapatillas Golden Pro" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Golden Pro</h3>
+                <p class="product-description">Zapatillas premium con detalles en oro 24k y suela de alta tecnología.</p>
+                <div class="product-price">
+                    $1,499,900 <span class="original-price">$2,149,900</span>
+                </div>
+                <div class="product-stock">
+                    <i class="fas fa-fire"></i> ¡Solo 3 pares disponibles!
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Golden Pro')">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 2 -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1065&q=80" alt="Zapatillas Urban X" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Urban X</h3>
+                <p class="product-description">Diseño urbano con máxima comodidad para el día a día.</p>
+                <div class="product-price">$559,900</div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Urban X')">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 3 - Edición Limitada -->
+        <div class="product-card">
+            <div class="product-badge">Coleccionista</div>
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1025&q=80" alt="Botines Diamond" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Diamond Edition</h3>
+                <p class="product-description">Botines de cuero italiano con incrustaciones de cristales Swarovski.</p>
+                <div class="product-price">
+                    $2,599,900 <span class="original-price">$3,499,900</span>
+                </div>
+                <div class="product-stock">
+                    <i class="fas fa-fire"></i> ¡Última unidad!
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Diamond Edition')">
+                        <i class="fas fa-gem"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 4 -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80" alt="Zapatillas Runner Pro" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Runner Pro</h3>
+                <p class="product-description">Tecnología de amortiguación avanzada para corredores profesionales.</p>
+                <div class="product-price">$689,900</div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Runner Pro')">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 5 -->
+        <div class="product-card">
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Zapatos Casual" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Casual Comfort</h3>
+                <p class="product-description">Estilo relajado con máxima comodidad para todo el día.</p>
+                <div class="product-price">$389,900</div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Casual Comfort')">
+                        <i class="fas fa-calendar-check"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Producto 6 - Edición Limitada -->
+        <div class="product-card">
+            <div class="product-badge">Nuevo Lanzamiento</div>
+            <div class="product-image-container">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="Zapatillas Future Tech" class="product-image">
+            </div>
+            <div class="product-info">
+                <h3 class="product-name">Future Tech</h3>
+                <p class="product-description">Tecnología futurista con materiales autorreparables y ajuste inteligente.</p>
+                <div class="product-price">
+                    $1,849,900 <span class="original-price">$2,349,900</span>
+                </div>
+                <div class="product-stock">
+                    <i class="fas fa-fire"></i> ¡Solo 5 pares disponibles!
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary" onclick="openReservationForm('Future Tech')">
+                        <i class="fas fa-rocket"></i> Reservar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Formulario de Reserva -->
+<div class="reservation-form-container" id="reservationForm">
+    <div class="reservation-form">
+        <button class="close-form" onclick="closeReservationForm()">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="form-header">
+            <h2 id="formProductName">Reservar Producto</h2>
+            <p>Complete el formulario para reservar su par de zapatos</p>
+        </div>
+        
+        <form id="reservationFormData" onsubmit="submitReservation(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fullName">Nombre Completo</label>
+                    <input type="text" id="fullName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" class="form-control" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Cantidad</label>
+                    <select id="quantity" class="form-control" required>
+                        <option value="" disabled selected>Seleccione</option>
+                        <option value="1">1 par</option>
+                        <option value="2">2 pares</option>
+                        <option value="3">3 pares</option>
+                        <option value="4">4 pares</option>
+                        <option value="5">5 pares</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Talla</label>
+                <div class="size-selector">
+                    <div class="size-option">
+                        <input type="radio" id="size36" name="size" value="36" class="size-radio" required>
+                        <label for="size36" class="size-label">36</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size37" name="size" value="37" class="size-radio">
+                        <label for="size37" class="size-label">37</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size38" name="size" value="38" class="size-radio">
+                        <label for="size38" class="size-label">38</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size39" name="size" value="39" class="size-radio">
+                        <label for="size39" class="size-label">39</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size40" name="size" value="40" class="size-radio">
+                        <label for="size40" class="size-label">40</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size41" name="size" value="41" class="size-radio">
+                        <label for="size41" class="size-label">41</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size42" name="size" value="42" class="size-radio">
+                        <label for="size42" class="size-label">42</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size43" name="size" value="43" class="size-radio">
+                        <label for="size43" class="size-label">43</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size44" name="size" value="44" class="size-radio">
+                        <label for="size44" class="size-label">44</label>
+                    </div>
+                    <div class="size-option">
+                        <input type="radio" id="size45" name="size" value="45" class="size-radio">
+                        <label for="size45" class="size-label">45</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="deliveryDate">Fecha de Entrega Preferida</label>
+                <input type="date" id="deliveryDate" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Notas Adicionales</label>
+                <textarea id="notes" class="form-control" rows="3" placeholder="Especificaciones especiales, direcciones alternativas, etc."></textarea>
+            </div>
+            
+            <button type="submit" class="submit-btn">
+                <i class="fas fa-check-circle"></i> Confirmar Reserva
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Notificación de Éxito -->
+<div class="success-notification" id="successNotification">
+    <div class="success-content">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2 class="success-title">¡Reserva Confirmada!</h2>
+        <p class="success-message" id="successMessage">Tu reserva para <strong>Golden Pro</strong> ha sido confirmada exitosamente. Te hemos enviado un correo con los detalles de tu reserva.</p>
+        <button class="back-to-shop" onclick="closeSuccessNotification()">
+            <i class="fas fa-arrow-left"></i> Volver a la Tienda
+        </button>
+    </div>
+</div>
+
+<script>
+   
+    let selectedProduct = '';
+    
+  
+    function openReservationForm(productName) {
+        selectedProduct = productName;
+        document.getElementById('formProductName').textContent = `Reservar ${productName}`;
+        document.getElementById('reservationForm').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+    
+   
+    function closeReservationForm() {
+        document.getElementById('reservationForm').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+ 
+    function submitReservation(event) {
+        event.preventDefault();
+        
+        
+        const fullName = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const quantity = document.getElementById('quantity').value;
+        const size = document.querySelector('input[name="size"]:checked').value;
+        const deliveryDate = document.getElementById('deliveryDate').value;
+        const notes = document.getElementById('notes').value;
+        
+        
+        setTimeout(() => {
+       
+            document.getElementById('successMessage').innerHTML = `
+                Tu reserva para <strong>${selectedProduct}</strong> ha sido confirmada exitosamente.<br><br>
+                <strong>Detalles:</strong><br>
+                - Talla: ${size}<br>
+                - Cantidad: ${quantity} par(es)<br>
+                - Fecha de entrega: ${deliveryDate}<br><br>
+                Te hemos enviado un correo a ${email} con los detalles.
+            `;
+            
+           
+            closeReservationForm();
+            document.getElementById('successNotification').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+           
+            document.getElementById('reservationFormData').reset();
+        }, 1000);
+    }
+    
+
+    function closeSuccessNotification() {
+        document.getElementById('successNotification').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeReservationForm();
+            closeSuccessNotification();
+        }
+    });
+</script>
+</body>
+</html>
