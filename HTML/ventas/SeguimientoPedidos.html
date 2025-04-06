@@ -1,1 +1,1353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Feets - Mis Pedidos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4D1C95;
+            --primary-dark: #3a146e;
+            --secondary-color: #6C4AB6;
+            --accent-color: #B9E0FF;
+            --text-color: #2D2727;
+            --light-bg: #F5F5F5;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --error-color: #dc3545;
+            --info-color: #17a2b8;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .customer-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .customer-header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+            animation: fadeInDown 0.5s ease-out;
+        }
+        
+        .customer-header p {
+            margin-bottom: 0;
+            opacity: 0.9;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .customer-nav {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+        
+        .nav-icon {
+            font-size: 1.2em;
+            color: var(--primary-color);
+            transition: all 0.3s;
+            padding: 10px;
+            border-radius: 50%;
+        }
+        
+        .nav-icon.active {
+            background-color: rgba(77, 28, 149, 0.1);
+            transform: scale(1.1);
+        }
+        
+        .nav-icon:hover {
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .welcome-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .welcome-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+        
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(77, 28, 149, 0.05), rgba(108, 74, 182, 0.03));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .welcome-card:hover::before {
+            opacity: 1;
+        }
+        
+        .welcome-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 28px;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        
+        .welcome-card:hover .welcome-avatar {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(108, 74, 182, 0.2);
+        }
+        
+        .welcome-text h3 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .welcome-card:hover .welcome-text h3 {
+            color: var(--primary-dark);
+        }
+        
+        .welcome-text p {
+            margin-bottom: 0;
+            color: #666;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 80px;
+            z-index: 4;
+            background-color: var(--light-bg);
+            padding: 15px 0;
+            border-radius: 0 0 12px 12px;
+        }
+        
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 12px rgba(77, 28, 149, 0.25);
+            transform: translateY(-2px);
+        }
+        
+        .filter-btn:not(.active):hover {
+            border-color: var(--secondary-color);
+            color: var(--primary-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .order-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .order-card.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            height: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .order-card:hover {
+            transform: translateY(-5px) scale(1.005);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .order-header {
+            padding: 18px 25px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fafafa;
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover .order-header {
+            background-color: #f5f5f5;
+        }
+        
+        .order-id {
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover .order-id {
+            color: var(--primary-dark);
+        }
+        
+        .order-date {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .order-status {
+            padding: 6px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .status-processing {
+            background: linear-gradient(135deg, var(--info-color), #138496);
+        }
+        
+        .status-shipped {
+            background: linear-gradient(135deg, var(--warning-color), #e0a800);
+        }
+        
+        .status-delivered {
+            background: linear-gradient(135deg, var(--success-color), #1e7e34);
+        }
+        
+        .status-cancelled {
+            background: linear-gradient(135deg, var(--error-color), #bd2130);
+        }
+        
+        .order-body {
+            padding: 25px;
+        }
+        
+        .order-summary {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .order-summary-item {
+            flex: 1;
+            min-width: 200px;
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover .order-summary-item {
+            transform: translateX(5px);
+        }
+        
+        .summary-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .summary-value {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+        
+        .order-products {
+            margin-top: 25px;
+        }
+        
+        .product-item {
+            display: flex;
+            gap: 20px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f5f5f5;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .product-item:hover {
+            background-color: #fafafa;
+            border-radius: 8px;
+            padding: 15px;
+            transform: translateX(5px);
+        }
+        
+        .product-image {
+            width: 70px;
+            height: 70px;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            overflow: hidden;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        .product-item:hover .product-image {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .product-item:hover .product-image img {
+            transform: scale(1.1);
+        }
+        
+        .product-info {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .product-name {
+            font-weight: 500;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .product-details {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--primary-color);
+            transition: all 0.3s;
+        }
+        
+        .product-item:hover .product-price {
+            color: var(--primary-dark);
+        }
+        
+        .order-timeline {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .timeline-title i {
+            transition: all 0.3s;
+        }
+        
+        .timeline-steps {
+            position: relative;
+            padding-left: 35px;
+        }
+        
+        .timeline-steps::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--accent-color), var(--secondary-color));
+            transition: all 0.5s;
+        }
+        
+        .timeline-step {
+            position: relative;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .timeline-step.hidden {
+            opacity: 0;
+            transform: translateX(-20px);
+            height: 0;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -35px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: var(--secondary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--secondary-color);
+            transition: all 0.3s;
+            z-index: 2;
+        }
+        
+        .timeline-step:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 3px var(--secondary-color);
+        }
+        
+        .timeline-date {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+        
+        .timeline-step:hover .timeline-date {
+            color: var(--primary-color);
+        }
+        
+        .timeline-content {
+            background-color: #f9f9f9;
+            padding: 12px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+            transition: all 0.3s;
+        }
+        
+        .timeline-step:hover .timeline-content {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .timeline-step:hover .timeline-content::before {
+            width: 5px;
+        }
+        
+        .order-actions {
+            padding: 18px 25px;
+            border-top: 1px solid #f0f0f0;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            background-color: #fafafa;
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover .order-actions {
+            background-color: #f5f5f5;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 4px 12px rgba(108, 74, 182, 0.25);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.5s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(108, 74, 182, 0.35);
+        }
+        
+        .btn-primary:hover::after {
+            left: 100%;
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(108, 74, 182, 0.1);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .empty-icon {
+            font-size: 3.5em;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            transition: all 0.5s;
+        }
+        
+        .empty-state:hover .empty-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        .empty-text {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(108, 74, 182, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        .toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .toast-icon {
+            font-size: 1.5em;
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-left: 15px;
+        }
+        
+        .order-card.collapsed .order-body,
+        .order-card.collapsed .order-actions {
+            display: none;
+        }
+        
+        .order-card.collapsed .order-header {
+            border-bottom: none;
+        }
+        
+        .collapse-toggle {
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 0 10px;
+            }
+            
+            .customer-header {
+                padding: 20px 15px;
+            }
+            
+            .customer-nav {
+                padding: 12px 15px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+                box-shadow: 0 -2px 15px rgba(0,0,0,0.08);
+            }
+            
+            .filter-container {
+                top: auto;
+                padding: 10px 0;
+                margin-bottom: 15px;
+            }
+            
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+            
+            .order-summary {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .order-actions {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .btn-primary, .btn-outline {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            
+            .welcome-card {
+                padding: 20px;
+                margin-top: 15px;
+            }
+            
+            .product-item {
+                gap: 15px;
+                padding: 12px 0;
+            }
+            
+            .product-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="customer-header">
+        <h1><i class="fas fa-shopping-bag me-2"></i>Mis Pedidos</h1>
+        <p>Sigue el estado de tus compras en Golden Feets</p>
+    </div>
+    
+    <div class="customer-nav">
+        <a href="#" class="nav-icon active"><i class="fas fa-home"></i></a>
+        <a href="#" class="nav-icon"><i class="fas fa-search"></i></a>
+        <a href="#" class="nav-icon"><i class="fas fa-bell"></i></a>
+        <a href="#" class="nav-icon"><i class="fas fa-user"></i></a>
+    </div>
+    
+    <div class="main-container">
+        <div class="welcome-card" id="welcomeCard">
+            <div class="welcome-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="welcome-text">
+                <h3>Bienvenido, Ana Rodríguez</h3>
+                <p>Revisa el estado de tus pedidos aquí</p>
+            </div>
+            <i class="fas fa-chevron-right" style="color: #ccc;"></i>
+        </div>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" data-filter="all">
+                <i class="fas fa-list"></i> Todos
+            </button>
+            <button class="filter-btn" data-filter="processing">
+                <i class="fas fa-clock"></i> En proceso
+            </button>
+            <button class="filter-btn" data-filter="shipped">
+                <i class="fas fa-truck"></i> Enviados
+            </button>
+            <button class="filter-btn" data-filter="delivered">
+                <i class="fas fa-check-circle"></i> Entregados
+            </button>
+            <button class="filter-btn" data-filter="cancelled">
+                <i class="fas fa-times-circle"></i> Cancelados
+            </button>
+        </div>
+        
+        <div id="orders-list">
+            <!-- Pedido 1 -->
+            <div class="order-card" data-status="delivered" id="order-1">
+                <div class="order-header" onclick="toggleOrderCollapse('order-1')">
+                    <div>
+                        <div class="order-id">Pedido #GF-2023-0015</div>
+                        <div class="order-date">Realizado el 10/11/2023</div>
+                    </div>
+                    <div class="order-status status-delivered">
+                        <i class="fas fa-check-circle me-1"></i> Entregado
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="order-summary">
+                        <div class="order-summary-item">
+                            <div class="summary-label">Fecha de entrega</div>
+                            <div class="summary-value">15/11/2023</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Método de envío</div>
+                            <div class="summary-value">Envío estándar</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Total</div>
+                            <div class="summary-value">€149.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-products">
+                        <div class="product-item" onclick="showProductDetail('prod-1')">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/70/6C4AB6/FFFFFF?text=Zapato1" alt="Zapatos deportivos">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Zapatos deportivos RUN Pro</div>
+                                <div class="product-details">Talla: 38 • Color: Azul • Cantidad: 1</div>
+                            </div>
+                            <div class="product-price">€89.99</div>
+                        </div>
+                        <div class="product-item" onclick="showProductDetail('prod-2')">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/70/4D1C95/FFFFFF?text=Zapato2" alt="Zapatillas">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Zapatillas urbanas</div>
+                                <div class="product-details">Talla: 37 • Color: Negro • Cantidad: 1</div>
+                            </div>
+                            <div class="product-price">€59.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-timeline">
+                        <div class="timeline-title" onclick="toggleTimeline('timeline-1')">
+                            <i class="fas fa-history"></i> Historial del pedido
+                            <i class="fas fa-chevron-down ms-auto timeline-arrow"></i>
+                        </div>
+                        <div class="timeline-steps" id="timeline-1">
+                            <div class="timeline-step">
+                                <div class="timeline-date">15/11/2023 - 10:15 AM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-check-circle text-success me-2"></i>Pedido entregado satisfactoriamente
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">15/11/2023 - 09:30 AM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-truck text-warning me-2"></i>Repartidor en camino a tu domicilio
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">14/11/2023 - 02:45 PM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-box text-info me-2"></i>Pedido enviado desde nuestro almacén
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">10/11/2023 - 11:20 AM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-check text-primary me-2"></i>Pedido confirmado y en preparación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-actions">
+                    <button class="btn-outline" onclick="showInvoice('GF-2023-0015')">
+                        <i class="fas fa-file-invoice me-1"></i>Ver factura
+                    </button>
+                    <button class="btn-primary" onclick="reorder('GF-2023-0015')">
+                        <i class="fas fa-redo me-1"></i>Volver a comprar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Pedido 2 -->
+            <div class="order-card" data-status="shipped" id="order-2">
+                <div class="order-header" onclick="toggleOrderCollapse('order-2')">
+                    <div>
+                        <div class="order-id">Pedido #GF-2023-0016</div>
+                        <div class="order-date">Realizado el 12/11/2023</div>
+                    </div>
+                    <div class="order-status status-shipped">
+                        <i class="fas fa-truck me-1"></i> Enviado
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="order-summary">
+                        <div class="order-summary-item">
+                            <div class="summary-label">Fecha estimada</div>
+                            <div class="summary-value">18/11/2023</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Método de envío</div>
+                            <div class="summary-value">Envío express</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Total</div>
+                            <div class="summary-value">€119.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-products">
+                        <div class="product-item" onclick="showProductDetail('prod-3')">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/70/8D72E1/FFFFFF?text=Botas" alt="Botas">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Botas de invierno</div>
+                                <div class="product-details">Talla: 39 • Color: Marrón • Cantidad: 1</div>
+                            </div>
+                            <div class="product-price">€119.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-timeline">
+                        <div class="timeline-title" onclick="toggleTimeline('timeline-2')">
+                            <i class="fas fa-history"></i> Historial del pedido
+                            <i class="fas fa-chevron-down ms-auto timeline-arrow"></i>
+                        </div>
+                        <div class="timeline-steps" id="timeline-2">
+                            <div class="timeline-step">
+                                <div class="timeline-date">16/11/2023 - 10:00 AM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-truck text-warning me-2"></i>Pedido en reparto
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">15/11/2023 - 05:30 PM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-box text-info me-2"></i>Pedido enviado desde nuestro almacén
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">12/11/2023 - 03:15 PM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-check text-primary me-2"></i>Pedido confirmado y en preparación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-actions">
+                    <button class="btn-outline" onclick="trackOrder('GF-2023-0016')">
+                        <i class="fas fa-map-marker-alt me-1"></i>Seguimiento
+                    </button>
+                    <button class="btn-primary" onclick="contactSupport('GF-2023-0016')">
+                        <i class="fas fa-headset me-1"></i>Atención al cliente
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Pedido 3 -->
+            <div class="order-card" data-status="processing" id="order-3">
+                <div class="order-header" onclick="toggleOrderCollapse('order-3')">
+                    <div>
+                        <div class="order-id">Pedido #GF-2023-0017</div>
+                        <div class="order-date">Realizado el 14/11/2023</div>
+                    </div>
+                    <div class="order-status status-processing">
+                        <i class="fas fa-clock me-1"></i> En proceso
+                    </div>
+                </div>
+                <div class="order-body">
+                    <div class="order-summary">
+                        <div class="order-summary-item">
+                            <div class="summary-label">Fecha estimada</div>
+                            <div class="summary-value">20/11/2023</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Método de envío</div>
+                            <div class="summary-value">Envío estándar</div>
+                        </div>
+                        <div class="order-summary-item">
+                            <div class="summary-label">Total</div>
+                            <div class="summary-value">€79.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-products">
+                        <div class="product-item" onclick="showProductDetail('prod-4')">
+                            <div class="product-image">
+                                <img src="https://via.placeholder.com/70/4D1C95/FFFFFF?text=Formal" alt="Zapatos">
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Zapatos formales</div>
+                                <div class="product-details">Talla: 38 • Color: Negro • Cantidad: 1</div>
+                            </div>
+                            <div class="product-price">€79.99</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-timeline">
+                        <div class="timeline-title" onclick="toggleTimeline('timeline-3')">
+                            <i class="fas fa-history"></i> Historial del pedido
+                            <i class="fas fa-chevron-down ms-auto timeline-arrow"></i>
+                        </div>
+                        <div class="timeline-steps" id="timeline-3">
+                            <div class="timeline-step">
+                                <div class="timeline-date">15/11/2023 - 09:00 AM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-boxes text-primary me-2"></i>Pedido en preparación
+                                </div>
+                            </div>
+                            <div class="timeline-step">
+                                <div class="timeline-date">14/11/2023 - 06:45 PM</div>
+                                <div class="timeline-content">
+                                    <i class="fas fa-check text-primary me-2"></i>Pedido confirmado
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-actions">
+                    <button class="btn-outline" onclick="cancelOrder('GF-2023-0017')">
+                        <i class="fas fa-times-circle me-1"></i>Cancelar pedido
+                    </button>
+                    <button class="btn-primary" onclick="contactSupport('GF-2023-0017')">
+                        <i class="fas fa-headset me-1"></i>Atención al cliente
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <p>Cargando más pedidos...</p>
+        </div>
+    </div>
+    
+    <div class="toast-notification" id="toastNotification">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message" id="toastMessage">Acción realizada con éxito</div>
+        <button class="toast-close" onclick="hideToast()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
 
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Variables globales
+        let currentFilter = 'all';
+        let isLoading = false;
+        
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar toast de bienvenida
+            showToast('Bienvenido a tu historial de pedidos');
+            
+            // Configurar eventos
+            setupEventListeners();
+            
+            // Simular carga inicial
+            simulateInitialLoad();
+        });
+        
+        function setupEventListeners() {
+            // Filtrado de pedidos
+            document.querySelectorAll('.filter-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    currentFilter = this.getAttribute('data-filter');
+                    filterOrders(currentFilter);
+                    animateFilterChange(this);
+                });
+            });
+            
+            // Configurar clics en productos
+            document.querySelectorAll('.product-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    if (!e.target.closest('.btn-primary') && !e.target.closest('.btn-outline')) {
+                        const productId = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                        showProductDetail(productId);
+                    }
+                });
+            });
+            
+            // Configurar scroll infinito
+            window.addEventListener('scroll', handleScroll);
+            
+            // Configurar clic en tarjeta de bienvenida
+            document.getElementById('welcomeCard').addEventListener('click', function() {
+                showToast('Perfil de usuario cargado');
+                // Aquí iría la navegación al perfil en una implementación real
+            });
+        }
+        
+        function filterOrders(filter) {
+            const orders = document.querySelectorAll('.order-card');
+            let visibleCount = 0;
+            
+            orders.forEach(order => {
+                const status = order.getAttribute('data-status');
+                
+                if (filter === 'all' || status === filter) {
+                    order.classList.remove('hidden');
+                    visibleCount++;
+                    
+                    // Animación para mostrar
+                    setTimeout(() => {
+                        order.style.opacity = '1';
+                        order.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    // Animación para ocultar
+                    order.style.opacity = '0';
+                    order.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        order.classList.add('hidden');
+                    }, 300);
+                }
+            });
+            
+            // Mostrar estado vacío si no hay resultados
+            showEmptyState(visibleCount === 0);
+        }
+        
+        function animateFilterChange(activeButton) {
+            // Animación del botón activo
+            activeButton.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                activeButton.style.transform = 'translateY(-2px)';
+            }, 150);
+            
+            // Efecto de onda en los pedidos
+            const orders = document.querySelectorAll('.order-card:not(.hidden)');
+            orders.forEach((order, index) => {
+                setTimeout(() => {
+                    order.style.transform = 'translateY(-5px) scale(1.01)';
+                    setTimeout(() => {
+                        order.style.transform = 'translateY(-5px) scale(1.005)';
+                    }, 100);
+                }, index * 50);
+            });
+        }
+        
+        function toggleOrderCollapse(orderId) {
+            const order = document.getElementById(orderId);
+            order.classList.toggle('collapsed');
+            
+            // Animación
+            if (order.classList.contains('collapsed')) {
+                order.style.transform = 'translateY(0)';
+            } else {
+                order.style.transform = 'translateY(-5px) scale(1.005)';
+            }
+        }
+        
+        function toggleTimeline(timelineId) {
+            const timeline = document.getElementById(timelineId);
+            const arrow = timeline.previousElementSibling.querySelector('.timeline-arrow');
+            
+            timeline.classList.toggle('collapsed');
+            arrow.classList.toggle('fa-chevron-down');
+            arrow.classList.toggle('fa-chevron-up');
+            
+            // Animación para los items de la línea de tiempo
+            const steps = timeline.querySelectorAll('.timeline-step');
+            if (timeline.classList.contains('collapsed')) {
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.classList.add('hidden');
+                    }, index * 50);
+                });
+            } else {
+                steps.forEach((step, index) => {
+                    setTimeout(() => {
+                        step.classList.remove('hidden');
+                    }, index * 50);
+                });
+            }
+        }
+        
+        function handleScroll() {
+            const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            if (scrollTop + clientHeight >= scrollHeight - 100 && !isLoading) {
+                isLoading = true;
+                loadingSpinner.style.display = 'block';
+                
+                // Simular carga de más pedidos
+                setTimeout(loadMoreOrders, 1500);
+            }
+        }
+        
+        function loadMoreOrders() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            
+            // En una implementación real, aquí se haría una petición AJAX
+            console.log('Cargando más pedidos...');
+            
+            // Simular retraso de red
+            setTimeout(() => {
+                isLoading = false;
+                loadingSpinner.style.display = 'none';
+                
+                // Mostrar toast de nuevos pedidos cargados
+                showToast('Más pedidos cargados');
+            }, 2000);
+        }
+        
+        function showEmptyState(show) {
+            let emptyState = document.getElementById('emptyState');
+            
+            if (show) {
+                if (!emptyState) {
+                    emptyState = document.createElement('div');
+                    emptyState.id = 'emptyState';
+                    emptyState.className = 'empty-state';
+                    emptyState.innerHTML = `
+                        <div class="empty-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3>No hay pedidos</h3>
+                        <p class="empty-text">No encontramos pedidos con los filtros seleccionados</p>
+                        <button class="btn-primary" onclick="resetFilters()">
+                            <i class="fas fa-sync-alt me-1"></i>Restablecer filtros
+                        </button>
+                    `;
+                    document.getElementById('orders-list').appendChild(emptyState);
+                }
+            } else if (emptyState) {
+                emptyState.remove();
+            }
+        }
+        
+        function resetFilters() {
+            document.querySelector('.filter-btn[data-filter="all"]').click();
+            showToast('Filtros restablecidos');
+        }
+        
+        function showProductDetail(productId) {
+            showToast(`Mostrando detalles del producto ${productId}`);
+            // Aquí iría la lógica para mostrar un modal con detalles del producto
+        }
+        
+        function showInvoice(orderId) {
+            showToast(`Mostrando factura del pedido ${orderId}`);
+            // Aquí iría la lógica para mostrar la factura
+        }
+        
+        function reorder(orderId) {
+            showToast(`Reordenando pedido ${orderId}`);
+            // Aquí iría la lógica para reordenar
+        }
+        
+        function trackOrder(orderId) {
+            showToast(`Mostrando seguimiento del pedido ${orderId}`);
+            // Aquí iría la lógica para mostrar el mapa de seguimiento
+        }
+        
+        function contactSupport(orderId) {
+            showToast(`Iniciando chat de soporte para el pedido ${orderId}`);
+            // Aquí iría la lógica para el chat de soporte
+        }
+        
+        function cancelOrder(orderId) {
+            if (confirm(`¿Estás seguro que deseas cancelar el pedido ${orderId}?`)) {
+                showToast(`Pedido ${orderId} cancelado`, 'success');
+                // Aquí iría la lógica para cancelar el pedido
+            }
+        }
+        
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toastNotification');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            // Configurar el tipo de toast
+            switch(type) {
+                case 'success':
+                    toast.style.backgroundColor = 'var(--success-color)';
+                    toast.querySelector('.toast-icon i').className = 'fas fa-check-circle';
+                    break;
+                case 'error':
+                    toast.style.backgroundColor = 'var(--error-color)';
+                    toast.querySelector('.toast-icon i').className = 'fas fa-exclamation-circle';
+                    break;
+                case 'warning':
+                    toast.style.backgroundColor = 'var(--warning-color)';
+                    toast.querySelector('.toast-icon i').className = 'fas fa-exclamation-triangle';
+                    break;
+                default:
+                    toast.style.backgroundColor = 'var(--primary-color)';
+                    toast.querySelector('.toast-icon i').className = 'fas fa-info-circle';
+            }
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            // Ocultar automáticamente después de 3 segundos
+            setTimeout(hideToast, 3000);
+        }
+        
+        function hideToast() {
+            const toast = document.getElementById('toastNotification');
+            toast.classList.remove('show');
+        }
+        
+        function simulateInitialLoad() {
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            loadingSpinner.style.display = 'block';
+            
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+                
+                // Animar la aparición de los pedidos
+                const orders = document.querySelectorAll('.order-card');
+                orders.forEach((order, index) => {
+                    order.style.opacity = '0';
+                    order.style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        order.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                        order.style.opacity = '1';
+                        order.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
