@@ -1,1 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Feets - Admin Empleados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4D1C95;
+            --primary-dark: #3a146e;
+            --secondary-color: #6C4AB6;
+            --accent-color: #B9E0FF;
+            --text-color: #2D2727;
+            --light-bg: #F5F5F5;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --success-color: #4CAF50;
+            --warning-color: #FF9800;
+            --error-color: #F44336;
+            --admin-color: #28a745; /* Cambio de color para administrador */
+            --distribuidor-color: #fd7e14;
+            --gerente-color: #20c997;
+            --vendedor-color: #0d6efd;
+        }
 
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .delivery-icon {
+            font-size: 1.8em;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .delivery-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .back-arrow {
+            font-size: 1.5em;
+            cursor: pointer;
+            display: none;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            background-color: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .back-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px) scale(1.1);
+        }
+
+        .back-arrow.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5em;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+            position: relative;
+            padding-right: 15px;
+        }
+
+        .brand-name::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 70%;
+            background: linear-gradient(to bottom, transparent, white, transparent);
+        }
+
+        .container-admin {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0;
+            background-color: white;
+            box-shadow: var(--card-shadow);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .container-admin:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 30px;
+            text-align: center;
+        }
+
+        .admin-header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .admin-content {
+            padding: 30px;
+        }
+
+        .table-responsive {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .table th {
+            font-weight: 500;
+        }
+
+        .badge-status {
+            font-size: 0.9em;
+            padding: 5px 10px;
+            border-radius: 50px;
+        }
+
+        .badge-active {
+            background-color: var(--success-color);
+        }
+
+        .badge-inactive {
+            background-color: var(--error-color);
+        }
+
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.85em;
+            font-weight: 500;
+            color: white;
+            text-transform: capitalize;
+        }
+
+        .role-admin {
+            background: linear-gradient(135deg, var(--admin-color), #1e7e34); /* Cambio de color para administrador */
+        }
+
+        .role-distribuidor {
+            background: linear-gradient(135deg, var(--distribuidor-color), #e36209);
+        }
+
+        .role-gerente {
+            background: linear-gradient(135deg, var(--gerente-color), #17a2b8);
+        }
+
+        .role-vendedor {
+            background: linear-gradient(135deg, var(--vendedor-color), #0b5ed7);
+        }
+
+        .btn-golden {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(108, 74, 182, 0.3);
+        }
+
+        .btn-golden:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(108, 74, 182, 0.4);
+        }
+
+        .btn-golden:active {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(108, 74, 182, 0.25);
+        }
+
+        .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.25rem rgba(108, 74, 182, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .container-admin {
+                margin: 15px;
+                border-radius: 10px;
+            }
+
+            .admin-header h1 {
+                font-size: 22px;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="back-arrow" id="back-arrow" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <div class="logo-title">
+            <div class="delivery-icon">
+                <i class="fas fa-users-cog"></i>
+            </div>
+            <h2>Administración</h2>
+        </div>
+        <div class="icon-wrapper">
+            <span class="brand-name">Golden Feets</span>
+        </div>
+    </header>
+
+    <div id="app">
+        <div class="container-admin">
+            <div class="admin-header">
+                <h1><i class="fas fa-user-shield me-2"></i>Gestión de Empleados</h1>
+            </div>
+
+            <div class="admin-content">
+                <button class="btn btn-golden mb-4" data-bs-toggle="modal" data-bs-target="#modalEmpleado">
+                    <i class="fas fa-user-plus me-2"></i>Nuevo Empleado
+                </button>
+
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="empleado in empleados" :key="empleado.id">
+                                <td>{{ empleado.id }}</td>
+                                <td>{{ empleado.nombre }} {{ empleado.apellido }}</td>
+                                <td>{{ empleado.email }}</td>
+                                <td>
+                                    <span class="role-badge" :class="'role-' + empleado.rol.split(' ')[0]">
+                                        {{ empleado.rol }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge-status" :class="empleado.activo ? 'badge-active' : 'badge-inactive'">
+                                        {{ empleado.activo ? 'Activo' : 'Inactivo' }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button @click="editarEmpleado(empleado)" class="btn btn-sm btn-warning me-2">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button @click="confirmarEliminacion(empleado.id)" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalEmpleado" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">{{ esEdicion ? 'Editar Empleado' : 'Nuevo Empleado' }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form @submit.prevent="guardarEmpleado">
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" v-model="empleadoForm.nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" v-model="empleadoForm.apellido" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" v-model="empleadoForm.email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="rol" class="form-label">Rol</label>
+                                <select class="form-select" id="rol" v-model="empleadoForm.rol" required>
+                                    <option value="">Seleccione un rol</option>
+                                    <option value="administrador">Administrador</option>
+                                    <option value="distribuidor">Distribuidor</option>
+                                    <option value="gerente de entregas">Gerente de Entregas</option>
+                                    <option value="vendedor">Vendedor</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check form-switch" v-if="esEdicion">
+                                <input type="checkbox" class="form-check-input" id="estado" v-model="empleadoForm.activo">
+                                <label class="form-check-label" for="estado">{{ empleadoForm.activo ? 'Activo' : 'Inactivo' }}</label>
+                            </div>
+                            <div class="mb-3" v-if="!esEdicion">
+                                <label for="password" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="password" v-model="empleadoForm.password" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-golden">
+                                    {{ esEdicion ? 'Actualizar' : 'Guardar' }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title">Confirmar Eliminación</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar este empleado? Esta acción no se puede deshacer.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger" @click="eliminarEmpleado">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                empleados: [
+                    {
+                        id: 1,
+                        nombre: 'Juan',
+                        apellido: 'Pérez',
+                        email: 'juan.perez@empresa.com',
+                        rol: 'administrador',
+                        activo: true,
+                        password: 'admin123'
+                    },
+                    {
+                        id: 2,
+                        nombre: 'María',
+                        apellido: 'Gómez',
+                        email: 'maria.gomez@empresa.com',
+                        rol: 'gerente de entregas',
+                        activo: true,
+                        password: 'entregas456'
+                    },
+                    {
+                        id: 3,
+                        nombre: 'Carlos',
+                        apellido: 'López',
+                        email: 'carlos.lopez@empresa.com',
+                        rol: 'distribuidor',
+                        activo: true,
+                        password: 'dist789'
+                    },
+                    {
+                        id: 4,
+                        nombre: 'Ana',
+                        apellido: 'Martínez',
+                        email: 'ana.martinez@empresa.com',
+                        rol: 'vendedor',
+                        activo: false,
+                        password: 'ventas012'
+                    },
+                    {
+                        id: 5,
+                        nombre: 'Pedro',
+                        apellido: 'Rodríguez',
+                        email: 'pedro.rodriguez@empresa.com',
+                        rol: 'vendedor',
+                        activo: true,
+                        password: 'ventas345'
+                    }
+                ],
+                empleadoForm: {
+                    id: null,
+                    nombre: '',
+                    apellido: '',
+                    email: '',
+                    rol: '',
+                    password: '',
+                    activo: true
+                },
+                esEdicion: false,
+                empleadoAEliminar: null,
+                nextId: 6
+            },
+            methods: {
+                guardarEmpleado() {
+                    if (this.esEdicion) {
+                        // Actualizar empleado existente
+                        const index = this.empleados.findIndex(e => e.id === this.empleadoForm.id);
+                        if (index !== -1) {
+                            this.empleados[index] = {...this.empleadoForm};
+                        }
+                    } else {
+                        // Crear nuevo empleado
+                        const nuevoEmpleado = {
+                            ...this.empleadoForm,
+                            id: this.nextId++
+                        };
+                        this.empleados.push(nuevoEmpleado);
+                    }
+                    
+                    // Cerrar modal y resetear formulario
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalEmpleado'));
+                    modal.hide();
+                    this.resetForm();
+                    
+                    // Mostrar feedback
+                    alert(`Empleado ${this.esEdicion ? 'actualizado' : 'creado'} con éxito`);
+                },
+                editarEmpleado(empleado) {
+                    this.esEdicion = true;
+                    this.empleadoForm = JSON.parse(JSON.stringify(empleado));
+                    const modal = new bootstrap.Modal(document.getElementById('modalEmpleado'));
+                    modal.show();
+                },
+                confirmarEliminacion(id) {
+                    this.empleadoAEliminar = id;
+                    const modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'));
+                    modal.show();
+                },
+                eliminarEmpleado() {
+                    this.empleados = this.empleados.filter(e => e.id !== this.empleadoAEliminar);
+                    const modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmacion'));
+                    modal.hide();
+                    alert('Empleado eliminado con éxito');
+                },
+                resetForm() {
+                    this.empleadoForm = {
+                        id: null,
+                        nombre: '',
+                        apellido: '',
+                        email: '',
+                        rol: '',
+                        password: '',
+                        activo: true
+                    };
+                    this.esEdicion = false;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
