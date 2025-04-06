@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Lista de Deseos - Golden Feets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ================================== */
+        /* === ESTILOS LISTA DE DESEOS ===== */
+        /* ================================== */
+        :root {
+            --primary-color: #6a5af9;
+            --secondary-color: #d73bf6;
+            --primary-gradient: linear-gradient(135deg, #6a5af9, #d73bf6);
+            --text-color: #343a40;
+            --text-muted-color: #6c757d;
+            --accent-color: #ff6b6b;
+            --background-color: #f8f9fa;
+            --white: #ffffff;
+            --border-color: #e9ecef;
+            --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
+            --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.08);
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --default-border-radius: 12px; /* Más redondeado */
+            --dark-bg: #181818;
+            --dark-card-bg: #2c2c2c;
+            --dark-text: #f0f0f0;
+            --dark-border: #444;
+            --dark-hover-bg: #3c3c3c;
+        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; font-size: 15px; transition: background-color 0.3s ease, color 0.3s ease; }
+        h1 { font-weight: 700; color: var(--primary-color); }
+        h1, h2, h3, h4, h5, h6 { margin-top: 1rem; margin-bottom: 0.8rem; }
+        a { color: var(--primary-color); text-decoration: none; transition: color 0.2s ease; }
+        a:hover { color: var(--secondary-color); }
+        .btn { border-radius: 20px; padding: 0.5rem 1.2rem; font-weight: 500; font-size: 0.9rem; transition: all 0.3s ease; border: none; box-shadow: var(--shadow-light); }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-medium); }
+        .btn-primary { background: var(--primary-gradient); color: var(--white); border: none; }
+        .btn-primary:hover { opacity: 0.9; color: var(--white); }
+        .btn-outline-secondary { border: 1px solid var(--border-color); color: var(--text-muted-color); background-color: transparent; box-shadow: none; }
+        .btn-outline-secondary:hover { background-color: var(--icon-bg, #eef2ff); border-color: var(--primary-color); color: var(--primary-color); box-shadow: var(--shadow-light); }
+        .btn-outline-danger { border: 1px solid var(--danger-color); color: var(--danger-color); background-color: transparent; box-shadow: none; }
+        .btn-outline-danger:hover { background-color: var(--danger-color); color: var(--white); box-shadow: var(--shadow-light); }
+        .btn-sm { padding: 0.25rem 0.8rem; font-size: 0.8rem; border-radius: 15px; }
+
+        /* Estilos Tarjeta Wishlist Mejorada */
+        .wishlist-card {
+            background-color: var(--white);
+            border: 1px solid var(--border-color);
+            border-radius: var(--default-border-radius);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            height: 100%; /* Para igualar altura en grid */
+            display: flex;
+            flex-direction: column; /* Estructura vertical */
+        }
+        .wishlist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+            border-color: var(--primary-color);
+        }
+        .wishlist-card .card-img-top {
+            height: 180px; /* Altura fija para imagen */
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .wishlist-card .card-body {
+            padding: 1rem;
+            flex-grow: 1; /* Ocupar espacio */
+            display: flex;
+            flex-direction: column; /* Alinear contenido verticalmente */
+        }
+        .wishlist-card .card-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .wishlist-card .card-price {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        .wishlist-card .card-footer {
+            background-color: var(--background-color); /* Fondo ligero */
+            border-top: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            margin-top: auto; /* Empujar al fondo */
+            display: flex;
+            justify-content: space-between; /* Espaciar botones */
+            gap: 0.5rem;
+        }
+        .wishlist-card .card-footer .btn { flex-grow: 1; } /* Hacer que botones ocupen espacio */
+
+        /* Notificación */
+        .notification { position: fixed; top: 80px; right: 20px; padding: 0.8rem 1.2rem; background-color: var(--success-color); color: var(--white); border-radius: var(--default-border-radius); box-shadow: 0 5px 15px rgba(0,0,0,0.15); z-index: 1055; transform: translateX(120%); transition: transform 0.4s ease-in-out, opacity 0.4s ease, visibility 0.4s; visibility: hidden; opacity: 0; font-size: 0.9rem; }
+        .notification.show { transform: translateX(0); visibility: visible; opacity: 1; }
+
+        /* Navbar */
+        .navbar { background-color: var(--white) !important; border-bottom: 1px solid var(--border-color); box-shadow: var(--shadow-medium); padding-top: 0.5rem; padding-bottom: 0.5rem; }
+
+        /* Estado Vacío */
+        #wishlist-empty i { font-size: 3rem; }
+
+        /* Botón Limpiar Todo */
+        #clear-wishlist-btn { transition: opacity 0.3s ease; }
+
+        /* Animación Fade-in */
+         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+
+
+        /* --- Modo Oscuro --- */
+        body.dark-mode { background-color: var(--dark-bg); color: var(--dark-text); }
+        body.dark-mode h1 { color: #eee; }
+        body.dark-mode a { color: #b3a1f7; }
+        body.dark-mode a:hover { color: #d8cfff; }
+        body.dark-mode .navbar { background-color: var(--dark-card-bg) !important; border-color: var(--dark-border); }
+        body.dark-mode .wishlist-card { background-color: var(--dark-card-bg); border-color: var(--dark-border); }
+        body.dark-mode .wishlist-card .card-img-top { border-bottom-color: var(--dark-border); }
+        body.dark-mode .wishlist-card .card-title { color: var(--dark-text); }
+        body.dark-mode .wishlist-card .card-price { color: #b3a1f7; }
+        body.dark-mode .wishlist-card .card-footer { background-color: #343a40; border-top-color: var(--dark-border); }
+        body.dark-mode .btn-outline-secondary { color: var(--dark-text-muted); border-color: var(--dark-border); }
+        body.dark-mode .btn-outline-secondary:hover { background-color: var(--dark-hover-bg); border-color: var(--primary-color); color: var(--primary-color); }
+        body.dark-mode .btn-outline-danger { color: var(--danger-color); border-color: var(--danger-color); }
+        body.dark-mode .btn-outline-danger:hover { background-color: var(--danger-color); color: var(--white); }
+        body.dark-mode .text-muted { color: var(--dark-text-muted) !important; }
+
+    </style>
+</head>
+<body>
+     <div id="notification" class="notification">
+        <span id="notification-message"></span>
+    </div>
+
+    <header class="sticky-top shadow-sm">
+         <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="catalogo.html">
+                    <img src="LOGO_GOLDEN.png" alt="Golden Feets" class="img-fluid" width="150" style="filter: invert(0);">
+                </a>
+                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbarContent" aria-controls="mainNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                 </button>
+                <div class="collapse navbar-collapse justify-content-end" id="mainNavbarContent">
+                    <div class="d-flex align-items-center gap-2 ms-lg-3 mt-2 mt-lg-0">
+                        <a href="lista_deseos.html" class="btn btn-outline-danger btn-sm flex-shrink-0 position-relative active" title="Lista de Deseos">
+                            <i class="bi bi-heart-fill me-1"></i><span class="d-none d-lg-inline">Deseos</span>
+                            <span id="wishlist-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
+                        <button class="btn btn-primary btn-sm position-relative flex-shrink-0" onclick="window.location.href='carrito.html';">
+                            <i class="bi bi-cart me-1"></i><span class="d-none d-lg-inline">Carrito</span>
+                            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </button>
+                         </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mt-4 mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+            <h1>Mi Lista de Deseos</h1>
+            <button id="clear-wishlist-btn" class="btn btn-sm btn-outline-danger d-none" onclick="clearWishlist()">
+                <i class="bi bi-trash3-fill me-1"></i> Limpiar Todo
+            </button>
+        </div>
+
+        <div id="wishlist-empty" class="text-center py-5 d-none border rounded bg-light">
+             <i class="bi bi-heartbreak-fill text-muted" style="font-size: 3.5rem;"></i>
+             <p class="mt-3 fs-5 mb-2">Tu lista de deseos está vacía.</p>
+             <p class="text-muted small">Añade productos haciendo clic en el icono <i class="bi bi-heart text-danger"></i> en el catálogo.</p>
+             <a href="catalogo.html" class="btn btn-primary mt-3"> <i class="bi bi-arrow-left me-1"></i> Ir al Catálogo</a>
+        </div>
+
+        <div id="wishlist-items" class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4 mb-4">
+            <div class="col"> <div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div></div>
+             <div class="col d-none d-sm-block"> <div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div></div>
+             <div class="col d-none d-lg-block"> <div class="text-center p-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando...</span></div></div></div>
+        </div>
+
+        <div class="text-center mt-4">
+             <a href="catalogo.html" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Volver al Catálogo
+             </a>
+        </div>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // =============================================
+        // LÓGICA JAVASCRIPT PARA lista_deseos.html
+        // =============================================
+
+        // --- ¡IMPORTANTE! Copia/Mantén aquí el MISMO array 'products' de catalogo.html ---
+        // (Asegúrate de que los detalles necesarios como id, name, price, image estén aquí)
+        const products = [
+             { id: 1, name: 'Zapato Casual Oxford', price: 89.99, image: 'https://i.pinimg.com/736x/ca/28/fa/ca28fa99e8d2754c8b119d7d19852592.jpg' },
+             { id: 2, name: 'Zapatilla Running Pro', price: 129.99, image: 'https://i.pinimg.com/736x/93/67/f8/9367f8ff6181f322823cac9d7ef6eb06.jpg' },
+             { id: 3, name: 'Zapatilla Daily Comfort', price: 99.99, image: 'https://i.pinimg.com/736x/8a/37/f6/8a37f65d01bb8ae132411a19eb3c5cec.jpg' },
+             { id: 4, name: 'Tacón Elegante', price: 79.99, image: 'https://i.pinimg.com/736x/1b/04/05/1b040589e2335d668eeddb51a3c2173c.jpg' },
+             { id: 5, name: 'Zapato Infantil', price: 49.99, image: 'https://i.pinimg.com/736x/d0/8c/07/d08c071136d14f88c1e943d6fbaed59f.jpg' },
+             { id: 6, name: 'Deportiva Juvenil', price: 69.99, image: 'https://i.pinimg.com/736x/e1/92/50/e192502f5aad784df5e0597701a3a5e1.jpg' }
+        ];
+
+        const wishlistContainer = document.getElementById('wishlist-items');
+        const wishlistEmptyMessage = document.getElementById('wishlist-empty');
+        const clearWishlistBtn = document.getElementById('clear-wishlist-btn');
+
+        // --- Renderizado de la Lista de Deseos ---
+        function renderWishlistItems() {
+            const wishlistIds = loadWishlist();
+            updateWishlistCount(wishlistIds.length);
+            updateCartCount(); // Actualizar contador del carrito también
+
+            if (!wishlistContainer || !wishlistEmptyMessage || !clearWishlistBtn) return;
+
+            // Limpiar contenedor y quitar spinner si existiera
+            wishlistContainer.innerHTML = '';
+
+            if (wishlistIds.length === 0) {
+                wishlistEmptyMessage.classList.remove('d-none');
+                wishlistContainer.classList.add('d-none'); // Ocultar contenedor grid
+                clearWishlistBtn.classList.add('d-none'); // Ocultar botón limpiar
+            } else {
+                wishlistEmptyMessage.classList.add('d-none');
+                wishlistContainer.classList.remove('d-none'); // Mostrar contenedor grid
+                clearWishlistBtn.classList.remove('d-none'); // Mostrar botón limpiar
+
+                wishlistIds.forEach(productId => {
+                    const product = products.find(p => p.id === productId);
+                    if (product) {
+                        const col = document.createElement('div');
+                        col.className = 'col fade-in'; // Usar columna de Bootstrap
+
+                        // ** HTML de la Tarjeta Mejorada (con backticks `) **
+                        col.innerHTML = `
+                            <div class="card h-100 wishlist-card">
+                                <img src="${product.image || 'placeholder.jpg'}" class="card-img-top" alt="${product.name || 'Producto'}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name || 'Nombre no disponible'}</h5>
+                                    <p class="card-price">$${product.price?.toFixed(2) || 'N/A'}</p>
+                                    </div>
+                                <div class="card-footer">
+                                    <button onclick="addToCartFromWishlist(${product.id})" class="btn btn-sm btn-primary" title="Añadir al carrito">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                    <button onclick="removeFromWishlist(${product.id})" class="btn btn-sm btn-outline-danger" title="Eliminar de la lista">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        wishlistContainer.appendChild(col);
+                    } else {
+                        console.warn(`Producto ID ${productId} no encontrado.`);
+                    }
+                });
+            }
+        }
+
+        // --- Funciones Lista de Deseos ---
+        function loadWishlist() { try { return JSON.parse(localStorage.getItem('goldenFeetsFavorites')) || []; } catch (e) { return []; } }
+        function saveWishlist(wishlistIds) { try { localStorage.setItem('goldenFeetsFavorites', JSON.stringify(wishlistIds)); } catch (e) {} }
+
+        function removeFromWishlist(productId) {
+            let ids = loadWishlist();
+            const initialLength = ids.length;
+            ids = ids.filter(id => id !== productId);
+            if (ids.length < initialLength) {
+                saveWishlist(ids);
+                renderWishlistItems(); // Actualizar display
+                showNotification('Eliminado de la lista de deseos');
+            }
+        }
+
+        // NUEVO: Función para limpiar toda la lista
+        function clearWishlist() {
+            if (confirm("¿Estás seguro de que quieres vaciar tu lista de deseos?")) {
+                saveWishlist([]); // Guardar un array vacío
+                renderWishlistItems(); // Actualizar display
+                showNotification("Lista de deseos vaciada");
+            }
+        }
+
+        // --- Funciones Carrito (Duplicadas - Recomendación: Usar archivo JS común) ---
+        function addToCart(productId, quantity = 1) {
+             const product = products.find(p => p.id === productId); if (!product) return false;
+             let cart = {}; try { cart = JSON.parse(localStorage.getItem('goldenFeetsCart')) || {}; } catch(e) { cart = {}; }
+             const cartItemId = `P${productId}`;
+             if (cart[cartItemId]) { cart[cartItemId].quantity = (cart[cartItemId].quantity || 0) + quantity; }
+             else { cart[cartItemId] = { quantity: quantity, variant: { color: "Predeterminado", size: "Única" } }; }
+             try { localStorage.setItem('goldenFeetsCart', JSON.stringify(cart)); } catch (e) { showNotification("Error al guardar el carrito"); return false; }
+             updateCartCount(); return true;
+        }
+        function updateCartCount() {
+             try { const cart = JSON.parse(localStorage.getItem('goldenFeetsCart')) || {}; const count = Object.values(cart).reduce((sum, item) => sum + (item?.quantity || 0), 0); const el = document.getElementById('cart-count'); if (el) el.textContent = count; }
+             catch (e) { const el = document.getElementById('cart-count'); if (el) el.textContent = '0'; }
+        }
+        function updateWishlistCount(count = null) {
+             try { const finalCount = count ?? (JSON.parse(localStorage.getItem('goldenFeetsFavorites')) || []).length; const el = document.getElementById('wishlist-count'); if (el) el.textContent = finalCount; }
+             catch (e) { const el = document.getElementById('wishlist-count'); if (el) el.textContent = '0';}
+        }
+        function addToCartFromWishlist(productId) {
+             if(addToCart(productId, 1)) { showNotification('Añadido al carrito'); /* removeFromWishlist(productId); // Opcional */ }
+             else { showNotification('Error al añadir al carrito'); }
+        }
+
+        // --- Notificaciones ---
+        function showNotification(message) {
+            const notification = document.getElementById('notification'); const notificationMessage = document.getElementById('notification-message');
+            if (notification && notificationMessage) { notificationMessage.textContent = message; notification.classList.add('show'); setTimeout(() => { notification.classList.remove('show'); }, 3000); }
+        }
+
+        // --- Modo Oscuro ---
+         function setupDarkModeState() {
+             try { const darkModeEnabled = localStorage.getItem('darkModeEnabled') === 'true'; if (darkModeEnabled) { document.body.classList.add('dark-mode'); } } catch (e) {}
+             updateLogoFilter();
+         }
+         function updateLogoFilter() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            const logoImg = document.querySelector('.navbar-brand img');
+            if (logoImg) { logoImg.style.filter = isDarkMode ? 'invert(1) hue-rotate(180deg) contrast(0.9)' : 'none'; }
+        }
+         // Añade toggleDarkMode() si incluyes el botón en el header
+
+        // --- Inicialización ---
+        document.addEventListener('DOMContentLoaded', () => {
+             setupDarkModeState();
+             renderWishlistItems();
+        });
+
+    </script>
+</body>
+</html>
