@@ -6,18 +6,25 @@
     <title>Panel de Ventas - Golden Feets</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos CSS aquí */
         :root {
             --primary-color: #6a5af9;
             --secondary-color: #d73bf6;
             --primary-gradient: linear-gradient(135deg, #6a5af9, #d73bf6);
-            --hover-shadow: 0 15px 25px rgba(0,0,0,0.15);
-            --icon-bg: #e6f2ff;
-            --text-color: #2c3e50;
+            --hover-shadow-soft: 0 8px 16px rgba(106, 90, 249, 0.1);
+            --icon-bg: #eef2ff;
+            --text-color: #343a40;
+            --text-muted-color: #6c757d;
             --accent-color: #ff6b6b;
-            --background-color: #f4f6f9;
+            --background-color: #f8f9fa;
             --white: #ffffff;
-            --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --border-color: #e9ecef;
+            --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
             --shadow-medium: 0 6px 12px rgba(0, 0, 0, 0.08);
             --success-color: #10b981;
             --warning-color: #f59e0b;
@@ -31,59 +38,126 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
             line-height: 1.6;
+            font-size: 15px;
         }
 
-        /* Stat Card Styles */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+        }
+
+        .btn {
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: var(--white);
+            border: none;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+            box-shadow: var(--shadow-light);
+            color: var(--white);
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            color: var(--white);
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+            color: var(--white);
+        }
+        .btn-outline-primary {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            background-color: transparent;
+        }
+        .btn-outline-primary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+        .btn-outline-danger {
+            border: 1px solid var(--danger-color);
+            color: var(--danger-color);
+            background-color: transparent;
+        }
+        .btn-outline-danger:hover {
+            background-color: var(--danger-color);
+            color: var(--white);
+        }
+        .btn-sm {
+            padding: 0.25rem 0.7rem;
+            font-size: 0.8rem;
+            border-radius: 15px;
+        }
+        .btn-light {
+            background-color: #f8f9fa;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+        }
+        .btn-light:hover {
+            background-color: #e2e6ea;
+        }
+
         .stat-card {
             background-color: var(--white);
             border-radius: 1rem;
             box-shadow: var(--shadow-medium);
-            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            transition: all 0.3s ease-in-out;
             overflow: hidden;
+            border: 1px solid var(--border-color);
+            position: relative;
         }
-
         .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--hover-shadow);
-            background: linear-gradient(145deg, var(--white), #f0f0f0);
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--hover-shadow-soft);
         }
 
-        /* Icon Container */
         .icon-container {
-            width: 54px;
-            height: 54px;
-            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             background-color: var(--icon-bg);
             transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        .icon-container i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .stat-card:hover .icon-container i {
+            transform: scale(1.1);
         }
 
-        .icon-container:hover {
-            transform: rotate(15deg) scale(1.1);
+        .trend-up, .trend-down {
+            font-weight: 600;
+            font-size: 0.85rem;
         }
-
-        /* Trend Indicators */
         .trend-up {
             color: var(--success-color);
-            font-weight: bold;
-            animation: pulse 1.5s infinite;
         }
-
         .trend-down {
             color: var(--danger-color);
-            font-weight: bold;
         }
 
-        /* Avatar Styles */
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -92,61 +166,119 @@
             font-weight: 600;
             background: var(--primary-gradient);
             transition: all 0.3s ease;
-            font-size: 2rem;
+            font-size: 1.8rem;
             margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
         .avatar:hover {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            transform: scale(1.05);
+            box-shadow: 0 8px 15px rgba(106, 90, 249, 0.3);
         }
 
-        /* Search Container */
         .search-container {
             position: relative;
-            width: 300px;
+            width: 250px;
         }
-
         .search-container i {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6b7280;
+            color: var(--text-muted-color);
             transition: color 0.3s ease;
+            font-size: 0.9rem;
+            pointer-events: none;
         }
-
         .search-input {
-            padding-left: 45px;
-            border: 2px solid #e0e7ff;
-            transition: border-color 0.3s ease;
-            width: 100%;
+            padding-left: 40px;
+            border-radius: 20px;
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            height: calc(1.6em + 0.9rem + 2px);
         }
-
         .search-input:focus {
+            background-color: var(--white);
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(106, 90, 249, 0.15);
         }
 
-        /* Profile Card */
         .profile-card {
             background: var(--primary-gradient);
             color: var(--white);
             border-radius: 1rem;
-            transition: transform 0.4s ease;
-            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-medium);
             height: 100%;
+            display: flex;
+            flex-direction: column;
         }
-
         .profile-card:hover {
-            transform: scale(1.02);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(106, 90, 249, 0.2);
         }
-
-        .profile-stats {
-            background-color: rgba(255,255,255,0.15);
+        .profile-card h4 {
+            color: var(--white);
+            font-weight: 600;
+        }
+        .profile-card p {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.9rem;
+        }
+        .profile-card .profile-stats {
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 0.75rem;
+            margin-top: 1rem;
+        }
+        .profile-card .profile-stats h6 {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.2rem;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+        .profile-card .profile-stats span {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+        .profile-card h6 {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        .profile-card i {
+            margin-right: 10px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .profile-card .d-grid {
+            margin-top: auto;
+        }
+        .profile-card .btn {
+            border-radius: 20px;
+            font-size: 0.9rem;
+            padding: 0.6rem 1rem;
+        }
+        .profile-card .btn-light {
+            background-color: rgba(255, 255, 255, 0.9);
+            color: var(--primary-color);
+            border: none;
+        }
+        .profile-card .btn-light:hover {
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .profile-card .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+            background-color: transparent;
+        }
+        .profile-card .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.7);
+            color: var(--white);
         }
 
-        /* Sidebar */
         #sidebar {
             position: fixed;
             top: 0;
@@ -154,183 +286,419 @@
             left: 0;
             z-index: 100;
             width: 250px;
-            padding: 48px 0 0;
             background-color: var(--white);
-            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.05);
-            transition: width 0.3s ease;
+            box-shadow: 3px 0 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
         }
-
+        #sidebar .sidebar-header {
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #sidebar .sidebar-header img {
+            max-width: 60%;
+            margin-bottom: 0.5rem;
+        }
+        #sidebar .sidebar-header h5 {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        #sidebar .nav {
+            padding: 1rem 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
         #sidebar .nav-link {
             font-weight: 500;
-            color: #333;
-            transition: all 0.3s ease;
-            padding: 10px 15px;
-            display: block;
-            border-radius: 0.5rem;
-            margin: 0.25rem 1rem;
+            color: var(--text-muted-color);
+            transition: all 0.2s ease-in-out;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            border-radius: 0;
+            margin: 0;
+            border-left: 4px solid transparent;
         }
-
         #sidebar .nav-link.active {
             color: var(--primary-color);
-            background-color: #f0f3ff;
+            background-color: var(--icon-bg);
             font-weight: 600;
+            border-left-color: var(--primary-color);
         }
-
         #sidebar .nav-link:hover:not(.active) {
             background-color: #f8f9fa;
-            transform: translateX(5px);
+            color: var(--primary-color);
+            border-left-color: #e0e7ff;
         }
-
         #sidebar .nav-link i {
-            margin-right: 12px;
+            margin-right: 15px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
             transition: transform 0.3s ease;
         }
-
         #sidebar .nav-link:hover i {
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
 
-        /* Main Content */
         main {
             margin-left: 250px;
             transition: margin 0.3s ease;
+            padding-top: 70px;
+            overflow-y: auto;
+            height: 100vh;
         }
 
-        /* Table Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            z-index: 99;
+            transition: left 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+        }
+        #salesChartContainer {
+            height: 200px;
+        }
+        #salesChartFullContainer {
+            height: 300px;
+        }
+        #incomeChartContainer {
+            height: 300px;
+        }
+
         .table-responsive {
             overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            background-color: var(--white);
         }
-
         .table {
             width: 100%;
-            margin-bottom: 1rem;
+            margin-bottom: 0;
             color: var(--text-color);
+            font-size: 0.9rem;
+            border-collapse: separate;
+            border-spacing: 0;
         }
-
-        .table th {
+        .table th, .table td {
+            padding: 1rem 0.9rem;
+            vertical-align: middle;
+            white-space: nowrap;
+            border-top: 1px solid var(--border-color);
+        }
+        .table td:first-child, .table th:first-child {
+            border-left: none;
+        }
+        .table td:last-child, .table th:last-child {
+            border-right: none;
+        }
+        .table thead th {
             background-color: #f8f9fa;
             font-weight: 600;
+            color: var(--text-color);
+            border-bottom: 2px solid var(--border-color);
+            border-top: none !important;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
-
+        .table tbody tr {
+            transition: background-color 0.2s ease;
+        }
         .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.02);
+            background-color: rgba(0, 0, 0, 0.015);
         }
-
         .table-hover tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.04);
+            background-color: var(--icon-bg);
+            cursor: pointer;
+        }
+        .table .badge {
+            font-size: 0.75rem;
+            padding: 0.3em 0.6em;
+            font-weight: 500;
+        }
+        .table .btn-sm i {
+            vertical-align: -0.125em;
+        }
+        .table .btn-sm {
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
         }
 
-        /* Button Styles */
-        .btn-action {
-            padding: 0.25rem 0.5rem;
-            font-size: 0.875rem;
-            border-radius: 0.25rem;
-        }
-
-        /* Toast Notification */
         .toast-container {
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
             z-index: 1100;
         }
 
-        /* Form Validation */
-        .is-invalid {
+        .modal-content {
+            border-radius: 0.8rem;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .modal-header {
+            background: var(--primary-gradient);
+            color: var(--white);
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+        }
+        .modal-header .modal-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+        .modal-header .btn-close:hover {
+            opacity: 1;
+        }
+        .modal-body {
+            padding: 1.5rem;
+        }
+        .modal-footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+        }
+        .modal .form-label {
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+            color: var(--text-muted-color);
+        }
+        .modal .form-control, .modal .form-select {
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .modal .form-control[readonly] {
+            background-color: var(--bs-secondary-bg);
+            opacity: 0.8;
+        }
+        .modal .form-control:focus, .modal .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(106, 90, 249, 0.15);
+        }
+        .modal h6 {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .needs-validation .form-control:invalid, .needs-validation .form-select:invalid {
             border-color: var(--danger-color) !important;
         }
-
-        .invalid-feedback {
+        .was-validated .form-control:invalid, .was-validated .form-select:invalid {
+            border-color: var(--danger-color) !important;
+            background-image: none;
+            padding-right: 0.75rem;
+        }
+        .was-validated .form-control:valid, .was-validated .form-select:valid {
+            border-color: var(--success-color) !important;
+            background-image: none;
+            padding-right: 0.75rem;
+        }
+        .needs-validation .invalid-feedback {
             color: var(--danger-color);
-            font-size: 0.875rem;
-            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
             display: none;
         }
+        .was-validated .form-control:invalid ~ .invalid-feedback,
+        .was-validated .form-select:invalid ~ .invalid-feedback,
+        .was-validated input[type="radio"]:invalid ~ .invalid-feedback {
+            display: block;
+        }
 
-        /* Utilities */
         .d-none {
             display: none !important;
         }
-
         .cursor-pointer {
             cursor: pointer;
         }
 
-        /* Animations */
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
         }
-
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-
         .fade-in {
-            animation: fadeIn 0.5s ease-out;
+            animation: fadeIn 0.4s ease-out forwards;
         }
 
-        /* Responsive adjustments */
+        .loading-spinner {
+            display: inline-block;
+            width: 1.2rem;
+            height: 1.2rem;
+            border: 0.2em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: .75s linear infinite spinner-border;
+            vertical-align: text-bottom;
+        }
+        @keyframes spinner-border {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bdbdbd;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
         @media (max-width: 992px) {
             #sidebar {
                 width: 220px;
             }
             main {
                 margin-left: 220px;
+                padding-top: 65px;
+            }
+            header {
+                left: 220px;
+            }
+            .search-container {
+                width: 200px;
             }
         }
-
         @media (max-width: 768px) {
             #sidebar {
-                width: 0;
-                overflow: hidden;
+                width: 250px;
+                left: -250px;
+                box-shadow: none;
+                padding-top: 0;
+                transition: left 0.3s ease;
+            }
+            #sidebar.active {
+                left: 0;
+                box-shadow: 3px 0 15px rgba(0, 0, 0, 0.1);
             }
             main {
                 margin-left: 0;
+                padding-top: 60px;
+            }
+            header {
+                left: 0;
             }
             .search-container {
-                width: 100%;
-                margin-top: 1rem;
+                width: auto;
+            }
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+            header .container-fluid > .d-flex {
+                flex-direction: column;
+                align-items: stretch !important;
+            }
+            header .container-fluid > .d-flex > div:first-child {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+            header .container-fluid > .d-flex > div:last-child {
+                flex-wrap: nowrap;
+                justify-content: flex-end;
+                align-items: center;
+                gap: 0.75rem !important;
+            }
+            #globalSearch {
+                max-width: 150px;
+            }
+            .dropdown {
+                margin-left: 0;
+            }
+            header .avatar-sm {
+                display: none;
+            }
+            #headerUserName {
+                display: none !important;
             }
         }
     </style>
 </head>
 <body class="bg-light">
-    <!-- Toast Notifications -->
     <div class="toast-container"></div>
-    
-    <!-- Nueva Venta Modal -->
+
     <div class="modal fade" id="nuevaVentaModal" tabindex="-1" aria-labelledby="nuevaVentaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="nuevaVentaModalLabel">Formulario de Compra de Zapatillas</h5>
+                    <h5 class="modal-title" id="nuevaVentaModalLabel">Formulario de Compra</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form id="ventaForm" class="row g-3 needs-validation" novalidate>
-                        <!-- Información Personal -->
                         <div class="col-12">
                             <h6 class="mb-3">Información Personal</h6>
                         </div>
                         <div class="col-md-4">
                             <label for="nombreCompleto" class="form-label">Nombre Completo*</label>
-                            <input type="text" class="form-control" id="nombreCompleto" required>
-                            <div class="invalid-feedback">Por favor ingrese el nombre completo</div>
+                            <input type="text" class="form-control" id="nombreCompleto" required minlength="3" maxlength="100">
+                            <div class="invalid-feedback">Por favor ingrese un nombre válido (3-100 caracteres)</div>
                         </div>
                         <div class="col-md-4">
                             <label for="email" class="form-label">Correo Electrónico*</label>
-                            <input type="email" class="form-control" id="email" required>
-                            <div class="invalid-feedback">Por favor ingrese un correo válido</div>
+                            <input type="email" class="form-control" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                            <div class="invalid-feedback">Por favor ingrese un correo válido (ejemplo@dominio.com)</div>
                         </div>
                         <div class="col-md-4">
                             <label for="telefono" class="form-label">Teléfono*</label>
-                            <input type="tel" class="form-control" id="telefono" required>
-                            <div class="invalid-feedback">Por favor ingrese un teléfono válido</div>
+                            <input type="tel" class="form-control" id="telefono" required pattern="[0-9\s\-+]{7,15}">
+                            <div class="invalid-feedback">Por favor ingrese un teléfono válido (7-15 dígitos)</div>
                         </div>
 
-                        <!-- Información del Producto -->
                         <div class="col-12 mt-4">
                             <h6 class="mb-3">Información del Producto</h6>
                         </div>
@@ -368,75 +736,69 @@
                         </div>
                         <div class="col-md-3">
                             <label for="cantidad" class="form-label">Cantidad*</label>
-                            <input type="number" class="form-control" id="cantidad" min="1" value="1" required>
-                            <div class="invalid-feedback">La cantidad debe ser al menos 1</div>
+                            <input type="number" class="form-control" id="cantidad" min="1" max="100" value="1" required>
+                            <div class="invalid-feedback">La cantidad debe ser entre 1 y 100</div>
                         </div>
                         <div class="col-md-6">
                             <label for="precio" class="form-label">Precio Unitario ($)*</label>
-                            <input type="number" class="form-control" id="precio" min="0" step="0.01" required>
-                            <div class="invalid-feedback">Ingrese un precio válido</div>
+                            <input type="number" class="form-control" id="precio" min="0" step="0.01" max="10000" required>
+                            <div class="invalid-feedback">Ingrese un precio válido (0-10,000)</div>
                         </div>
                         <div class="col-md-6">
                             <label for="total" class="form-label">Total ($)</label>
-                            <input type="text" class="form-control" id="total" readonly>
+                            <input type="text" class="form-control" id="total" readonly disabled>
                         </div>
 
-                        <!-- Dirección de Envío -->
                         <div class="col-12 mt-4">
                             <h6 class="mb-3">Dirección de Envío</h6>
                         </div>
                         <div class="col-12">
                             <label for="direccion" class="form-label">Dirección*</label>
-                            <input type="text" class="form-control" id="direccion" required>
-                            <div class="invalid-feedback">Por favor ingrese una dirección</div>
+                            <input type="text" class="form-control" id="direccion" required minlength="5" maxlength="200">
+                            <div class="invalid-feedback">Por favor ingrese una dirección válida (5-200 caracteres)</div>
                         </div>
                         <div class="col-md-6">
                             <label for="ciudad" class="form-label">Ciudad*</label>
-                            <input type="text" class="form-control" id="ciudad" required>
-                            <div class="invalid-feedback">Por favor ingrese una ciudad</div>
+                            <input type="text" class="form-control" id="ciudad" required minlength="2" maxlength="50">
+                            <div class="invalid-feedback">Por favor ingrese una ciudad válida (2-50 caracteres)</div>
                         </div>
                         <div class="col-md-6">
                             <label for="codigoPostal" class="form-label">Código Postal*</label>
-                            <input type="text" class="form-control" id="codigoPostal" required>
-                            <div class="invalid-feedback">Por favor ingrese un código postal</div>
+                            <input type="text" class="form-control" id="codigoPostal" required pattern="[0-9]{4,10}">
+                            <div class="invalid-feedback">Por favor ingrese un código postal válido (4-10 dígitos)</div>
                         </div>
 
-                        <!-- Método de Pago -->
                         <div class="col-12 mt-4">
                             <h6 class="mb-3">Método de Pago*</h6>
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 position-relative">
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="metodoPago" id="tarjetaCredito" value="tarjeta" checked required>
-                                <label class="form-check-label" for="tarjetaCredito">
-                                    Tarjeta de Crédito
-                                </label>
+                                <label class="form-check-label" for="tarjetaCredito"> Tarjeta de Crédito </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="metodoPago" id="paypal" value="paypal">
-                                <label class="form-check-label" for="paypal">
-                                    PayPal
-                                </label>
+                                <input class="form-check-input" type="radio" name="metodoPago" id="paypal" value="paypal" required>
+                                <label class="form-check-label" for="paypal"> PayPal </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="metodoPago" id="efectivo" value="efectivo">
-                                <label class="form-check-label" for="efectivo">
-                                    Efectivo
-                                </label>
+                                <input class="form-check-input" type="radio" name="metodoPago" id="efectivo" value="efectivo" required>
+                                <label class="form-check-label" for="efectivo"> Efectivo </label>
                             </div>
-                            <div class="invalid-feedback">Por favor seleccione un método de pago</div>
+                            <div class="invalid-feedback mt-1">Por favor seleccione un método de pago</div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" form="ventaForm" class="btn btn-primary">Procesar Compra</button>
+                    <button type="submit" form="ventaForm" class="btn btn-primary">
+                        <span id="ventaSubmitText">Procesar Compra</span>
+                        <span id="ventaSpinner" class="loading-spinner d-none"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Editar Perfil Modal -->
     <div class="modal fade" id="editarPerfilModal" tabindex="-1" aria-labelledby="editarPerfilModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -449,41 +811,42 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label for="editNombre" class="form-label">Nombre Completo*</label>
-                                <input type="text" class="form-control" id="editNombre" required>
-                                <div class="invalid-feedback">Por favor ingrese su nombre</div>
+                                <input type="text" class="form-control" id="editNombre" required minlength="3" maxlength="100">
+                                <div class="invalid-feedback">Por favor ingrese un nombre válido (3-100 caracteres)</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="editEmail" class="form-label">Correo Electrónico*</label>
-                                <input type="email" class="form-control" id="editEmail" required>
+                                <input type="email" class="form-control" id="editEmail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                                 <div class="invalid-feedback">Por favor ingrese un correo válido</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="editTelefono" class="form-label">Teléfono*</label>
-                                <input type="tel" class="form-control" id="editTelefono" required>
-                                <div class="invalid-feedback">Por favor ingrese un teléfono válido</div>
+                                <input type="tel" class="form-control" id="editTelefono" required pattern="[0-9\s\-+]{7,15}">
+                                <div class="invalid-feedback">Por favor ingrese un teléfono válido (7-15 dígitos)</div>
                             </div>
                             <div class="col-12">
                                 <label for="editDireccion" class="form-label">Dirección*</label>
-                                <input type="text" class="form-control" id="editDireccion" required>
-                                <div class="invalid-feedback">Por favor ingrese una dirección</div>
+                                <input type="text" class="form-control" id="editDireccion" required minlength="5" maxlength="200">
+                                <div class="invalid-feedback">Por favor ingrese una dirección válida (5-200 caracteres)</div>
                             </div>
                             <div class="col-12">
-                                <label for="editCargo" class="form-label">Cargo*</label>
-                                <input type="text" class="form-control" id="editCargo" required>
-                                <div class="invalid-feedback">Por favor ingrese su cargo</div>
+                                <label for="editCargo" class="form-label">Cargo</label>
+                                <input type="text" class="form-control" id="editCargo" value="Vendedor" readonly disabled>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="guardarCambiosPerfil">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" id="guardarCambiosPerfil">
+                        <span id="perfilSubmitText">Guardar Cambios</span>
+                        <span id="perfilSpinner" class="loading-spinner d-none"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Editar Venta Modal -->
     <div class="modal fade" id="editarVentaModal" tabindex="-1" aria-labelledby="editarVentaModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -496,36 +859,38 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label for="editCliente" class="form-label">Cliente*</label>
-                                <input type="text" class="form-control" id="editCliente" required>
-                                <div class="invalid-feedback">Por favor ingrese el cliente</div>
+                                <input type="text" class="form-control" id="editCliente" required minlength="3" maxlength="100">
+                                <div class="invalid-feedback">Por favor ingrese un nombre válido (3-100 caracteres)</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="editProducto" class="form-label">Producto*</label>
-                                <input type="text" class="form-control" id="editProducto" required>
-                                <div class="invalid-feedback">Por favor ingrese el producto</div>
+                                <input type="text" class="form-control" id="editProducto" required minlength="2" maxlength="50">
+                                <div class="invalid-feedback">Por favor ingrese un producto válido (2-50 caracteres)</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="editCantidad" class="form-label">Cantidad*</label>
-                                <input type="number" class="form-control" id="editCantidad" min="1" required>
-                                <div class="invalid-feedback">La cantidad debe ser al menos 1</div>
+                                <input type="number" class="form-control" id="editCantidad" min="1" max="100" required>
+                                <div class="invalid-feedback">La cantidad debe ser entre 1 y 100</div>
                             </div>
                             <div class="col-md-3">
                                 <label for="editTotal" class="form-label">Total ($)*</label>
-                                <input type="text" class="form-control" id="editTotal" required>
-                                <div class="invalid-feedback">Por favor ingrese el total</div>
+                                <input type="text" class="form-control" id="editTotal" required pattern="^\d+(\.\d{1,2})?$">
+                                <div class="invalid-feedback">Por favor ingrese un total válido (ej: 100.50)</div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="guardarCambiosVenta">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" id="guardarCambiosVenta">
+                        <span id="ventaEditSubmitText">Guardar Cambios</span>
+                        <span id="ventaEditSpinner" class="loading-spinner d-none"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Editar Cliente Modal -->
     <div class="modal fade" id="editarClienteModal" tabindex="-1" aria-labelledby="editarClienteModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -538,125 +903,125 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label for="editNombreCliente" class="form-label">Nombre*</label>
-                                <input type="text" class="form-control" id="editNombreCliente" required>
-                                <div class="invalid-feedback">Por favor ingrese el nombre</div>
+                                <input type="text" class="form-control" id="editNombreCliente" required minlength="3" maxlength="100">
+                                <div class="invalid-feedback">Por favor ingrese un nombre válido (3-100 caracteres)</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="editEmailCliente" class="form-label">Email*</label>
-                                <input type="email" class="form-control" id="editEmailCliente" required>
+                                <input type="email" class="form-control" id="editEmailCliente" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                                 <div class="invalid-feedback">Por favor ingrese un email válido</div>
                             </div>
                             <div class="col-md-6">
                                 <label for="editTelefonoCliente" class="form-label">Teléfono*</label>
-                                <input type="tel" class="form-control" id="editTelefonoCliente" required>
-                                <div class="invalid-feedback">Por favor ingrese un teléfono válido</div>
+                                <input type="tel" class="form-control" id="editTelefonoCliente" required pattern="[0-9\s\-+]{7,15}">
+                                <div class="invalid-feedback">Por favor ingrese un teléfono válido (7-15 dígitos)</div>
                             </div>
                             <div class="col-12">
                                 <label for="editUltimaCompra" class="form-label">Última Compra*</label>
                                 <input type="date" class="form-control" id="editUltimaCompra" required>
-                                <div class="invalid-feedback">Por favor ingrese la fecha de última compra</div>
+                                <div class="invalid-feedback">Por favor ingrese una fecha válida</div>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="guardarCambiosCliente">Guardar Cambios</button>
+                    <button type="button" class="btn btn-primary" id="guardarCambiosCliente">
+                        <span id="clienteSubmitText">Guardar Cambios</span>
+                        <span id="clienteSpinner" class="loading-spinner d-none"></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Menú Lateral -->
     <div class="container-fluid">
         <div class="row">
-            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <div class="text-center mb-4">
-                        <img src="https://via.placeholder.com/150" alt="Logo Golden Feets" class="img-fluid mb-2" style="max-width: 80%;">
-                        <h5 class="text-primary">Golden Feets</h5>
-                    </div>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="#inicio" data-section="inicio">
-                                <i class="bi bi-house-door me-2"></i>
-                                Inicio
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#estadisticas" data-section="estadisticas">
-                                <i class="bi bi-graph-up me-2"></i>
-                                Estadísticas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#ventas" data-section="ventas">
-                                <i class="bi bi-cart me-2"></i>
-                                Ventas
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#clientes" data-section="clientes">
-                                <i class="bi bi-people me-2"></i>
-                                Clientes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#inventario" data-section="inventario">
-                                <i class="bi bi-box-seam me-2"></i>
-                                Inventario
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#reportes" data-section="reportes">
-                                <i class="bi bi-file-earmark-text me-2"></i>
-                                Reportes
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#configuracion" data-section="configuracion">
-                                <i class="bi bi-gear me-2"></i>
-                                Configuración
-                            </a>
-                        </li>
-                    </ul>
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block">
+                <div class="sidebar-header">
+                    <img src="https://via.placeholder.com/100" alt="Logo Golden Feets" class="img-fluid mb-2">
+                    <h5 class="text-primary">Golden Feets</h5>
                 </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#inicio" data-section="inicio">
+                            <i class="bi bi-house-door-fill"></i> Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#estadisticas" data-section="estadisticas">
+                            <i class="bi bi-bar-chart-line"></i> Estadísticas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ventas" data-section="ventas">
+                            <i class="bi bi-cart"></i>
+                            Ventas
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#clientes" data-section="clientes">
+                            <i class="bi bi-people"></i>
+                            Clientes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#inventario" data-section="inventario">
+                            <i class="bi bi-box-seam"></i> Inventario
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reportes" data-section="reportes">
+                            <i class="bi bi-file-earmark-text"></i>
+                            Reportes
+                        </a>
+                    </li>
+                </ul>
             </nav>
 
-            <!-- Contenido Principal -->
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- Encabezado -->
-                <header class="bg-white shadow-sm sticky-top" style="z-index: 10;">
-                    <div class="container-fluid py-3">
+                <header>
+                    <div class="container-fluid py-2 px-4">
                         <div class="d-flex flex-wrap justify-content-between align-items-center">
                             <div class="d-flex align-items-center gap-3">
-                                <button class="btn btn-outline-primary d-md-none" id="sidebarToggle">
+                                <button class="btn btn-light d-md-none" id="sidebarToggle">
                                     <i class="bi bi-list"></i>
                                 </button>
-                                <h1 class="h4 mb-0">Panel de Ventas</h1>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaVentaModal">
-                                    <i class="bi bi-plus-circle me-2"></i>Nueva Venta
+                                <h1 class="h5 mb-0 fw-bold">Panel de Ventas</h1>
+                                <button class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#nuevaVentaModal">
+                                    <i class="bi bi-plus-circle me-1"></i>Nueva Venta
                                 </button>
                             </div>
                             <div class="d-flex align-items-center gap-3">
-                                <div class="search-container">
-                                    <i class="bi bi-search"></i>
-                                    <input type="text" class="form-control search-input" placeholder="Buscar...">
+                                <div class="search-container input-group">
+                                    <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control search-input border-start-0" placeholder="Buscar..." id="globalSearch">
                                 </div>
                                 <div class="dropdown">
-                                    <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-bell"></i>
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            3
+                                    <button class="btn btn-light position-relative" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-bell-fill"></i>
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6em;">
+                                            3 <span class="visually-hidden">unread messages</span>
                                         </span>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 mt-2" aria-labelledby="dropdownMenuButton">
                                         <li><h6 class="dropdown-header">Notificaciones</h6></li>
-                                        <li><a class="dropdown-item" href="#">Nueva venta realizada</a></li>
-                                        <li><a class="dropdown-item" href="#">Cliente agregado</a></li>
-                                        <li><a class="dropdown-item" href="#">Inventario actualizado</a></li>
+                                        <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-check-circle text-success me-2"></i> Nueva venta realizada</a></li>
+                                        <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-person-plus text-info me-2"></i> Cliente agregado</a></li>
+                                        <li><a class="dropdown-item d-flex align-items-center" href="#"><i class="bi bi-box text-warning me-2"></i> Inventario actualizado</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#">Ver todas</a></li>
+                                        <li><a class="dropdown-item text-center text-primary small" href="#">Ver todas</a></li>
+                                    </ul>
+                                </div>
+                                <div class="dropdown">
+                                    <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="avatar avatar-sm me-2" style="width: 32px; height: 32px; font-size: 0.8rem;">JM</div>
+                                        <span class="d-none d-sm-inline" id="headerUserName">Jose Martinez</span>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end text-small shadow-lg border-0 mt-2" aria-labelledby="dropdownUser">
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#editarPerfilModal"><i class="bi bi-person-gear me-2"></i> Editar Perfil</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#" id="cerrarSesionHeader"><i class="bi bi-box-arrow-right me-2"></i> Cerrar Sesión</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -664,26 +1029,23 @@
                     </div>
                 </header>
 
-                <!-- Contenido -->
                 <div class="container-fluid py-4">
-                    <!-- Inicio -->
                     <section id="inicio" class="row g-4">
-                        <!-- Perfil -->
                         <div class="col-12 col-lg-4">
-                            <div class="profile-card p-4 shadow-sm">
+                            <div class="profile-card p-4">
                                 <div class="text-center mb-4">
                                     <div class="avatar mx-auto mb-3">JM</div>
                                     <h4 class="mb-1" id="nombrePerfil">Jose Martinez</h4>
                                     <p class="mb-0" id="cargoPerfil">Vendedor</p>
                                 </div>
-                                
-                                <div class="profile-stats p-3 mb-3">
+
+                                <div class="profile-stats p-3 mb-4">
                                     <div class="row">
                                         <div class="col-4 text-center">
                                             <h6 class="mb-1">Ventas</h6>
                                             <span class="fw-bold" id="ventasTotales">2.345</span>
                                         </div>
-                                        <div class="col-4 text-center">
+                                        <div class="col-4 text-center border-start border-end border-light border-opacity-25">
                                             <h6 class="mb-1">Ingresos</h6>
                                             <span class="fw-bold" id="ingresosTotales">$45K</span>
                                         </div>
@@ -694,110 +1056,95 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
+                                <div class="mb-4">
                                     <h6>Información de Contacto</h6>
-                                    <p class="mb-1" id="emailPerfil"><i class="bi bi-envelope me-2"></i>JoseMartinez12@Gmail.es</p>
-                                    <p class="mb-1" id="telefonoPerfil"><i class="bi bi-telephone me-2"></i>305 959 65523</p>
-                                    <p class="mb-0" id="direccionPerfil"><i class="bi bi-geo-alt me-2"></i>CR 45 #34F sur, Bogotá</p>
+                                    <p class="mb-1 d-flex align-items-center" id="emailPerfil"><i class="bi bi-envelope-fill"></i><span class="ms-2 text-break">JoseMartinez12@Gmail.es</span></p>
+                                    <p class="mb-1 d-flex align-items-center" id="telefonoPerfil"><i class="bi bi-telephone-fill"></i><span class="ms-2">305 959 65523</span></p>
+                                    <p class="mb-0 d-flex align-items-center" id="direccionPerfil"><i class="bi bi-geo-alt-fill"></i><span class="ms-2">CR 45 #34F sur, Bogotá</span></p>
                                 </div>
 
-                                <div class="d-grid gap-2">
-                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#editarPerfilModal"><i class="bi bi-pencil me-2"></i>Editar Perfil</button>
+                                <div class="d-grid gap-2 mt-auto">
+                                    <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#editarPerfilModal"><i class="bi bi-pencil-fill me-2"></i>Editar Perfil</button>
                                     <button class="btn btn-outline-light" id="cerrarSesion"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Estadísticas -->
                         <div class="col-12 col-lg-8">
                             <div class="row g-4">
-                                <!-- Ingresos Totales -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="stat-card bg-white p-4 shadow-sm">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="stat-card p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div class="icon-container">
-                                                <i class="bi bi-currency-dollar text-primary fs-4"></i>
+                                                <i class="bi bi-currency-dollar"></i>
                                             </div>
-                                            <span class="trend-up"><i class="bi bi-arrow-up"></i> 20.1%</span>
+                                            <span class="trend-up ms-auto"><i class="bi bi-arrow-up"></i> 20.1%</span>
                                         </div>
                                         <h6 class="text-muted mb-1">Ingresos Totales</h6>
-                                        <h3 class="mb-0" id="ingresosCard">$45.231,89</h3>
+                                        <h3 class="mb-0 fw-bold" id="ingresosCard">$45.231,89</h3>
                                     </div>
                                 </div>
-
-                                <!-- Ventas -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="stat-card bg-white p-4 shadow-sm">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="stat-card p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div class="icon-container">
-                                                <i class="bi bi-graph-up text-primary fs-4"></i>
+                                                <i class="bi bi-graph-up"></i>
                                             </div>
-                                            <span class="trend-up"><i class="bi bi-arrow-up"></i> 8.2%</span>
+                                            <span class="trend-up ms-auto"><i class="bi bi-arrow-up"></i> 8.2%</span>
                                         </div>
                                         <h6 class="text-muted mb-1">Ventas</h6>
-                                        <h3 class="mb-0" id="ventasCard">2.345</h3>
+                                        <h3 class="mb-0 fw-bold" id="ventasCard">2.345</h3>
                                     </div>
                                 </div>
-
-                                <!-- Clientes -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="stat-card bg-white p-4 shadow-sm">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="col-12 col-md-6 col-xl-4">
+                                    <div class="stat-card p-4">
+                                        <div class="d-flex justify-content-between align-items-start mb-3">
                                             <div class="icon-container">
-                                                <i class="bi bi-people text-primary fs-4"></i>
+                                                <i class="bi bi-people"></i>
                                             </div>
-                                            <span class="trend-up"><i class="bi bi-arrow-up"></i> 5.7%</span>
+                                            <span class="trend-up ms-auto"><i class="bi bi-arrow-up"></i> 5.7%</span>
                                         </div>
                                         <h6 class="text-muted mb-1">Clientes</h6>
-                                        <h3 class="mb-0" id="clientesCard">1.420</h3>
+                                        <h3 class="mb-0 fw-bold" id="clientesCard">1.420</h3>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
-                            <!-- Gráficos y Ventas Recientes -->
                             <div class="row g-4 mt-2">
-                                <!-- Gráfico de Ventas -->
-                                <div class="col-12">
-                                    <div class="bg-white p-4 shadow-sm rounded">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <h5 class="mb-0">Resumen de Ventas</h5>
+                                <div class="col-12 col-xl-7">
+                                    <div class="bg-white p-4 shadow-sm rounded border border-light h-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="mb-0 fw-bold">Resumen de Ventas</h5>
                                             <div class="d-flex align-items-center gap-2">
-                                                <i class="bi bi-calendar3"></i>
-                                                <select class="form-select form-select-sm" id="periodoVentas">
+                                                <i class="bi bi-calendar3 text-muted"></i>
+                                                <select class="form-select form-select-sm" id="periodoVentas" style="width: auto;">
                                                     <option value="7">Últimos 7 días</option>
                                                     <option value="30" selected>Últimos 30 días</option>
                                                     <option value="90">Últimos 3 meses</option>
                                                 </select>
                                             </div>
                                         </div>
-                                        <canvas id="salesChart" width="400" height="200"></canvas>
+                                        <div id="salesChartContainer" class="chart-container">
+                                            <canvas id="salesChart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Lista de Ventas Recientes -->
-                            <div class="row g-4 mt-2">
-                                <div class="col-12">
-                                    <div class="bg-white p-4 shadow-sm rounded">
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <h5 class="mb-0">Ventas Recientes</h5>
-                                            <a href="#ventas" class="btn btn-sm btn-outline-primary" data-section="ventas">Ver todas</a>
+                                <div class="col-12 col-xl-5">
+                                    <div class="bg-white p-4 shadow-sm rounded border border-light h-100">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="mb-0 fw-bold">Ventas Recientes</h5>
+                                            <a href="#ventas" class="btn btn-sm btn-outline-primary py-1" data-section="ventas">Ver todas <i class="bi bi-arrow-right-short"></i></a>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-hover">
+                                            <table class="table table-striped table-hover table-sm">
                                                 <thead>
                                                     <tr>
                                                         <th>Cliente</th>
-                                                        <th>Producto</th>
-                                                        <th>Cantidad</th>
                                                         <th>Total</th>
-                                                        <th>Fecha</th>
-                                                        <th>Acciones</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="ventasRecientes">
-                                                    <!-- Las ventas se cargarán dinámicamente -->
-                                                </tbody>
+                                                <tbody id="ventasRecientes"></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -806,14 +1153,13 @@
                         </div>
                     </section>
 
-                    <!-- Estadísticas -->
                     <section id="estadisticas" class="row g-4 d-none">
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h2>Estadísticas</h2>
+                                <h2 class="fw-bold">Estadísticas</h2>
                                 <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-calendar3"></i>
-                                    <select class="form-select form-select-sm" id="periodoEstadisticas">
+                                    <i class="bi bi-calendar3 text-muted"></i>
+                                    <select class="form-select form-select-sm" id="periodoEstadisticas" style="width: auto;">
                                         <option value="7">Últimos 7 días</option>
                                         <option value="30" selected>Últimos 30 días</option>
                                         <option value="90">Últimos 3 meses</option>
@@ -822,48 +1168,41 @@
                                 </div>
                             </div>
                             <div class="row g-4">
-                                <!-- Gráfico de Ventas -->
                                 <div class="col-12 col-lg-6">
-                                    <div class="bg-white p-4 shadow-sm rounded">
-                                        <h5 class="mb-4">Gráfico de Ventas</h5>
-                                        <canvas id="salesChartFull" width="400" height="250"></canvas>
+                                    <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                        <h5 class="mb-4 fw-bold">Gráfico de Ventas</h5>
+                                        <div id="salesChartFullContainer" class="chart-container">
+                                            <canvas id="salesChartFull"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Gráfico de Ingresos -->
                                 <div class="col-12 col-lg-6">
-                                    <div class="bg-white p-4 shadow-sm rounded">
-                                        <h5 class="mb-4">Gráfico de Ingresos</h5>
-                                        <canvas id="incomeChart" width="400" height="250"></canvas>
+                                    <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                        <h5 class="mb-4 fw-bold">Gráfico de Ingresos</h5>
+                                        <div id="incomeChartContainer" class="chart-container">
+                                            <canvas id="incomeChart"></canvas>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- Métricas Clave -->
                                 <div class="col-12">
-                                    <div class="bg-white p-4 shadow-sm rounded">
-                                        <h5 class="mb-4">Métricas Clave</h5>
+                                    <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                        <h5 class="mb-4 fw-bold">Métricas Clave</h5>
                                         <div class="row">
-                                            <div class="col-6 col-md-3 mb-4">
-                                                <div class="text-center">
-                                                    <h6 class="text-muted">Ventas Totales</h6>
-                                                    <h3 class="text-primary">2,345</h3>
-                                                </div>
+                                            <div class="col-6 col-md-3 mb-4 text-center">
+                                                <h6 class="text-muted mb-1 small text-uppercase">Ventas Totales</h6>
+                                                <h3 class="text-primary fw-bold">2,345</h3>
                                             </div>
-                                            <div class="col-6 col-md-3 mb-4">
-                                                <div class="text-center">
-                                                    <h6 class="text-muted">Ingresos Totales</h6>
-                                                    <h3 class="text-success">$45,231</h3>
-                                                </div>
+                                            <div class="col-6 col-md-3 mb-4 text-center border-start">
+                                                <h6 class="text-muted mb-1 small text-uppercase">Ingresos Totales</h6>
+                                                <h3 class="text-success fw-bold">$45,231</h3>
                                             </div>
-                                            <div class="col-6 col-md-3 mb-4">
-                                                <div class="text-center">
-                                                    <h6 class="text-muted">Clientes Nuevos</h6>
-                                                    <h3 class="text-info">142</h3>
-                                                </div>
+                                            <div class="col-6 col-md-3 mb-4 text-center border-start">
+                                                <h6 class="text-muted mb-1 small text-uppercase">Clientes Nuevos</h6>
+                                                <h3 class="text-info fw-bold">142</h3>
                                             </div>
-                                            <div class="col-6 col-md-3 mb-4">
-                                                <div class="text-center">
-                                                    <h6 class="text-muted">Productos Vendidos</h6>
-                                                    <h3 class="text-warning">3,456</h3>
-                                                </div>
+                                            <div class="col-6 col-md-3 mb-4 text-center border-start">
+                                                <h6 class="text-muted mb-1 small text-uppercase">Productos Vendidos</h6>
+                                                <h3 class="text-warning fw-bold">3,456</h3>
                                             </div>
                                         </div>
                                     </div>
@@ -872,28 +1211,23 @@
                         </div>
                     </section>
 
-                    <!-- Ventas -->
                     <section id="ventas" class="row g-4 d-none">
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h2>Ventas</h2>
+                                <h2 class="fw-bold">Ventas</h2>
                                 <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevaVentaModal">
-                                    <i class="bi bi-plus-circle me-2"></i>Nueva Venta
+                                    <i class="bi bi-plus-circle me-1"></i>Nueva Venta
                                 </button>
                             </div>
-                            <div class="bg-white p-4 shadow-sm rounded">
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="input-group" style="width: 250px;">
-                                            <input type="text" class="form-control" placeholder="Buscar ventas..." id="buscarVentas">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="bi bi-search"></i>
-                                            </button>
-                                        </div>
+                            <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                                    <div class="input-group" style="max-width: 300px;">
+                                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control border-start-0" placeholder="Buscar ventas..." id="buscarVentas">
                                     </div>
                                     <div class="d-flex align-items-center gap-2">
-                                        <label for="filtroVentas" class="mb-0">Filtrar por:</label>
-                                        <select class="form-select form-select-sm" id="filtroVentas">
+                                        <label for="filtroVentas" class="mb-0 text-muted small">Filtrar:</label>
+                                        <select class="form-select form-select-sm" id="filtroVentas" style="width: auto;">
                                             <option value="todas">Todas</option>
                                             <option value="semana">Esta semana</option>
                                             <option value="mes">Este mes</option>
@@ -915,13 +1249,11 @@
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="listaVentas">
-                                            <!-- Las ventas se cargarán dinámicamente -->
-                                        </tbody>
+                                        <tbody id="listaVentas"></tbody>
                                     </table>
                                 </div>
-                                <nav aria-label="Page navigation" class="mt-4">
-                                    <ul class="pagination justify-content-center">
+                                <nav aria-label="Page navigation" class="mt-4 d-flex justify-content-center">
+                                    <ul class="pagination pagination-sm">
                                         <li class="page-item disabled">
                                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
                                         </li>
@@ -937,28 +1269,23 @@
                         </div>
                     </section>
 
-                    <!-- Clientes -->
                     <section id="clientes" class="row g-4 d-none">
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center mb-4">
-                                <h2>Clientes</h2>
+                                <h2 class="fw-bold">Clientes</h2>
                                 <button class="btn btn-primary" id="nuevoClienteBtn">
-                                    <i class="bi bi-plus-circle me-2"></i>Nuevo Cliente
+                                    <i class="bi bi-person-plus-fill me-1"></i>Nuevo Cliente
                                 </button>
                             </div>
-                            <div class="bg-white p-4 shadow-sm rounded">
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <div class="input-group" style="width: 250px;">
-                                            <input type="text" class="form-control" placeholder="Buscar clientes..." id="buscarClientes">
-                                            <button class="btn btn-outline-secondary" type="button">
-                                                <i class="bi bi-search"></i>
-                                            </button>
-                                        </div>
+                            <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
+                                    <div class="input-group" style="max-width: 300px;">
+                                        <span class="input-group-text bg-light border-end-0"><i class="bi bi-search"></i></span>
+                                        <input type="text" class="form-control border-start-0" placeholder="Buscar clientes..." id="buscarClientes">
                                     </div>
                                     <div class="d-flex align-items-center gap-2">
-                                        <label for="filtroClientes" class="mb-0">Ordenar por:</label>
-                                        <select class="form-select form-select-sm" id="filtroClientes">
+                                        <label for="filtroClientes" class="mb-0 text-muted small">Ordenar:</label>
+                                        <select class="form-select form-select-sm" id="filtroClientes" style="width: auto;">
                                             <option value="recientes">Más recientes</option>
                                             <option value="antiguos">Más antiguos</option>
                                             <option value="nombre">Nombre (A-Z)</option>
@@ -980,13 +1307,11 @@
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="listaClientes">
-                                            <!-- Los clientes se cargarán dinámicamente -->
-                                        </tbody>
+                                        <tbody id="listaClientes"></tbody>
                                     </table>
                                 </div>
-                                <nav aria-label="Page navigation" class="mt-4">
-                                    <ul class="pagination justify-content-center">
+                                <nav aria-label="Page navigation" class="mt-4 d-flex justify-content-center">
+                                    <ul class="pagination pagination-sm">
                                         <li class="page-item disabled">
                                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
                                         </li>
@@ -1002,162 +1327,111 @@
                         </div>
                     </section>
 
-                    <!-- Inventario -->
                     <section id="inventario" class="row g-4 d-none">
                         <div class="col-12">
-                            <h2>Inventario</h2>
-                            <div class="bg-white p-4 shadow-sm rounded">
-                                <h5 class="mb-4">Lista de Productos</h5>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Producto</th>
-                                            <th>Categoría</th>
-                                            <th>Stock</th>
-                                            <th>Precio</th>
-                                            <th>Estado</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Zapatilla Deportiva</td>
-                                            <td>Deportes</td>
-                                            <td>45</td>
-                                            <td>$75.00</td>
-                                            <td><span class="badge bg-success">Disponible</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">Editar</button>
-                                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Bota Militar</td>
-                                            <td>Casual</td>
-                                            <td>12</td>
-                                            <td>$120.00</td>
-                                            <td><span class="badge bg-warning text-dark">Bajo Stock</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">Editar</button>
-                                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Zapato Formal</td>
-                                            <td>Formal</td>
-                                            <td>0</td>
-                                            <td>$90.00</td>
-                                            <td><span class="badge bg-danger">Agotado</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-primary">Editar</button>
-                                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h2 class="fw-bold">Inventario</h2>
+                                <button class="btn btn-primary">
+                                    <i class="bi bi-plus-circle me-1"></i>Añadir Producto
+                                </button>
                             </div>
-                        </div>
-                    </section>
-
-                    <!-- Reportes -->
-                    <section id="reportes" class="row g-4 d-none">
-                        <div class="col-12">
-                            <h2>Reportes</h2>
-                            <div class="bg-white p-4 shadow-sm rounded">
-                                <h5 class="mb-4">Generar Reportes</h5>
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Reporte de Ventas</h5>
-                                                <p class="card-text">Genera un reporte detallado de todas las ventas en un período específico.</p>
-                                                <div class="mb-3">
-                                                    <label for="fechaInicioVentas" class="form-label">Fecha Inicio</label>
-                                                    <input type="date" class="form-control" id="fechaInicioVentas">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="fechaFinVentas" class="form-label">Fecha Fin</label>
-                                                    <input type="date" class="form-control" id="fechaFinVentas">
-                                                </div>
-                                                <button class="btn btn-primary">Generar Reporte</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Reporte de Clientes</h5>
-                                                <p class="card-text">Genera un reporte de los clientes y sus compras.</p>
-                                                <div class="mb-3">
-                                                    <label for="tipoReporteClientes" class="form-label">Tipo de Reporte</label>
-                                                    <select class="form-select" id="tipoReporteClientes">
-                                                        <option>Clientes nuevos</option>
-                                                        <option>Clientes frecuentes</option>
-                                                        <option>Clientes inactivos</option>
-                                                        <option>Todos los clientes</option>
-                                                    </select>
-                                                </div>
-                                                <button class="btn btn-primary">Generar Reporte</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                <h5 class="mb-4 fw-bold">Lista de Productos</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Producto</th>
+                                                <th>Categoría</th>
+                                                <th>Stock</th>
+                                                <th>Precio</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Zapatilla Deportiva</td>
+                                                <td>Deportes</td>
+                                                <td>45</td>
+                                                <td>$75.00</td>
+                                                <td><span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">Disponible</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary me-1" title="Editar"><i class="bi bi-pencil-fill"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Bota Militar</td>
+                                                <td>Casual</td>
+                                                <td>12</td>
+                                                <td>$120.00</td>
+                                                <td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">Bajo Stock</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary me-1" title="Editar"><i class="bi bi-pencil-fill"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Zapato Formal</td>
+                                                <td>Formal</td>
+                                                <td>0</td>
+                                                <td>$90.00</td>
+                                                <td><span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle">Agotado</span></td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary me-1" title="Editar"><i class="bi bi-pencil-fill"></i></button>
+                                                    <button class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash-fill"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </section>
 
-                    <!-- Configuración -->
-                    <section id="configuracion" class="row g-4 d-none">
+                    <section id="reportes" class="row g-4 d-none">
                         <div class="col-12">
-                            <h2>Configuración</h2>
-                            <div class="bg-white p-4 shadow-sm rounded">
-                                <h5 class="mb-4">Ajustes del Sistema</h5>
-                                <div class="row">
+                            <h2 class="fw-bold mb-4">Reportes</h2>
+                            <div class="bg-white p-4 shadow-sm rounded border border-light">
+                                <h5 class="mb-4 fw-bold">Generar Reportes</h5>
+                                <div class="row g-4">
                                     <div class="col-md-6">
-                                        <div class="card mb-4">
-                                            <div class="card-header">
-                                                <h6 class="mb-0">Configuración General</h6>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="nombreTienda" class="form-label">Nombre de la Tienda</label>
-                                                    <input type="text" class="form-control" id="nombreTienda" value="Golden Feets">
+                                        <div class="card h-100 border-light shadow-sm">
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title fw-semibold text-primary mb-3"><i class="bi bi-file-earmark-bar-graph me-2"></i>Reporte de Ventas</h5>
+                                                <p class="card-text text-muted small">Genera un reporte detallado de todas las ventas en un período específico.</p>
+                                                <div class="mb-3 mt-auto">
+                                                    <label for="fechaInicioVentas" class="form-label small">Fecha Inicio</label>
+                                                    <input type="date" class="form-control form-control-sm" id="fechaInicioVentas">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="moneda" class="form-label">Moneda</label>
-                                                    <select class="form-select" id="moneda">
-                                                        <option>Dólar ($)</option>
-                                                        <option>Euro (€)</option>
-                                                        <option selected>Peso Colombiano ($)</option>
-                                                    </select>
+                                                    <label for="fechaFinVentas" class="form-label small">Fecha Fin</label>
+                                                    <input type="date" class="form-control form-control-sm" id="fechaFinVentas">
                                                 </div>
-                                                <button class="btn btn-primary">Guardar Cambios</button>
+                                                <button class="btn btn-sm btn-primary w-100"><i class="bi bi-download me-1"></i>Generar Reporte</button>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="card mb-4">
-                                            <div class="card-header">
-                                                <h6 class="mb-0">Notificaciones</h6>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="notificacionesEmail" checked>
-                                                    <label class="form-check-label" for="notificacionesEmail">Notificaciones por Email</label>
+                                        <div class="card h-100 border-light shadow-sm">
+                                            <div class="card-body d-flex flex-column">
+                                                <h5 class="card-title fw-semibold text-primary mb-3"><i class="bi bi-file-earmark-person me-2"></i>Reporte de Clientes</h5>
+                                                <p class="card-text text-muted small">Genera un reporte de los clientes y sus compras.</p>
+                                                <div class="mb-3 mt-auto">
+                                                    <label for="tipoReporteClientes" class="form-label small">Tipo de Reporte</label>
+                                                    <select class="form-select form-select-sm" id="tipoReporteClientes">
+                                                        <option>Clientes nuevos</option>
+                                                        <option>Clientes frecuentes</option>
+                                                        <option>Clientes inactivos</option>
+                                                        <option selected>Todos los clientes</option>
+                                                    </select>
                                                 </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="notificacionesSistema" checked>
-                                                    <label class="form-check-label" for="notificacionesSistema">Notificaciones del Sistema</label>
-                                                </div>
-                                                <div class="form-check form-switch mb-3">
-                                                    <input class="form-check-input" type="checkbox" id="recordatoriosStock">
-                                                    <label class="form-check-label" for="recordatoriosStock">Recordatorios de Stock Bajo</label>
-                                                </div>
-                                                <button class="btn btn-primary">Guardar Cambios</button>
+                                                <button class="btn btn-sm btn-primary w-100"><i class="bi bi-download me-1"></i>Generar Reporte</button>
                                             </div>
                                         </div>
                                     </div>
@@ -1169,872 +1443,775 @@
             </main>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-       // Clase para manejar el almacenamiento local
-class LocalStorageManager {
-    constructor() {
-        this.ventasKey = 'goldenFeetsVentas';
-        this.clientesKey = 'goldenFeetsClientes';
-        this.perfilKey = 'goldenFeetsPerfil';
-        this.configKey = 'goldenFeetsConfig';
-    }
-
-    // Guardar datos
-    guardarDatos(key, data) {
-        localStorage.setItem(key, JSON.stringify(data));
-    }
-
-    // Obtener datos
-    obtenerDatos(key) {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : null;
-    }
-
-    // Inicializar datos si no existen
-    inicializarDatosIniciales() {
-        if (!this.obtenerDatos(this.ventasKey)) {
-            const ventasIniciales = [
-                { id: 1, cliente: 'Juan Pérez', producto: 'Zapatilla Deportiva', cantidad: 2, total: 150, fecha: '2023-10-15', estado: 'completado' },
-                { id: 2, cliente: 'María Gómez', producto: 'Zapato Formal', cantidad: 1, total: 120, fecha: '2023-10-14', estado: 'completado' },
-                { id: 3, cliente: 'Carlos Rodríguez', producto: 'Bota de Trekking', cantidad: 1, total: 200, fecha: '2023-10-13', estado: 'completado' },
-                { id: 4, cliente: 'Ana López', producto: 'Sandalia', cantidad: 3, total: 90, fecha: '2023-10-12', estado: 'completado' },
-                { id: 5, cliente: 'Pedro Sánchez', producto: 'Bota Militar', cantidad: 1, total: 180, fecha: '2023-10-11', estado: 'pendiente' }
-            ];
-            this.guardarDatos(this.ventasKey, ventasIniciales);
-        }
-
-        if (!this.obtenerDatos(this.clientesKey)) {
-            const clientesIniciales = [
-                { id: 1, nombre: 'Juan Pérez', email: 'juan@example.com', telefono: '123-456-7890', compras: 5, totalGastado: 750, ultimaCompra: '2023-10-15' },
-                { id: 2, nombre: 'María Gómez', email: 'maria@example.com', telefono: '987-654-3210', compras: 3, totalGastado: 360, ultimaCompra: '2023-10-14' },
-                { id: 3, nombre: 'Carlos Rodríguez', email: 'carlos@example.com', telefono: '555-555-5555', compras: 2, totalGastado: 380, ultimaCompra: '2023-10-13' },
-                { id: 4, nombre: 'Ana López', email: 'ana@example.com', telefono: '111-222-3333', compras: 1, totalGastado: 90, ultimaCompra: '2023-10-12' },
-                { id: 5, nombre: 'Pedro Sánchez', email: 'pedro@example.com', telefono: '444-444-4444', compras: 1, totalGastado: 180, ultimaCompra: '2023-10-11' }
-            ];
-            this.guardarDatos(this.clientesKey, clientesIniciales);
-        }
-
-        if (!this.obtenerDatos(this.perfilKey)) {
-            const perfilInicial = {
-                nombre: 'Jose Martinez',
-                email: 'JoseMartinez12@Gmail.es',
-                telefono: '305 959 65523',
-                direccion: 'CR 45 #34F sur, Bogotá',
-                cargo: 'Vendedor',
-                avatar: 'JM'
-            };
-            this.guardarDatos(this.perfilKey, perfilInicial);
-        }
-
-        if (!this.obtenerDatos(this.configKey)) {
-            const configInicial = {
-                moneda: 'Peso Colombiano ($)',
-                notificacionesEmail: true,
-                notificacionesSistema: true,
-                recordatoriosStock: false
-            };
-            this.guardarDatos(this.configKey, configInicial);
-        }
-    }
-}
-
-// Clase para manejar las notificaciones
-class NotificacionManager {
-    constructor() {
-        this.toastContainer = document.querySelector('.toast-container');
-    }
-
-    mostrarNotificacion(mensaje, tipo = 'success', duracion = 5000) {
-        const toast = document.createElement('div');
-        toast.className = `toast align-items-center text-white bg-${tipo} border-0 fade-in`;
-        toast.setAttribute('role', 'alert');
-        toast.setAttribute('aria-live', 'assertive');
-        toast.setAttribute('aria-atomic', 'true');
-        
-        toast.innerHTML = `
-            <div class="d-flex">
-                <div class="toast-body d-flex align-items-center">
-                    <i class="bi ${this.getIconoTipo(tipo)} me-2"></i>
-                    ${mensaje}
-                </div>
-                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-        `;
-        
-        this.toastContainer.appendChild(toast);
-        const bsToast = new bootstrap.Toast(toast, {
-            delay: duracion
-        });
-        bsToast.show();
-        
-        // Eliminar el toast después de que se cierre
-        toast.addEventListener('hidden.bs.toast', () => {
-            toast.remove();
-        });
-    }
-
-    getIconoTipo(tipo) {
-        const iconos = {
-            'success': 'bi-check-circle-fill',
-            'danger': 'bi-exclamation-triangle-fill',
-            'warning': 'bi-exclamation-circle-fill',
-            'info': 'bi-info-circle-fill'
-        };
-        return iconos[tipo] || 'bi-info-circle-fill';
-    }
-}
-
-// Clase principal de la aplicación
-class GoldenFeetsApp {
-    constructor() {
-        this.storage = new LocalStorageManager();
-        this.notificacion = new NotificacionManager();
-        this.ventas = [];
-        this.clientes = [];
-        this.perfil = {};
-        this.config = {};
-        this.graficos = {};
-        
-        this.inicializar();
-    }
-    
-    inicializar() {
-        // Inicializar datos
-        this.storage.inicializarDatosIniciales();
-        this.cargarDatos();
-        
-        // Configurar eventos
-        this.configurarEventos();
-        
-        // Mostrar sección inicial
-        this.mostrarSeccion('inicio');
-        
-        // Inicializar gráficos
-        this.inicializarGraficos();
-        
-        // Cargar datos en las tablas
-        this.cargarVentasRecientes();
-        this.cargarListaVentas();
-        this.cargarListaClientes();
-        
-        // Configurar animaciones de carga
-        this.configurarAnimaciones();
-    }
-    
-    configurarAnimaciones() {
-        // Animación para elementos que aparecen al cargar
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate__animated', 'animate__fadeInUp');
-                    observer.unobserve(entry.target);
+        // Clase para manejar el almacenamiento local
+        class LocalStorageManager {
+            constructor() {
+                this.ventasKey = 'goldenFeetsVentas';
+                this.clientesKey = 'goldenFeetsClientes';
+                this.perfilKey = 'goldenFeetsPerfil';
+            }
+            guardarDatos(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+            obtenerDatos(key) { const data = localStorage.getItem(key); return data ? JSON.parse(data) : null; }
+            inicializarDatosIniciales() {
+                if (!this.obtenerDatos(this.ventasKey)) {
+                    const ventasIniciales = [
+                        { id: 1, cliente: 'Juan Pérez', producto: 'Zapatilla Deportiva', cantidad: 2, total: 150000, fecha: '2024-10-15', estado: 'completado' },
+                        { id: 2, cliente: 'María Gómez', producto: 'Zapato Formal', cantidad: 1, total: 120000, fecha: '2024-10-14', estado: 'completado' },
+                        { id: 3, cliente: 'Carlos Rodríguez', producto: 'Bota de Trekking', cantidad: 1, total: 200000, fecha: '2024-10-13', estado: 'completado' },
+                        { id: 4, cliente: 'Ana López', producto: 'Sandalia', cantidad: 3, total: 90000, fecha: '2024-10-12', estado: 'completado' },
+                        { id: 5, cliente: 'Pedro Sánchez', producto: 'Bota Militar', cantidad: 1, total: 180000, fecha: '2024-10-11', estado: 'pendiente' }
+                    ];
+                    this.guardarDatos(this.ventasKey, ventasIniciales);
                 }
-            });
-        }, {
-            threshold: 0.1
-        });
-
-        document.querySelectorAll('.stat-card, .profile-card, table').forEach(el => {
-            observer.observe(el);
-        });
-    }
-    
-    cargarDatos() {
-        this.ventas = this.storage.obtenerDatos(this.storage.ventasKey) || [];
-        this.clientes = this.storage.obtenerDatos(this.storage.clientesKey) || [];
-        this.perfil = this.storage.obtenerDatos(this.storage.perfilKey) || {};
-        this.config = this.storage.obtenerDatos(this.storage.configKey) || {};
-        
-        // Actualizar UI con los datos cargados
-        this.actualizarPerfilUI();
-        this.actualizarConfigUI();
-    }
-    
-    actualizarPerfilUI() {
-        if (this.perfil) {
-            document.getElementById('nombrePerfil').textContent = this.perfil.nombre || '';
-            document.getElementById('cargoPerfil').textContent = this.perfil.cargo || '';
-            document.getElementById('emailPerfil').innerHTML = `<i class="bi bi-envelope me-2"></i>${this.perfil.email || ''}`;
-            document.getElementById('telefonoPerfil').innerHTML = `<i class="bi bi-telephone me-2"></i>${this.perfil.telefono || ''}`;
-            document.getElementById('direccionPerfil').innerHTML = `<i class="bi bi-geo-alt me-2"></i>${this.perfil.direccion || ''}`;
-            
-            // Actualizar avatar
-            const avatar = document.querySelector('.avatar');
-            if (this.perfil.avatar) {
-                avatar.textContent = this.perfil.avatar;
-            }
-            
-            // Actualizar también los campos del modal de edición
-            document.getElementById('editNombre').value = this.perfil.nombre || '';
-            document.getElementById('editEmail').value = this.perfil.email || '';
-            document.getElementById('editTelefono').value = this.perfil.telefono || '';
-            document.getElementById('editDireccion').value = this.perfil.direccion || '';
-            document.getElementById('editCargo').value = this.perfil.cargo || '';
-        }
-    }
-    
-    actualizarConfigUI() {
-        if (this.config) {
-            // Configuración general
-            document.getElementById('nombreTienda').value = 'Golden Feets';
-            document.getElementById('moneda').value = this.config.moneda || 'Peso Colombiano ($)';
-            
-            // Notificaciones
-            document.getElementById('notificacionesEmail').checked = this.config.notificacionesEmail || false;
-            document.getElementById('notificacionesSistema').checked = this.config.notificacionesSistema || false;
-            document.getElementById('recordatoriosStock').checked = this.config.recordatoriosStock || false;
-        }
-    }
-    
-    configurarEventos() {
-        // Eventos del menú lateral
-        document.querySelectorAll('[data-section]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const seccion = link.getAttribute('data-section');
-                this.mostrarSeccion(seccion);
-                
-                // Animación de icono
-                const icon = link.querySelector('i');
-                icon.classList.add('animate__animated', 'animate__rubberBand');
-                setTimeout(() => {
-                    icon.classList.remove('animate__animated', 'animate__rubberBand');
-                }, 1000);
-            });
-        });
-        
-        // Toggle del sidebar en móviles
-        document.getElementById('sidebarToggle').addEventListener('click', () => {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('d-none');
-            sidebar.classList.add('animate__animated', 'animate__fadeInLeft');
-        });
-        
-        // Evento para cerrar sesión
-        document.getElementById('cerrarSesion').addEventListener('click', () => {
-            if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
-                this.notificacion.mostrarNotificacion('Sesión cerrada correctamente');
-                // Aquí podrías redirigir a la página de login
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
-            }
-        });
-        
-        // Evento para guardar cambios de perfil
-        document.getElementById('guardarCambiosPerfil').addEventListener('click', () => {
-            if (this.validarFormulario('editarPerfilForm')) {
-                this.perfil = {
-                    nombre: document.getElementById('editNombre').value.trim(),
-                    email: document.getElementById('editEmail').value.trim(),
-                    telefono: document.getElementById('editTelefono').value.trim(),
-                    direccion: document.getElementById('editDireccion').value.trim(),
-                    cargo: document.getElementById('editCargo').value.trim(),
-                    avatar: document.getElementById('editNombre').value.trim().split(' ').map(n => n[0]).join('').toUpperCase()
-                };
-                
-                this.storage.guardarDatos(this.storage.perfilKey, this.perfil);
-                this.actualizarPerfilUI();
-                
-                const modal = bootstrap.Modal.getInstance(document.getElementById('editarPerfilModal'));
-                modal.hide();
-                
-                this.notificacion.mostrarNotificacion('Perfil actualizado correctamente');
-            }
-        });
-        
-        // Evento para procesar nueva venta
-        document.getElementById('ventaForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            if (this.validarFormulario('ventaForm')) {
-                const nuevaVenta = {
-                    id: this.ventas.length > 0 ? Math.max(...this.ventas.map(v => v.id)) + 1 : 1,
-                    cliente: document.getElementById('nombreCompleto').value.trim(),
-                    producto: document.getElementById('producto').value,
-                    cantidad: parseInt(document.getElementById('cantidad').value),
-                    total: parseFloat(document.getElementById('total').value.replace('$', '')),
-                    fecha: new Date().toISOString().split('T')[0],
-                    estado: 'completado',
-                    email: document.getElementById('email').value.trim(),
-                    telefono: document.getElementById('telefono').value.trim(),
-                    direccion: document.getElementById('direccion').value.trim(),
-                    ciudad: document.getElementById('ciudad').value.trim(),
-                    codigoPostal: document.getElementById('codigoPostal').value.trim(),
-                    metodoPago: document.querySelector('input[name="metodoPago"]:checked').value
-                };
-                
-                this.ventas.unshift(nuevaVenta);
-                this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
-                
-                // Verificar si el cliente ya existe
-                const clienteExistente = this.clientes.find(c => c.email === nuevaVenta.email);
-                
-                if (clienteExistente) {
-                    // Actualizar cliente existente
-                    clienteExistente.compras += 1;
-                    clienteExistente.totalGastado += nuevaVenta.total;
-                    clienteExistente.ultimaCompra = nuevaVenta.fecha;
-                } else {
-                    // Crear nuevo cliente
-                    const nuevoCliente = {
-                        id: this.clientes.length > 0 ? Math.max(...this.clientes.map(c => c.id)) + 1 : 1,
-                        nombre: nuevaVenta.cliente,
-                        email: nuevaVenta.email,
-                        telefono: nuevaVenta.telefono,
-                        compras: 1,
-                        totalGastado: nuevaVenta.total,
-                        ultimaCompra: nuevaVenta.fecha
-                    };
-                    this.clientes.push(nuevoCliente);
+                if (!this.obtenerDatos(this.clientesKey)) {
+                    const clientesIniciales = [
+                        { id: 1, nombre: 'Juan Pérez', email: 'juan@example.com', telefono: '123-456-7890', compras: 5, totalGastado: 750000, ultimaCompra: '2024-10-15' },
+                        { id: 2, nombre: 'María Gómez', email: 'maria@example.com', telefono: '987-654-3210', compras: 3, totalGastado: 360000, ultimaCompra: '2024-10-14' },
+                        { id: 3, nombre: 'Carlos Rodríguez', email: 'carlos@example.com', telefono: '555-555-5555', compras: 2, totalGastado: 380000, ultimaCompra: '2024-10-13' },
+                        { id: 4, nombre: 'Ana López', email: 'ana@example.com', telefono: '111-222-3333', compras: 1, totalGastado: 90000, ultimaCompra: '2024-10-12' },
+                        { id: 5, nombre: 'Pedro Sánchez', email: 'pedro@example.com', telefono: '444-444-4444', compras: 1, totalGastado: 180000, ultimaCompra: '2024-10-11' }
+                    ];
+                    this.guardarDatos(this.clientesKey, clientesIniciales);
                 }
-                
-                this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
-                
-                // Cerrar modal y resetear formulario
-                const modal = bootstrap.Modal.getInstance(document.getElementById('nuevaVentaModal'));
-                modal.hide();
-                document.getElementById('ventaForm').reset();
-                
-                // Actualizar UI
+                if (!this.obtenerDatos(this.perfilKey)) {
+                    const perfilInicial = { nombre: 'Jose Martinez', email: 'JoseMartinez12@Gmail.es', telefono: '305 959 65523', direccion: 'CR 45 #34F sur, Bogotá', cargo: 'Vendedor', avatar: 'JM' };
+                    this.guardarDatos(this.perfilKey, perfilInicial);
+                }
+            }
+        }
+
+        // Clase para manejar las notificaciones
+        class NotificacionManager {
+            constructor() { this.toastContainer = document.querySelector('.toast-container'); }
+            mostrarNotificacion(mensaje, tipo = 'success', duracion = 5000) {
+                let bgColor = 'bg-success';
+                let iconClass = 'bi-check-circle-fill';
+                switch(tipo) {
+                    case 'danger':
+                        bgColor = 'bg-danger';
+                        iconClass = 'bi-exclamation-triangle-fill';
+                        break;
+                    case 'warning':
+                        bgColor = 'bg-warning';
+                        iconClass = 'bi-exclamation-circle-fill';
+                        break;
+                    case 'info':
+                        bgColor = 'bg-info';
+                        iconClass = 'bi-info-circle-fill';
+                        break;
+                }
+                const textColor = (tipo === 'warning') ? 'text-dark' : 'text-white';
+                const toast = document.createElement('div');
+                toast.className = `toast align-items-center ${textColor} ${bgColor} border-0 fade show shadow`;
+                toast.setAttribute('role', 'alert');
+                toast.setAttribute('aria-live', 'assertive');
+                toast.setAttribute('aria-atomic', 'true');
+                toast.innerHTML = `<div class="d-flex"><div class="toast-body d-flex align-items-center"><i class="bi ${iconClass} me-2 fs-5"></i><span class="fw-medium">${mensaje}</span></div><button type="button" class="btn-close me-2 m-auto ${textColor === 'text-white' ? 'btn-close-white' : ''}" data-bs-dismiss="toast" aria-label="Close"></button></div>`;
+                this.toastContainer.appendChild(toast);
+                const bsToast = new bootstrap.Toast(toast, { delay: duracion, autohide: true });
+                bsToast.show();
+                toast.addEventListener('hidden.bs.toast', () => { toast.remove(); });
+            }
+        }
+
+        // Clase principal de la aplicación
+        class GoldenFeetsApp {
+            constructor() {
+                this.storage = new LocalStorageManager();
+                this.notificacion = new NotificacionManager();
+                this.ventas = [];
+                this.clientes = [];
+                this.perfil = {};
+                this.graficos = {};
+                this.inicializar();
+            }
+
+            inicializar() {
+                this.storage.inicializarDatosIniciales();
+                this.cargarDatos();
+                this.configurarEventos();
+                this.mostrarSeccion('inicio');
+                this.inicializarGraficos();
                 this.cargarVentasRecientes();
                 this.cargarListaVentas();
                 this.cargarListaClientes();
-                this.actualizarGraficos();
-                
-                this.notificacion.mostrarNotificacion('Venta registrada correctamente');
-                
-                // Mostrar animación de confirmación
-                const confirmacion = document.createElement('div');
-                confirmacion.className = 'position-fixed top-50 start-50 translate-middle';
-                confirmacion.innerHTML = `
-                    <div class="animate__animated animate__zoomIn animate__faster bg-success text-white p-3 rounded-circle shadow-lg">
-                        <i class="bi bi-check-lg fs-1"></i>
-                    </div>
-                `;
-                document.body.appendChild(confirmacion);
-                setTimeout(() => {
-                    confirmacion.remove();
-                }, 1000);
             }
-        });
-        
-        // Evento para calcular total al cambiar cantidad o precio
-        document.getElementById('cantidad').addEventListener('change', this.calcularTotalVenta.bind(this));
-        document.getElementById('precio').addEventListener('change', this.calcularTotalVenta.bind(this));
-        
-        // Evento para guardar cambios en venta editada
-        document.getElementById('guardarCambiosVenta').addEventListener('click', () => {
-            if (this.validarFormulario('editarVentaForm')) {
-                const ventaId = parseInt(document.getElementById('editarVentaForm').dataset.ventaId);
-                const ventaIndex = this.ventas.findIndex(v => v.id === ventaId);
-                
-                if (ventaIndex !== -1) {
-                    this.ventas[ventaIndex] = {
-                        ...this.ventas[ventaIndex],
-                        cliente: document.getElementById('editCliente').value.trim(),
-                        producto: document.getElementById('editProducto').value.trim(),
-                        cantidad: parseInt(document.getElementById('editCantidad').value),
-                        total: parseFloat(document.getElementById('editTotal').value.replace('$', ''))
-                    };
-                    
-                    this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
-                    
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('editarVentaModal'));
-                    modal.hide();
-                    
-                    this.cargarVentasRecientes();
-                    this.cargarListaVentas();
-                    this.actualizarGraficos();
-                    
-                    this.notificacion.mostrarNotificacion('Venta actualizada correctamente');
+
+            cargarDatos() {
+                this.ventas = this.storage.obtenerDatos(this.storage.ventasKey) || [];
+                this.clientes = this.storage.obtenerDatos(this.storage.clientesKey) || [];
+                this.perfil = this.storage.obtenerDatos(this.storage.perfilKey) || {};
+                this.actualizarPerfilUI();
+            }
+
+            actualizarPerfilUI() {
+                if (this.perfil) {
+                    document.getElementById('nombrePerfil').textContent = this.perfil.nombre || '';
+                    document.getElementById('cargoPerfil').textContent = this.perfil.cargo || '';
+                    const emailElement = document.getElementById('emailPerfil');
+                    if (emailElement) emailElement.querySelector('span').textContent = this.perfil.email || '';
+                    const telefonoElement = document.getElementById('telefonoPerfil');
+                    if (telefonoElement) telefonoElement.querySelector('span').textContent = this.perfil.telefono || '';
+                    const direccionElement = document.getElementById('direccionPerfil');
+                    if (direccionElement) direccionElement.querySelector('span').textContent = this.perfil.direccion || '';
+                    const avatarElements = document.querySelectorAll('.avatar');
+                    if (this.perfil.avatar) {
+                        avatarElements.forEach(avatar => avatar.textContent = this.perfil.avatar);
+                    }
+                    const headerUserName = document.getElementById('headerUserName');
+                    if(headerUserName) headerUserName.textContent = this.perfil.nombre || '';
+                    document.getElementById('editNombre').value = this.perfil.nombre || '';
+                    document.getElementById('editEmail').value = this.perfil.email || '';
+                    document.getElementById('editTelefono').value = this.perfil.telefono || '';
+                    document.getElementById('editDireccion').value = this.perfil.direccion || '';
+                    document.getElementById('editCargo').value = this.perfil.cargo || 'Vendedor';
                 }
             }
-        });
-        
-        // Evento para guardar cambios en cliente editado
-        document.getElementById('guardarCambiosCliente').addEventListener('click', () => {
-            if (this.validarFormulario('editarClienteForm')) {
-                const clienteId = parseInt(document.getElementById('editarClienteForm').dataset.clienteId);
-                const clienteIndex = this.clientes.findIndex(c => c.id === clienteId);
-                
-                if (clienteIndex !== -1) {
-                    this.clientes[clienteIndex] = {
-                        ...this.clientes[clienteIndex],
-                        nombre: document.getElementById('editNombreCliente').value.trim(),
-                        email: document.getElementById('editEmailCliente').value.trim(),
-                        telefono: document.getElementById('editTelefonoCliente').value.trim(),
-                        ultimaCompra: document.getElementById('editUltimaCompra').value
-                    };
-                    
-                    this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
-                    
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('editarClienteModal'));
-                    modal.hide();
-                    
-                    this.cargarListaClientes();
-                    
-                    this.notificacion.mostrarNotificacion('Cliente actualizado correctamente');
+
+            configurarEventos() {
+                const sidebar = document.getElementById('sidebar');
+                const mainContent = document.querySelector('main');
+                document.querySelectorAll('[data-section]').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const seccion = link.getAttribute('data-section');
+                        this.mostrarSeccion(seccion);
+                        if (window.innerWidth < 768) {
+                            sidebar.classList.remove('active');
+                        }
+                    });
+                });
+                document.getElementById('sidebarToggle').addEventListener('click', () => {
+                    sidebar.classList.toggle('active');
+                });
+                mainContent.addEventListener('click', () => {
+                    if (window.innerWidth < 768 && sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+                document.getElementById('cerrarSesion')?.addEventListener('click', this.handleCerrarSesion);
+                document.getElementById('cerrarSesionHeader')?.addEventListener('click', this.handleCerrarSesion);
+                document.getElementById('guardarCambiosPerfil').addEventListener('click', () => {
+                    if (this.validarFormulario('editarPerfilForm')) {
+                        this.mostrarSpinner('perfil', true);
+                        setTimeout(() => {
+                            this.perfil = {
+                                nombre: this.sanitizarInput(document.getElementById('editNombre').value.trim()),
+                                email: this.sanitizarInput(document.getElementById('editEmail').value.trim()),
+                                telefono: this.sanitizarInput(document.getElementById('editTelefono').value.trim()),
+                                direccion: this.sanitizarInput(document.getElementById('editDireccion').value.trim()),
+                                cargo: 'Vendedor',
+                                avatar: document.getElementById('editNombre').value.trim().split(' ').map(n => n[0]).join('').toUpperCase() || '?'
+                            };
+                            this.storage.guardarDatos(this.storage.perfilKey, this.perfil);
+                            this.actualizarPerfilUI();
+                            const modalEl = document.getElementById('editarPerfilModal');
+                            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                            modal.hide();
+                            this.notificacion.mostrarNotificacion('Perfil actualizado correctamente');
+                            this.mostrarSpinner('perfil', false);
+                        }, 1000);
+                    }
+                });
+                document.getElementById('ventaForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (this.validarFormulario('ventaForm')) {
+                        this.mostrarSpinner('venta', true);
+                        setTimeout(() => {
+                            const nuevaVenta = {
+                                id: this.ventas.length > 0 ? Math.max(...this.ventas.map(v => v.id)) + 1 : 1,
+                                cliente: this.sanitizarInput(document.getElementById('nombreCompleto').value.trim()),
+                                producto: this.sanitizarInput(document.getElementById('producto').value),
+                                cantidad: parseInt(document.getElementById('cantidad').value),
+                                total: parseFloat(document.getElementById('total').value.replace(/[^0-9.-]+/g,"").replace('.','')) / 100,
+                                fecha: new Date().toISOString().split('T')[0],
+                                estado: 'completado',
+                                email: this.sanitizarInput(document.getElementById('email').value.trim()),
+                                telefono: this.sanitizarInput(document.getElementById('telefono').value.trim()),
+                                direccion: this.sanitizarInput(document.getElementById('direccion').value.trim()),
+                                ciudad: this.sanitizarInput(document.getElementById('ciudad').value.trim()),
+                                codigoPostal: this.sanitizarInput(document.getElementById('codigoPostal').value.trim()),
+                                metodoPago: document.querySelector('input[name="metodoPago"]:checked')?.value || 'desconocido'
+                            };
+                            this.ventas.unshift(nuevaVenta);
+                            this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
+                            const clienteExistente = this.clientes.find(c => c.email === nuevaVenta.email);
+                            if (clienteExistente) {
+                                clienteExistente.compras += 1;
+                                clienteExistente.totalGastado += nuevaVenta.total;
+                                clienteExistente.ultimaCompra = nuevaVenta.fecha;
+                            } else {
+                                const nuevoCliente = {
+                                    id: this.clientes.length > 0 ? Math.max(...this.clientes.map(c => c.id)) + 1 : 1,
+                                    nombre: nuevaVenta.cliente,
+                                    email: nuevaVenta.email,
+                                    telefono: nuevaVenta.telefono,
+                                    compras: 1,
+                                    totalGastado: nuevaVenta.total,
+                                    ultimaCompra: nuevaVenta.fecha
+                                };
+                                this.clientes.push(nuevoCliente);
+                            }
+                            this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
+                            const modalEl = document.getElementById('nuevaVentaModal');
+                            const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                            modal.hide();
+                            document.getElementById('ventaForm').reset();
+                            document.getElementById('ventaForm').classList.remove('was-validated');
+                            this.cargarVentasRecientes();
+                            this.cargarListaVentas();
+                            this.cargarListaClientes();
+                            this.actualizarGraficos();
+                            this.actualizarEstadisticasPrincipales();
+                            this.notificacion.mostrarNotificacion('Venta registrada correctamente');
+                            this.mostrarSpinner('venta', false);
+                            const confirmacion = document.createElement('div');
+                            confirmacion.className = 'position-fixed top-50 start-50 translate-middle p-3 rounded-circle shadow-lg d-flex align-items-center justify-content-center';
+                            confirmacion.style.zIndex = '2000';
+                            confirmacion.style.background = 'var(--primary-gradient)';
+                            confirmacion.innerHTML = `<i class="bi bi-check-lg fs-1 text-white animate__animated animate__bounceIn"></i>`;
+                            document.body.appendChild(confirmacion);
+                            setTimeout(() => {
+                                confirmacion.classList.add('animate__animated', 'animate__fadeOutUp');
+                                confirmacion.addEventListener('animationend', () => confirmacion.remove());
+                            }, 800);
+                        }, 1000);
+                    }
+                });
+                document.getElementById('cantidad').addEventListener('input', this.calcularTotalVenta.bind(this));
+                document.getElementById('precio').addEventListener('input', this.calcularTotalVenta.bind(this));
+                document.getElementById('guardarCambiosVenta').addEventListener('click', () => {
+                    if (this.validarFormulario('editarVentaForm')) {
+                        this.mostrarSpinner('ventaEdit', true);
+                        setTimeout(() => {
+                            const ventaId = parseInt(document.getElementById('editarVentaForm').dataset.ventaId);
+                            const ventaIndex = this.ventas.findIndex(v => v.id === ventaId);
+                            if (ventaIndex !== -1) {
+                                this.ventas[ventaIndex] = {
+                                    ...this.ventas[ventaIndex],
+                                    cliente: this.sanitizarInput(document.getElementById('editCliente').value.trim()),
+                                    producto: this.sanitizarInput(document.getElementById('editProducto').value.trim()),
+                                    cantidad: parseInt(document.getElementById('editCantidad').value),
+                                    total: parseFloat(document.getElementById('editTotal').value.replace(/[^0-9.-]+/g,"").replace('.','')) / 100
+                                };
+                                this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
+                                const modalEl = document.getElementById('editarVentaModal');
+                                const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                                modal.hide();
+                                this.cargarVentasRecientes();
+                                this.cargarListaVentas();
+                                this.actualizarGraficos();
+                                this.actualizarEstadisticasPrincipales();
+                                this.notificacion.mostrarNotificacion('Venta actualizada correctamente');
+                            }
+                            this.mostrarSpinner('ventaEdit', false);
+                        }, 1000);
+                    }
+                });
+                document.getElementById('guardarCambiosCliente').addEventListener('click', () => {
+                    if (this.validarFormulario('editarClienteForm')) {
+                        this.mostrarSpinner('cliente', true);
+                        setTimeout(() => {
+                            const clienteId = parseInt(document.getElementById('editarClienteForm').dataset.clienteId);
+                            const clienteIndex = this.clientes.findIndex(c => c.id === clienteId);
+                            if (clienteIndex !== -1) {
+                                this.clientes[clienteIndex] = {
+                                    ...this.clientes[clienteIndex],
+                                    nombre: this.sanitizarInput(document.getElementById('editNombreCliente').value.trim()),
+                                    email: this.sanitizarInput(document.getElementById('editEmailCliente').value.trim()),
+                                    telefono: this.sanitizarInput(document.getElementById('editTelefonoCliente').value.trim()),
+                                    ultimaCompra: document.getElementById('editUltimaCompra').value
+                                };
+                                this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
+                                const modalEl = document.getElementById('editarClienteModal');
+                                const modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                                modal.hide();
+                                this.cargarListaClientes();
+                                this.actualizarEstadisticasPrincipales();
+                                this.notificacion.mostrarNotificacion('Cliente actualizado correctamente');
+                            }
+                            this.mostrarSpinner('cliente', false);
+                        }, 1000);
+                    }
+                });
+                document.getElementById('nuevoClienteBtn').addEventListener('click', () => {
+                    const modalEl = document.getElementById('nuevaVentaModal');
+                    const nuevaVentaModal = new bootstrap.Modal(modalEl);
+                    nuevaVentaModal.show();
+                    setTimeout(() => document.getElementById('nombreCompleto')?.focus(), 500);
+                    const btn = document.getElementById('nuevoClienteBtn');
+                    btn.classList.add('animate__animated', 'animate__pulse');
+                    setTimeout(() => {
+                        btn.classList.remove('animate__animated', 'animate__pulse');
+                    }, 1000);
+                });
+                this.configurarValidacionFormularios();
+                document.getElementById('globalSearch').addEventListener('input', (e) => {
+                    const term = e.target.value.toLowerCase().trim();
+                    if (term.length > 2 || term.length === 0) {
+                        this.filtrarTablasGlobal(term);
+                    }
+                });
+            }
+
+            handleCerrarSesion = () => {
+                if (confirm('¿Estás seguro de que deseas cerrar sesión?')) {
+                    this.notificacion.mostrarNotificacion('Cerrando sesión...', 'info');
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1500);
                 }
             }
-        });
-        
-        // Evento para nuevo cliente
-        document.getElementById('nuevoClienteBtn').addEventListener('click', () => {
-            // Abrir modal de nueva venta con foco en la sección de información personal
-            const nuevaVentaModal = new bootstrap.Modal(document.getElementById('nuevaVentaModal'));
-            nuevaVentaModal.show();
-            
-            // Animación del botón
-            const btn = document.getElementById('nuevoClienteBtn');
-            btn.classList.add('animate__animated', 'animate__pulse');
-            setTimeout(() => {
-                btn.classList.remove('animate__animated', 'animate__pulse');
-            }, 1000);
-        });
-        
-        // Evento para guardar configuración
-        document.querySelectorAll('#configuracion .btn-primary').forEach(btn => {
-            btn.addEventListener('click', () => {
-                this.config = {
-                    moneda: document.getElementById('moneda').value,
-                    notificacionesEmail: document.getElementById('notificacionesEmail').checked,
-                    notificacionesSistema: document.getElementById('notificacionesSistema').checked,
-                    recordatoriosStock: document.getElementById('recordatoriosStock').checked
-                };
-                
-                this.storage.guardarDatos(this.storage.configKey, this.config);
-                this.notificacion.mostrarNotificacion('Configuración guardada correctamente');
-            });
-        });
-        
-        // Configurar validación de formularios
-        this.configurarValidacionFormularios();
-    }
-    
-    calcularTotalVenta() {
-        const cantidad = parseInt(document.getElementById('cantidad').value) || 0;
-        const precio = parseFloat(document.getElementById('precio').value) || 0;
-        const total = cantidad * precio;
-        
-        document.getElementById('total').value = total.toFixed(2);
-    }
-    
-    validarFormulario(formId) {
-        const form = document.getElementById(formId);
-        if (!form.checkValidity()) {
-            form.classList.add('was-validated');
-            
-            // Encontrar el primer campo inválido y enfocarlo
-            const invalidField = form.querySelector(':invalid');
-            if (invalidField) {
-                invalidField.focus();
-                
-                // Agregar animación al campo inválido
-                invalidField.classList.add('animate__animated', 'animate__headShake');
-                setTimeout(() => {
-                    invalidField.classList.remove('animate__animated', 'animate__headShake');
-                }, 1000);
+
+            filtrarTablasGlobal(term) {
+                this.filtrarTabla('listaVentas', term, (venta, term) => {
+                    return venta.id.toString().includes(term) || venta.cliente.toLowerCase().includes(term) || venta.producto.toLowerCase().includes(term);
+                });
+                this.filtrarTabla('listaClientes', term, (cliente, term) => {
+                    return cliente.id.toString().includes(term) || cliente.nombre.toLowerCase().includes(term) || cliente.email.toLowerCase().includes(term);
+                });
             }
-            
-            return false;
-        }
-        return true;
-    }
-    
-    configurarValidacionFormularios() {
-        // Validación en tiempo real para email
-        document.getElementById('email')?.addEventListener('input', function() {
-            if (this.validity.typeMismatch) {
-                this.setCustomValidity('Por favor ingrese un correo electrónico válido');
-            } else {
-                this.setCustomValidity('');
+
+            filtrarTabla(tbodyId, term, filterFn) {
+                const tbody = document.getElementById(tbodyId);
+                if (!tbody) return;
+                const rows = tbody.querySelectorAll('tr');
+                let visibleCount = 0;
+                rows.forEach(row => {
+                    const itemData = JSON.parse(row.dataset.itemData || '{}');
+                    const isVisible = term === '' || filterFn(itemData, term);
+                    row.style.display = isVisible ? '' : 'none';
+                    if (isVisible) visibleCount++;
+                });
             }
-        });
-        
-        // Validación en tiempo real para teléfono
-        document.getElementById('telefono')?.addEventListener('input', function() {
-            const phoneRegex = /^[0-9\-\+]{9,15}$/;
-            if (!phoneRegex.test(this.value)) {
-                this.setCustomValidity('Por favor ingrese un número de teléfono válido');
-            } else {
-                this.setCustomValidity('');
+
+            sanitizarInput(input) {
+                const temp = document.createElement('div');
+                temp.textContent = input;
+                return temp.innerHTML;
             }
-        });
-    }
-    
-    mostrarSeccion(seccionId) {
-        // Ocultar todas las secciones con animación
-        document.querySelectorAll('section').forEach(section => {
-            if (!section.classList.contains('d-none')) {
-                section.classList.add('animate__animated', 'animate__fadeOut');
-                setTimeout(() => {
+
+            mostrarSpinner(tipo, mostrar) {
+                const textElement = document.getElementById(`${tipo}SubmitText`) || document.getElementById(`${tipo}EditSubmitText`);
+                const spinnerElement = document.getElementById(`${tipo}Spinner`) || document.getElementById(`${tipo}EditSpinner`);
+                const button = spinnerElement?.closest('button');
+                if (textElement && spinnerElement && button) {
+                    if (mostrar) {
+                        textElement.classList.add('d-none');
+                        spinnerElement.classList.remove('d-none');
+                        button.disabled = true;
+                    } else {
+                        textElement.classList.remove('d-none');
+                        spinnerElement.classList.add('d-none');
+                        button.disabled = false;
+                    }
+                }
+            }
+
+            calcularTotalVenta() {
+                const cantidad = parseInt(document.getElementById('cantidad').value) || 0;
+                const precio = parseFloat(document.getElementById('precio').value) || 0;
+                const total = cantidad * precio;
+                const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                document.getElementById('total').value = formatter.format(total);
+            }
+
+            validarFormulario(formId) {
+                const form = document.getElementById(formId);
+                form.classList.remove('was-validated');
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    const invalidField = form.querySelector(':invalid');
+                    if (invalidField) {
+                        invalidField.focus();
+                        invalidField.classList.add('animate__animated', 'animate__headShake');
+                        setTimeout(() => {
+                            invalidField.classList.remove('animate__animated', 'animate__headShake');
+                        }, 1000);
+                    }
+                    return false;
+                }
+                return true;
+            }
+
+            configurarValidacionFormularios() {
+                const ventaForm = document.getElementById('ventaForm');
+                if (ventaForm) {
+                    const metodoPagoRadios = ventaForm.querySelectorAll('input[name="metodoPago"]');
+                    const feedbackDiv = ventaForm.querySelector('.invalid-feedback');
+                    ventaForm.addEventListener('submit', function(event) {
+                        const isChecked = Array.from(metodoPagoRadios).some(radio => radio.checked);
+                        if (!isChecked) {
+                            metodoPagoRadios.forEach(radio => radio.setAttribute('required', ''));
+                            feedbackDiv.style.display = 'block';
+                        } else {
+                            metodoPagoRadios.forEach(radio => radio.removeAttribute('required'));
+                            feedbackDiv.style.display = 'none';
+                        }
+                        if (!this.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        this.classList.add('was-validated');
+                    }, false);
+                    metodoPagoRadios.forEach(radio => {
+                        radio.addEventListener('change', () => {
+                            if (Array.from(metodoPagoRadios).some(r => r.checked)) {
+                                feedbackDiv.style.display = 'none';
+                                metodoPagoRadios.forEach(r => r.removeAttribute('required'));
+                            }
+                        });
+                    });
+                }
+            }
+
+            mostrarSeccion(seccionId) {
+                document.querySelectorAll('main section').forEach(section => {
                     section.classList.add('d-none');
-                    section.classList.remove('animate__animated', 'animate__fadeOut');
-                }, 300);
-            }
-        });
-        
-        // Mostrar la sección seleccionada con animación
-        const seccion = document.getElementById(seccionId);
-        if (seccion) {
-            setTimeout(() => {
-                seccion.classList.remove('d-none');
-                seccion.classList.add('animate__animated', 'animate__fadeIn');
-                
-                // Eliminar la clase de animación después de que termine
-                setTimeout(() => {
-                    seccion.classList.remove('animate__animated', 'animate__fadeIn');
-                }, 500);
-            }, 300);
-        }
-        
-        // Actualizar el menú activo
-        document.querySelectorAll('[data-section]').forEach(link => {
-            if (link.getAttribute('data-section') === seccionId) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-        
-        // Actualizar gráficos si es necesario
-        if (seccionId === 'estadisticas') {
-            this.actualizarGraficos();
-        }
-        
-        // Desplazarse al inicio de la sección
-        setTimeout(() => {
-            seccion.scrollIntoView({ behavior: 'smooth' });
-        }, 350);
-    }
-    
-    inicializarGraficos() {
-        // Datos para los gráficos (podrían venir de una API en una aplicación real)
-        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-        const ventasData = [1200, 1900, 3000, 5000, 2000, 3000, 4000, 3500, 4200, 3800, 4500, 5000];
-        const ingresosData = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 4000, 4200, 4800, 5200, 6000];
-        
-        // Gráfico de ventas en el inicio
-        this.graficos.salesChart = this.crearGrafico(
-            'salesChart', 
-            'line', 
-            meses.slice(0, 6), 
-            ventasData.slice(0, 6),
-            'rgba(106, 90, 249, 0.2)',
-            'rgba(106, 90, 249, 1)',
-            'Ventas mensuales'
-        );
-        
-        // Gráfico de ventas completo en la sección de estadísticas
-        this.graficos.salesChartFull = this.crearGrafico(
-            'salesChartFull', 
-            'bar', 
-            meses, 
-            ventasData,
-            'rgba(106, 90, 249, 0.2)',
-            'rgba(106, 90, 249, 1)',
-            'Ventas anuales'
-        );
-        
-        // Gráfico de ingresos en la sección de estadísticas
-        this.graficos.incomeChart = this.crearGrafico(
-            'incomeChart', 
-            'line', 
-            meses, 
-            ingresosData,
-            'rgba(215, 59, 246, 0.2)',
-            'rgba(215, 59, 246, 1)',
-            'Ingresos mensuales ($)'
-        );
-    }
-    
-    crearGrafico(id, tipo, labels, data, bgColor, borderColor, label) {
-        const ctx = document.getElementById(id).getContext('2d');
-        return new Chart(ctx, {
-            type: tipo,
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: label,
-                    data: data,
-                    backgroundColor: bgColor,
-                    borderColor: borderColor,
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: tipo === 'line'
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        mode: 'index',
-                        intersect: false
-                    }
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0.05)'
+                });
+                const seccion = document.getElementById(seccionId);
+                if (seccion) {
+                    seccion.classList.remove('d-none');
+                    seccion.classList.add('animate__animated', 'animate__fadeIn', 'animate__faster');
+                    seccion.addEventListener('animationend', () => {
+                        seccion.classList.remove('animate__animated', 'animate__fadeIn', 'animate__faster');
+                    }, { once: true });
+                }
+                document.querySelectorAll('#sidebar .nav-link').forEach(link => {
+                    const icon = link.querySelector('i');
+                    const shouldBeActive = link.getAttribute('data-section') === seccionId;
+                    if (shouldBeActive) {
+                        link.classList.add('active');
+                        if (icon && icon.classList.contains('bi')) {
+                            icon.className = icon.className.replace('-fill', '') + '-fill';
                         }
-                    },
-                    x: {
-                        grid: {
-                            display: false
+                    } else {
+                        link.classList.remove('active');
+                        if (icon && icon.classList.contains('bi')) {
+                            icon.className = icon.className.replace('-fill', '');
                         }
                     }
-                },
-                animation: {
-                    duration: 1000,
-                    easing: 'easeOutQuart'
+                });
+                if (seccionId === 'estadisticas') {
+                    this.actualizarGraficos();
+                }
+                document.querySelector('main').scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            inicializarGraficos() {
+                const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                const ventasData = this.calcularVentasPorMes();
+                const ingresosData = this.calcularIngresosPorMes();
+                this.graficos.salesChart = this.crearGrafico('salesChart', 'line', meses.slice(-6), ventasData.slice(-6), 'rgba(106, 90, 249, 0.1)', '#6a5af9', 'Ventas');
+                this.graficos.salesChartFull = this.crearGrafico('salesChartFull', 'bar', meses, ventasData, 'rgba(106, 90, 249, 0.7)', '#6a5af9', 'Ventas');
+                this.graficos.incomeChart = this.crearGrafico('incomeChart', 'line', meses, ingresosData, 'rgba(215, 59, 246, 0.1)', '#d73bf6', 'Ingresos ($)');
+                this.actualizarEstadisticasPrincipales();
+            }
+
+            crearGrafico(id, tipo, labels, data, bgColor, borderColor, label) {
+                const ctx = document.getElementById(id)?.getContext('2d');
+                if (!ctx) return null;
+                if (this.graficos[id] instanceof Chart) {
+                    this.graficos[id].destroy();
+                }
+                return new Chart(ctx, {
+                    type: tipo,
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: label,
+                            data: data,
+                            backgroundColor: bgColor,
+                            borderColor: borderColor,
+                            borderWidth: 2,
+                            tension: tipo === 'line' ? 0.4 : 0,
+                            fill: tipo === 'line',
+                            pointBackgroundColor: borderColor,
+                            pointHoverRadius: 6,
+                            pointHoverBackgroundColor: borderColor
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false,
+                                backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                                titleColor: '#ffffff',
+                                bodyColor: '#ffffff',
+                                cornerRadius: 4,
+                                padding: 10,
+                                titleFont: { weight: 'bold' },
+                                bodySpacing: 4
+                            }
+                        },
+                        hover: { mode: 'nearest', intersect: true },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                grid: { color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
+                                ticks: { font: { size: 10 } }
+                            },
+                            x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                        },
+                        animation: { duration: 800, easing: 'easeOutQuart' }
+                    }
+                });
+            }
+
+            actualizarGraficos() {
+                const ventasPorMes = this.calcularVentasPorMes();
+                const ingresosPorMes = this.calcularIngresosPorMes();
+                const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                if (this.graficos.salesChart) {
+                    this.graficos.salesChart.data.labels = meses.slice(-6);
+                    this.graficos.salesChart.data.datasets[0].data = ventasPorMes.slice(-6);
+                    this.graficos.salesChart.update('none');
+                }
+                if (this.graficos.salesChartFull) {
+                    this.graficos.salesChartFull.data.labels = meses;
+                    this.graficos.salesChartFull.data.datasets[0].data = ventasPorMes;
+                    this.graficos.salesChartFull.update('none');
+                }
+                if (this.graficos.incomeChart) {
+                    this.graficos.incomeChart.data.labels = meses;
+                    this.graficos.incomeChart.data.datasets[0].data = ingresosPorMes;
+                    this.graficos.incomeChart.update('none');
                 }
             }
-        });
-    }
-    
-    actualizarGraficos() {
-        // Actualizar datos de los gráficos basados en las ventas reales
-        const ventasPorMes = this.calcularVentasPorMes();
-        const ingresosPorMes = this.calcularIngresosPorMes();
-        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-        
-        // Actualizar gráfico de ventas en inicio
-        if (this.graficos.salesChart) {
-            this.graficos.salesChart.data.labels = meses.slice(0, 6);
-            this.graficos.salesChart.data.datasets[0].data = ventasPorMes.slice(0, 6);
-            this.graficos.salesChart.update();
-        }
-        
-        // Actualizar gráfico de ventas completo
-        if (this.graficos.salesChartFull) {
-            this.graficos.salesChartFull.data.labels = meses;
-            this.graficos.salesChartFull.data.datasets[0].data = ventasPorMes;
-            this.graficos.salesChartFull.update();
-        }
-        
-        // Actualizar gráfico de ingresos
-        if (this.graficos.incomeChart) {
-            this.graficos.incomeChart.data.labels = meses;
-            this.graficos.incomeChart.data.datasets[0].data = ingresosPorMes;
-            this.graficos.incomeChart.update();
-        }
-    }
-    
-    calcularVentasPorMes() {
-        // Agrupar ventas por mes (ejemplo simplificado)
-        return Array(12).fill(0).map((_, i) => {
-            return Math.floor(Math.random() * 5000) + 1000;
-        });
-    }
-    
-    calcularIngresosPorMes() {
-        // Agrupar ingresos por mes (ejemplo simplificado)
-        return Array(12).fill(0).map((_, i) => {
-            return Math.floor(Math.random() * 10000) + 2000;
-        });
-    }
-    
-    cargarVentasRecientes() {
-        const tbody = document.getElementById('ventasRecientes');
-        tbody.innerHTML = '';
-        
-        // Ordenar ventas por fecha (más recientes primero)
-        const ventasOrdenadas = [...this.ventas].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-        
-        // Mostrar solo las 5 más recientes
-        ventasOrdenadas.slice(0, 5).forEach(venta => {
-            const tr = document.createElement('tr');
-            tr.className = 'animate__animated animate__fadeIn';
-            tr.innerHTML = `
-                <td>${venta.cliente}</td>
-                <td>${venta.producto}</td>
-                <td>${venta.cantidad}</td>
-                <td>$${venta.total.toFixed(2)}</td>
-                <td>${venta.fecha}</td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#editarVentaModal" data-venta-id="${venta.id}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-        
-        // Configurar evento para editar venta
-        document.querySelectorAll('[data-venta-id]').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const ventaId = parseInt(btn.getAttribute('data-venta-id'));
-                this.cargarDatosVentaEdicion(ventaId);
-            });
-        });
-    }
-    
-    cargarListaVentas() {
-        const tbody = document.getElementById('listaVentas');
-        tbody.innerHTML = '';
-        
-        this.ventas.forEach(venta => {
-            const tr = document.createElement('tr');
-            tr.className = 'animate__animated animate__fadeIn';
-            tr.innerHTML = `
-                <td>${venta.id}</td>
-                <td>${venta.cliente}</td>
-                <td>${venta.producto}</td>
-                <td>${venta.cantidad}</td>
-                <td>$${venta.total.toFixed(2)}</td>
-                <td>${venta.fecha}</td>
-                <td><span class="badge ${venta.estado === 'completado' ? 'bg-success' : 'bg-warning'}">${venta.estado}</span></td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editarVentaModal" data-venta-id="${venta.id}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" data-venta-id="${venta.id}">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-        
-        // Configurar eventos para editar y eliminar ventas
-        document.querySelectorAll('[data-venta-id]').forEach(btn => {
-            if (btn.getAttribute('data-bs-toggle') === 'modal') {
-                btn.addEventListener('click', () => {
-                    const ventaId = parseInt(btn.getAttribute('data-venta-id'));
-                    this.cargarDatosVentaEdicion(ventaId);
+
+            calcularVentasPorMes() {
+                const ventasMes = Array(12).fill(0);
+                this.ventas.forEach(venta => {
+                    const mes = new Date(venta.fecha).getMonth();
+                    ventasMes[mes]++;
                 });
-            } else {
-                btn.addEventListener('click', () => {
-                    const ventaId = parseInt(btn.getAttribute('data-venta-id'));
-                    this.eliminarVenta(ventaId);
+                return ventasMes;
+            }
+
+            calcularIngresosPorMes() {
+                const ingresosMes = Array(12).fill(0);
+                this.ventas.forEach(venta => {
+                    const mes = new Date(venta.fecha).getMonth();
+                    ingresosMes[mes] += venta.total;
+                });
+                return ingresosMes;
+            }
+
+            actualizarEstadisticasPrincipales() {
+                const totalVentas = this.ventas.length;
+                const totalIngresos = this.ventas.reduce((sum, v) => sum + v.total, 0);
+                const totalClientes = this.clientes.length;
+                const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                document.getElementById('ventasTotales').textContent = totalVentas.toLocaleString('es-CO');
+                document.getElementById('ingresosTotales').textContent = formatter.format(totalIngresos).replace('COP', '');
+                document.getElementById('clientesTotales').textContent = totalClientes.toLocaleString('es-CO');
+                document.getElementById('ingresosCard').textContent = formatter.format(totalIngresos);
+                document.getElementById('ventasCard').textContent = totalVentas.toLocaleString('es-CO');
+                document.getElementById('clientesCard').textContent = totalClientes.toLocaleString('es-CO');
+                const ventasTotalesMetric = document.querySelector('#estadisticas h3.text-primary');
+                if (ventasTotalesMetric) ventasTotalesMetric.textContent = totalVentas.toLocaleString('es-CO');
+                const ingresosTotalesMetric = document.querySelector('#estadisticas h3.text-success');
+                if (ingresosTotalesMetric) ingresosTotalesMetric.textContent = formatter.format(totalIngresos);
+            }
+
+            cargarVentasRecientes() {
+                const tbody = document.getElementById('ventasRecientes');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                const ventasOrdenadas = [...this.ventas].sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                ventasOrdenadas.slice(0, 5).forEach(venta => {
+                    const tr = document.createElement('tr');
+                    tr.dataset.itemId = venta.id;
+                    tr.dataset.itemData = JSON.stringify(venta);
+                    tr.innerHTML = `
+                        <td>${this.sanitizarInput(venta.cliente)}</td>
+                        <td>${formatter.format(venta.total)}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary action-edit" title="Editar" data-bs-toggle="modal" data-bs-target="#editarVentaModal">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+                this.configurarEventosTabla(tbody, 'venta');
+            }
+
+            cargarListaVentas() {
+                const tbody = document.getElementById('listaVentas');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                this.ventas.forEach(venta => {
+                    const tr = this.crearFilaVenta(venta, false);
+                    tbody.appendChild(tr);
+                });
+                this.configurarEventosTabla(tbody, 'venta');
+            }
+
+            cargarListaClientes() {
+                const tbody = document.getElementById('listaClientes');
+                if (!tbody) return;
+                tbody.innerHTML = '';
+                this.clientes.forEach(cliente => {
+                    const tr = this.crearFilaCliente(cliente);
+                    tbody.appendChild(tr);
+                });
+                this.configurarEventosTabla(tbody, 'cliente');
+            }
+
+            crearFilaVenta(venta, isRecent) {
+                const tr = document.createElement('tr');
+                tr.dataset.itemId = venta.id;
+                tr.dataset.itemData = JSON.stringify(venta);
+                const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                const estadoBadge = venta.estado === 'completado' ? `<span class="badge bg-success-subtle text-success-emphasis border border-success-subtle">${venta.estado}</span>` : `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle">${venta.estado}</span>`;
+                tr.innerHTML = `
+                    ${isRecent ? '' : `<td>${venta.id}</td>`}
+                    <td>${this.sanitizarInput(venta.cliente)}</td>
+                    <td>${this.sanitizarInput(venta.producto)}</td>
+                    <td>${venta.cantidad}</td>
+                    <td>${formatter.format(venta.total)}</td>
+                    <td>${venta.fecha}</td>
+                    ${isRecent ? '' : `<td>${estadoBadge}</td>`}
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1 action-edit" title="Editar" data-bs-toggle="modal" data-bs-target="#editarVentaModal">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger action-delete" title="Eliminar">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                `;
+                return tr;
+            }
+
+            crearFilaCliente(cliente) {
+                const tr = document.createElement('tr');
+                tr.dataset.itemId = cliente.id;
+                tr.dataset.itemData = JSON.stringify(cliente);
+                const formatter = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                tr.innerHTML = `
+                    <td>${cliente.id}</td>
+                    <td>${this.sanitizarInput(cliente.nombre)}</td>
+                    <td>${this.sanitizarInput(cliente.email)}</td>
+                    <td>${this.sanitizarInput(cliente.telefono)}</td>
+                    <td>${cliente.compras}</td>
+                    <td>${formatter.format(cliente.totalGastado)}</td>
+                    <td>${cliente.ultimaCompra}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1 action-edit" title="Editar" data-bs-toggle="modal" data-bs-target="#editarClienteModal">
+                            <i class="bi bi-pencil-fill"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger action-delete" title="Eliminar">
+                            <i class="bi bi-trash-fill"></i>
+                        </button>
+                    </td>
+                `;
+                return tr;
+            }
+
+            configurarEventosTabla(tbody, type) {
+                tbody.addEventListener('click', (e) => {
+                    const button = e.target.closest('button');
+                    if (!button) return;
+                    const row = button.closest('tr');
+                    const itemId = parseInt(row?.dataset.itemId);
+                    if (!itemId) return;
+                    if (button.classList.contains('action-edit')) {
+                        if (type === 'venta') {
+                            this.cargarDatosVentaEdicion(itemId);
+                        } else if (type === 'cliente') {
+                            this.cargarDatosClienteEdicion(itemId);
+                        }
+                    } else if (button.classList.contains('action-delete')) {
+                        if (type === 'venta') {
+                            this.eliminarVenta(itemId, row);
+                        } else if (type === 'cliente') {
+                            this.eliminarCliente(itemId, row);
+                        }
+                    }
                 });
             }
-        });
-    }
-    
-    cargarListaClientes() {
-        const tbody = document.getElementById('listaClientes');
-        tbody.innerHTML = '';
-        
-        this.clientes.forEach(cliente => {
-            const tr = document.createElement('tr');
-            tr.className = 'animate__animated animate__fadeIn';
-            tr.innerHTML = `
-                <td>${cliente.id}</td>
-                <td>${cliente.nombre}</td>
-                <td>${cliente.email}</td>
-                <td>${cliente.telefono}</td>
-                <td>${cliente.compras}</td>
-                <td>$${cliente.totalGastado.toFixed(2)}</td>
-                <td>${cliente.ultimaCompra}</td>
-                <td>
-                    <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editarClienteModal" data-cliente-id="${cliente.id}">
-                        <i class="bi bi-pencil"></i>
-                    </button>
-                    <button class="btn btn-sm btn-outline-danger" data-cliente-id="${cliente.id}">
-                        <i class="bi bi-trash"></i>
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-        
-        // Configurar eventos para editar y eliminar clientes
-        document.querySelectorAll('[data-cliente-id]').forEach(btn => {
-            if (btn.getAttribute('data-bs-toggle') === 'modal') {
-                btn.addEventListener('click', () => {
-                    const clienteId = parseInt(btn.getAttribute('data-cliente-id'));
-                    this.cargarDatosClienteEdicion(clienteId);
-                });
-            } else {
-                btn.addEventListener('click', () => {
-                    const clienteId = parseInt(btn.getAttribute('data-cliente-id'));
-                    this.eliminarCliente(clienteId);
-                });
+
+            cargarDatosVentaEdicion(ventaId) {
+                const venta = this.ventas.find(v => v.id === ventaId);
+                if (venta) {
+                    const form = document.getElementById('editarVentaForm');
+                    form.dataset.ventaId = ventaId;
+                    document.getElementById('editCliente').value = venta.cliente;
+                    document.getElementById('editProducto').value = venta.producto;
+                    document.getElementById('editCantidad').value = venta.cantidad;
+                    const totalFormatted = typeof venta.total === 'number' ? venta.total.toFixed(2) : '';
+                    document.getElementById('editTotal').value = totalFormatted;
+                    form.classList.remove('was-validated');
+                }
             }
-        });
-    }
-    
-    cargarDatosVentaEdicion(ventaId) {
-        const venta = this.ventas.find(v => v.id === ventaId);
-        if (venta) {
-            const form = document.getElementById('editarVentaForm');
-            form.dataset.ventaId = ventaId;
-            
-            document.getElementById('editCliente').value = venta.cliente;
-            document.getElementById('editProducto').value = venta.producto;
-            document.getElementById('editCantidad').value = venta.cantidad;
-            document.getElementById('editTotal').value = venta.total.toFixed(2);
+
+            cargarDatosClienteEdicion(clienteId) {
+                const cliente = this.clientes.find(c => c.id === clienteId);
+                if (cliente) {
+                    const form = document.getElementById('editarClienteForm');
+                    form.dataset.clienteId = clienteId;
+                    document.getElementById('editNombreCliente').value = cliente.nombre || '';
+                    document.getElementById('editEmailCliente').value = cliente.email || '';
+                    document.getElementById('editTelefonoCliente').value = cliente.telefono || '';
+                    document.getElementById('editUltimaCompra').value = cliente.ultimaCompra || '';
+                    form.classList.remove('was-validated');
+                }
+            }
+
+            eliminarVenta(ventaId, rowElement) {
+                if (confirm(`¿Estás seguro de que deseas eliminar la venta con ID ${ventaId}?`)) {
+                    rowElement?.classList.add('animate__animated', 'animate__fadeOut');
+                    rowElement?.addEventListener('animationend', () => {
+                        this.ventas = this.ventas.filter(v => v.id !== ventaId);
+                        this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
+                        this.cargarVentasRecientes();
+                        this.cargarListaVentas();
+                        this.actualizarGraficos();
+                        this.actualizarEstadisticasPrincipales();
+                        this.notificacion.mostrarNotificacion(`Venta ${ventaId} eliminada correctamente`, 'warning');
+                    }, { once: true });
+                }
+            }
+
+            eliminarCliente(clienteId, rowElement) {
+                const clienteAEliminar = this.clientes.find(c => c.id === clienteId);
+                if (!clienteAEliminar) return;
+                if (confirm(`¿Estás seguro de que deseas eliminar al cliente "${clienteAEliminar.nombre}" (ID ${clienteId})? Esto NO eliminará sus ventas asociadas.`)) {
+                    rowElement?.classList.add('animate__animated', 'animate__fadeOut');
+                    rowElement?.addEventListener('animationend', () => {
+                        this.clientes = this.clientes.filter(c => c.id !== clienteId);
+                        this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
+                        this.cargarListaClientes();
+                        this.actualizarEstadisticasPrincipales();
+                        this.notificacion.mostrarNotificacion(`Cliente ${clienteId} eliminado correctamente`, 'warning');
+                    }, { once: true });
+                }
+            }
+
+            buscarGlobalmente(termino) {
+                const ventasEncontradas = this.ventas.filter(v => v.cliente.toLowerCase().includes(termino) || v.producto.toLowerCase().includes(termino) || v.id.toString().includes(termino));
+                const clientesEncontrados = this.clientes.filter(c => c.nombre.toLowerCase().includes(termino) || c.email.toLowerCase().includes(termino) || c.id.toString().includes(termino));
+                if (termino.length > 0 && (ventasEncontradas.length > 0 || clientesEncontrados.length > 0)) {
+                    // Acciones adicionales si se encuentran resultados
+                } else if (termino.length > 0) {
+                    // Acciones adicionales si no se encuentran resultados
+                }
+            }
         }
-    }
-    
-    cargarDatosClienteEdicion(clienteId) {
-        const cliente = this.clientes.find(c => c.id === clienteId); // Complete the find condition
-        if (cliente) {
-            const form = document.getElementById('editarClienteForm');
-            form.dataset.clienteId = clienteId; // Store the client ID in the form
-            
-            // Populate the modal fields
-            document.getElementById('editNombreCliente').value = cliente.nombre || '';
-            document.getElementById('editEmailCliente').value = cliente.email || '';
-            document.getElementById('editTelefonoCliente').value = cliente.telefono || '';
-            document.getElementById('editUltimaCompra').value = cliente.ultimaCompra || '';
-        }
-    }
 
-    eliminarVenta(ventaId) {
-        if (confirm(`¿Estás seguro de que deseas eliminar la venta con ID ${ventaId}?`)) {
-            this.ventas = this.ventas.filter(v => v.id !== ventaId);
-            this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
-            
-            this.cargarVentasRecientes();
-            this.cargarListaVentas();
-            this.actualizarGraficos();
-            
-            this.notificacion.mostrarNotificacion(`Venta ${ventaId} eliminada correctamente`, 'danger');
-        }
-    }
-    
-    eliminarCliente(clienteId) {
-        if (confirm(`¿Estás seguro de que deseas eliminar el cliente con ID ${clienteId}? Esto también eliminará sus ventas asociadas.`)) {
-            const clienteAEliminar = this.clientes.find(c => c.id === clienteId);
-            if (!clienteAEliminar) return;
-
-            // Filtrar cliente
-            this.clientes = this.clientes.filter(c => c.id !== clienteId);
-            this.storage.guardarDatos(this.storage.clientesKey, this.clientes);
-            
-            // Opcional: Eliminar las ventas asociadas a este cliente (basado en el nombre, podría ser mejor usar un ID de cliente si estuviera disponible en las ventas)
-            this.ventas = this.ventas.filter(v => v.cliente !== clienteAEliminar.nombre);
-            this.storage.guardarDatos(this.storage.ventasKey, this.ventas);
-            
-            this.cargarListaClientes();
-            this.cargarVentasRecientes(); // Recargar por si se eliminaron ventas
-            this.cargarListaVentas(); // Recargar por si se eliminaron ventas
-            this.actualizarGraficos();
-            
-            this.notificacion.mostrarNotificacion(`Cliente ${clienteId} y sus ventas asociadas eliminados correctamente`, 'danger');
-        }
-    }
-}
-
-// Inicializar la aplicación cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    const app = new GoldenFeetsApp();
-});
-
-    </script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const app = new GoldenFeetsApp();
+        });
+    </script>
 </body>
 </html>
