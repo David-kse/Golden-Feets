@@ -867,7 +867,7 @@
                     </tr>
                 </thead>
                 <tbody id="entregas-body">
-                    <!-- Las entregas se cargarán dinámicamente -->
+              
                 </tbody>
             </table>
         </div>
@@ -885,13 +885,13 @@
         <div class="input-container">
             <select id="entrega-distribuidor">
                 <option value="">Seleccionar Entrega</option>
-                <!-- Las opciones se cargarán dinámicamente -->
+            
             </select>
         </div>
         <div class="input-container">
             <select id="distribuidor-elegido">
                 <option value="">Seleccionar Distribuidor</option>
-                <!-- Opciones se llenarán dinámicamente -->
+           
             </select>
         </div>
         <div class="confirmation-section">
@@ -1029,7 +1029,7 @@
         <div class="form-section">
             <h3>Lista de Distribuidores</h3>
             <div id="lista-distribuidores">
-                <!-- Distribuidores se cargarán aquí dinámicamente -->
+              
                 <div class="empty-state">
                     <i class="fas fa-truck-loading"></i>
                     <h3>No hay distribuidores registrados</h3>
@@ -1057,7 +1057,7 @@
 </div>
 
 <script>
-    // Variables globales
+  
     let historial = ['vista-perfil'];
     let accionActual = null;
     let datosAccion = {};
@@ -1097,7 +1097,7 @@
         }
     ];
 
-    // Base de datos de entregas
+  
     let entregasDB = {
         "001": {
             persona: "Juan López",
@@ -1122,7 +1122,7 @@
         }
     };
 
-    // Inicialización al cargar la página
+   
     document.addEventListener('DOMContentLoaded', function() {
         actualizarVistas();
         actualizarSelectoresDistribuidores();
@@ -1145,23 +1145,23 @@
     }
 
     function actualizarVistas() {
-        // Ocultar todas las vistas
+      
         document.querySelectorAll('main').forEach(main => main.classList.add('hidden'));
         
-        // Mostrar la vista actual
+
         const vistaActual = historial[historial.length - 1];
         document.getElementById(vistaActual).classList.remove('hidden');
         
-        // Actualizar flecha de retroceso
+
         document.getElementById('back-arrow').classList.toggle('active', historial.length > 1);
         
-        // Resetear resultados
+
         document.getElementById('resultado-asignacion').classList.add('hidden');
         document.getElementById('resultado-cancelacion').classList.add('hidden');
         document.getElementById('entrega-especifica').classList.add('hidden');
     }
 
-    // Funciones para la gestión de entregas
+
     function buscarEntregas() {
         document.getElementById('tabla-entregas').classList.remove('hidden');
     }
@@ -1172,7 +1172,7 @@
         
         if (numeroEntrega) {
             if (entregasDB[numeroEntrega] && entregasDB[numeroEntrega].estado === "activa") {
-                // Mostrar información de la entrega específica
+         
                 document.getElementById('entrega-numero').textContent = numeroEntrega;
                 document.getElementById('entrega-persona').textContent = entregasDB[numeroEntrega].persona;
                 document.getElementById('entrega-direccion').textContent = entregasDB[numeroEntrega].direccion;
@@ -1197,26 +1197,25 @@
         const selectAsignacion = document.getElementById('entrega-distribuidor');
         const selectCancelacion = document.getElementById('entrega-cancelar');
         
-        // Limpiar selectores
+    
         [selectAsignacion, selectCancelacion].forEach(select => {
             while (select.options.length > 1) {
                 select.remove(1);
             }
         });
         
-        // Agregar solo entregas activas
+       
         Object.keys(entregasDB).forEach(key => {
             if (entregasDB[key].estado === "activa") {
                 const entrega = entregasDB[key];
                 const optionText = `${key} - ${entrega.persona}`;
-                
-                // Para selector de asignación
+           
                 const optionAsignacion = document.createElement('option');
                 optionAsignacion.value = key;
                 optionAsignacion.textContent = optionText;
                 selectAsignacion.appendChild(optionAsignacion);
                 
-                // Para selector de cancelación
+              
                 const optionCancelacion = document.createElement('option');
                 optionCancelacion.value = key;
                 optionCancelacion.textContent = optionText;
@@ -1229,7 +1228,7 @@
         const tbody = document.getElementById('entregas-body');
         tbody.innerHTML = '';
         
-        // Mostrar solo entregas activas
+
         Object.keys(entregasDB).forEach(key => {
             if (entregasDB[key].estado === "activa") {
                 const entrega = entregasDB[key];
@@ -1246,7 +1245,7 @@
         });
     }
 
-    // Funciones para la gestión de distribuidores
+
     function obtenerTipoVehiculo(codigo) {
         const tipos = {
             'moto': 'Motocicleta',
@@ -1258,28 +1257,27 @@
     }
 
     function actualizarSelectoresDistribuidores() {
-        // Selector en la vista de asignación
+      
         const selectAsignacion = document.getElementById('distribuidor-elegido');
         
-        // Limpiar y reconstruir ambos selectores
+      
         [selectAsignacion].forEach(select => {
-            // Guardar la opción seleccionada
+          
             const selectedValue = select.value;
             
-            // Limpiar opciones excepto la primera
+      
             while (select.options.length > 1) {
                 select.remove(1);
             }
             
-            // Agregar distribuidores
+      
             distribuidores.forEach(dist => {
                 const option = document.createElement('option');
                 option.value = dist.id;
                 option.textContent = `${dist.nombre} (${obtenerTipoVehiculo(dist.vehiculo)})`;
                 select.appendChild(option);
             });
-            
-            // Restaurar la selección si aún existe
+   
             if (selectedValue && distribuidores.some(d => d.id === selectedValue)) {
                 select.value = selectedValue;
             }
@@ -1351,7 +1349,7 @@
         const placa = document.getElementById('placa-distribuidor').value.trim();
         const notas = document.getElementById('notas-distribuidor').value.trim();
         
-        // Validación básica
+
         if (!nombre || !telefono || !email || !direccion || !vehiculo) {
             alert('Por favor complete todos los campos obligatorios');
             return;
@@ -1370,15 +1368,15 @@
             fechaRegistro: new Date().toISOString().split('T')[0] // Fecha actual en formato YYYY-MM-DD
         };
         
-        // Agregar a la lista
+  
         distribuidores.push(nuevoDistribuidor);
         
-        // Actualizar la interfaz
+   
         actualizarSelectoresDistribuidores();
         renderizarListaDistribuidores();
         limpiarFormularioDistribuidor();
         
-        // Mostrar feedback
+      
         alert('Distribuidor agregado correctamente');
     }
 
@@ -1407,7 +1405,7 @@
         actualizarSelectoresDistribuidores();
         renderizarListaDistribuidores();
         
-        // Mostrar feedback
+   
         const resultado = document.getElementById('resultado-asignacion');
         resultado.querySelector('.result-title i').className = 'fas fa-check-circle';
         resultado.querySelector('.result-title span').textContent = 'Distribuidor eliminado correctamente';
@@ -1419,7 +1417,7 @@
         }, 3000);
     }
 
-    // Funciones para el modal de confirmación
+
     function mostrarModal() {
         document.getElementById('confirmation-modal').classList.add('active');
     }
@@ -1440,14 +1438,14 @@
         }
     }
 
-    // Funciones para confirmar acciones
+
     function confirmarAsignacion() {
         const { entrega, distribuidor } = datosAccion;
         const distribuidorObj = distribuidores.find(d => d.id === distribuidor);
         const distribuidorText = distribuidorObj ? distribuidorObj.nombre : 'Desconocido';
         const entregaText = document.querySelector(`#entrega-distribuidor option[value="${entrega}"]`).text;
         
-        // Mostrar resultados
+ 
         document.getElementById('result-entrega-dist').textContent = entregaText;
         document.getElementById('result-distribuidor').textContent = distribuidorText;
         document.getElementById('result-fecha-dist').textContent = new Date().toLocaleString();
@@ -1466,14 +1464,13 @@
         const razonText = document.querySelector(`#razon-cancelacion option[value="${razon}"]`).text;
         const entregaText = document.querySelector(`#entrega-cancelar option[value="${entrega}"]`).text;
         
-        // Marcar la entrega como cancelada
+        
         entregasDB[entrega].estado = "cancelada";
         
-        // Actualizar la interfaz
+      
         cargarEntregasEnSelectores();
         renderizarTablaEntregas();
-        
-        // Mostrar resultados
+
         document.getElementById('result-entrega-cancel').textContent = entregaText;
         document.getElementById('result-razon').textContent = razonText;
         document.getElementById('result-fecha-cancel').textContent = new Date().toLocaleString();
