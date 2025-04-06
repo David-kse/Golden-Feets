@@ -361,7 +361,7 @@
             box-shadow: 0 6px 15px rgba(255, 107, 107, 0.4);
         }
         
-        /* Vista de Consultar Entregas */
+ 
         #vista-consultar {
             padding: 30px;
         }
@@ -422,7 +422,7 @@
             color: var(--secondary-color);
         }
         
-        /* Vista de Cancelación */
+       
         #vista-cancelacion {
             padding: 30px;
         }
@@ -578,7 +578,7 @@
     </div>
 </header>
 
-<!-- Vista de Perfil -->
+
 <main id="vista-perfil">
     <div class="profile-header">
         <div class="profile-avatar">
@@ -642,7 +642,7 @@
     </div>
 </main>
 
-<!-- Vista de Consultar Entregas -->
+
 <main id="vista-consultar" class="hidden">
     <div style="padding: 30px;">
         <h2>CONSULTAR ENTREGA</h2>
@@ -678,7 +678,6 @@
     </div>
 </main>
 
-<!-- Vista de Cancelación de Entrega -->
 <main id="vista-cancelacion" class="hidden">
     <div style="padding: 30px;">
         <h2>CANCELACIÓN DE ENTREGA</h2>
@@ -701,7 +700,6 @@
     </div>
 </main>
 
-<!-- Resultado de Confirmación -->
 <main id="vista-resultado" class="hidden">
     <div style="padding: 30px;">
         <div id="resultado-confirmacion" class="result-container">
@@ -737,7 +735,7 @@
     </div>
 </main>
 
-<!-- Resultado de Cancelación -->
+
 <main id="vista-resultado-cancelacion" class="hidden">
     <div style="padding: 30px;">
         <div id="resultado-cancelacion" class="result-container cancelation-result">
@@ -781,7 +779,7 @@
     let historial = ['vista-perfil'];
     let datosEntregaActual = null;
 
-    // Base de datos simulada de entregas
+
     const entregasDB = {
         "1": {
             numero: "001",
@@ -855,12 +853,11 @@
             return;
         }
         
-        // Actualizar los datos en la vista de resultado
+
         document.getElementById('result-numero').textContent = datosEntregaActual.numero;
         document.getElementById('result-cliente').textContent = datosEntregaActual.persona;
         document.getElementById('result-fecha').textContent = new Date().toLocaleString();
-        
-        // Navegar a la vista de resultado
+       
         navegar('vista-resultado');
     }
 
