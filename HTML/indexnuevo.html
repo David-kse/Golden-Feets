@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            /* Imagen de fondo aplicada al body */
+            background-image: url('https://i.pinimg.com/736x/4f/60/6d/4f606d3de3094a2a2772e5b906100b70.jpg'); /* Asegúrate que la ruta es correcta */
+            background-size: cover; /* Cubrir todo el espacio */
+            background-position: center; /* Centrar la imagen */
+            background-repeat: no-repeat; /* No repetir la imagen */
+            background-attachment: fixed; /* Fijar el fondo al hacer scroll (opcional) */
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            /* Centrar el contenido del formulario vertical y horizontalmente */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Estilo para el icono de volver */
+        .back-icon {
+            position: absolute; /* Posicionamiento absoluto respecto al body */
+            top: 20px;
+            left: 20px;
+            z-index: 10; /* Asegura que esté por encima de otros elementos */
+        }
+
+        .back-icon svg {
+            width: 32px; /* Tamaño del icono */
+            height: 32px;
+            fill: white; /* Color del icono (ajusta según tu fondo) */
+            filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.5)); /* Sombra para mejor visibilidad */
+            transition: transform 0.2s ease;
+        }
+
+         .back-icon:hover svg {
+             transform: scale(1.1); /* Efecto ligero al pasar el mouse */
+         }
+
+
+        /* Contenedor principal del formulario */
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%; /* Ancho adaptable en pantallas pequeñas */
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 0; /* Quitar margen superior si está dentro del form-container */
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ccc; /* Borde más sutil */
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 16px;
+            background-color: #fff; /* Asegurar fondo blanco para inputs */
+        }
+
+        input:focus {
+            border-color: #4D1C95;
+            outline: none;
+            box-shadow: 0 0 5px rgba(77, 28, 149, 0.3); /* Sombra al enfocar */
+        }
+
+        .primary-button {
+            background-color: #4D1C95;
+            color: white;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .primary-button:hover {
+            background-color: #3b1573; /* Color ligeramente más oscuro al pasar el mouse */
+            transform: translateY(-1px); /* Ligero levantamiento */
+        }
+         .primary-button:active {
+             transform: translateY(0px); /* Efecto al presionar */
+             box-shadow: none;
+         }
+
+
+        .secondary-button {
+            background-color: transparent;
+            color: #4D1C95;
+            padding: 14px 20px; /* Ligeramente menos padding que el primario */
+            border: 2px solid #4D1C95;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center; /* Asegurar texto centrado */
+            display: block; /* Hacer que ocupe todo el ancho */
+            box-sizing: border-box;
+        }
+
+        .secondary-button:hover {
+            background-color: #4D1C95;
+            color: white;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none; /* Oculto por defecto */
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -15px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password a {
+            color: #7f8c8d;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #3498db;
+        }
+
+        /* Ajustes responsivos */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 25px;
+            }
+            h2 {
+                font-size: 24px;
+            }
+            .primary-button, .secondary-button, input {
+                font-size: 15px;
+                padding: 12px;
+            }
+            .secondary-button {
+                 padding: 10px 18px;
+            }
+            .back-icon svg {
+                width: 28px;
+                height: 28px;
+            }
+            .back-icon {
+                top: 15px;
+                left: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-icon" title="Volver al inicio">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16.67 0l-8.34 8.34 8.34 8.34-1.67 1.66-10-10 10-10z"/>
+        </svg>
+        </a>
+
+    <div class="form-container">
+        <h2>Iniciar Sesión</h2>
+        <form onsubmit="validarCredenciales(); return false;">
+            <div class="form-group">
+                <label for="emailInput">Correo Electrónico:</label>
+                <input type="email" id="emailInput" name="email" required placeholder="tu.correo@ejemplo.com">
+                <div class="error" id="emailError">Por favor ingrese un correo electrónico válido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="passwordInput">Contraseña:</label>
+                <input type="password" id="passwordInput" name="password" required placeholder="••••••••">
+                <div class="error" id="passwordError">Por favor ingrese su contraseña</div>
+            </div>
+
+            <div class="forgot-password">
+                <a href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="primary-button">Iniciar Sesión</button>
+
+            <a href="registro.html" class="secondary-button">Crear Cuenta Nueva</a>
+
+        </form>
+    </div>
+
+    <script>
+      function validarCredenciales() {
+          // Obtener valores de los inputs
+          let email = document.getElementById('emailInput').value;
+          let password = document.getElementById('passwordInput').value;
+          let emailValid = false;
+          let passwordValid = false;
+
+          // Ocultar errores previos
+          document.getElementById('emailError').style.display = 'none';
+          document.getElementById('passwordError').style.display = 'none';
+          document.getElementById('emailInput').style.borderColor = '#ccc';
+          document.getElementById('passwordInput').style.borderColor = '#ccc';
+
+
+          // Validar formato de email simple (puedes usar una regex más compleja)
+          if (!email || !email.includes('@') || !email.includes('.')) {
+               document.getElementById('emailError').innerText = 'Por favor ingrese un correo válido.';
+               document.getElementById('emailError').style.display = 'block';
+               document.getElementById('emailInput').style.borderColor = '#e74c3c';
+               // return; // Detiene si el formato es inválido
+          } else {
+              emailValid = true; // Formato básico es válido
+          }
+
+
+          // Validar contraseña no vacía
+          if (!password) {
+              document.getElementById('passwordError').innerText = 'Por favor ingrese su contraseña.';
+              document.getElementById('passwordError').style.display = 'block';
+              document.getElementById('passwordInput').style.borderColor = '#e74c3c';
+              // return; // Detiene si está vacía
+          } else {
+              passwordValid = true; // Contraseña presente
+          }
+
+          // Si ambos campos tienen un formato/presencia básicos válidos, intenta autenticar
+          if(emailValid && passwordValid) {
+              // Validar si el correo y la contraseña coinciden
+              if (email === 'david25@gmail.com' && password === '12345') {
+                  window.location.href = 'stock_inventario.html';
+              } else if (email === 'david2503@gmail.com' && password === '12345') {
+                  window.location.href = 'GerentedEntregas_2.html';
+              } else if (email === 'david25032@gmail.com' && password === '12345') {
+                  window.location.href = 'Distribuidor.html';
+              } else if (email === 'david25033@gmail.com' && password === '12345') {
+                  window.location.href = 'ventas.html';
+              } else {
+                  // Mensaje de error general si las credenciales no coinciden
+                  alert('Correo electrónico o contraseña incorrectos.');
+                  // Opcional: Marcar ambos campos como erróneos visualmente
+                  document.getElementById('emailInput').style.borderColor = '#e74c3c';
+                  document.getElementById('passwordInput').style.borderColor = '#e74c3c';
+              }
+          }
+      }
+
+      // Opcional: Limpiar error visual al empezar a escribir de nuevo
+        document.getElementById('emailInput').addEventListener('input', function() {
+            this.style.borderColor = '#ccc';
+            document.getElementById('emailError').style.display = 'none';
+        });
+         document.getElementById('passwordInput').addEventListener('input', function() {
+             this.style.borderColor = '#ccc';
+             document.getElementById('passwordError').style.display = 'none';
+         });
+
+    </script>
+</body>
+</html>
