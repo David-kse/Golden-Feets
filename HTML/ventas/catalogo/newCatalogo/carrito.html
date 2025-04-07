@@ -225,7 +225,7 @@
             font-size: 0.9rem;
             padding: 0.2rem;
             /* Remove arrows for number input */
-           
+            -moz-appearance: textfield;
         }
         .quantity-input::-webkit-outer-spin-button,
         .quantity-input::-webkit-inner-spin-button {
@@ -276,7 +276,7 @@
         }
          .summary-table tr.summary-shipping td,
          .summary-table tr.summary-discount td {
-            padding-top: 1rem;
+             padding-top: 1rem;
          }
          .summary-table tr.summary-discount td:last-child {
              color: var(--success-color);
@@ -340,28 +340,28 @@
         .shipping-cost { font-weight: 600; }
 
          /* --- Payment Options --- */
-        .payment-option {
-            border: 1px solid var(--border-color);
-            border-radius: var(--bs-border-radius);
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            display: flex;
-            align-items: center;
-        }
+         .payment-option {
+             border: 1px solid var(--border-color);
+             border-radius: var(--bs-border-radius);
+             padding: 0.75rem 1rem;
+             margin-bottom: 0.5rem;
+             cursor: pointer;
+             transition: border-color 0.2s, box-shadow 0.2s;
+             display: flex;
+             align-items: center;
+         }
          .payment-option:hover { border-color: var(--primary-color); }
          .payment-option input[type="radio"] { margin-right: 0.75rem; }
          .payment-option.active {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(106, 90, 249, 0.25);
-        }
+             border-color: var(--primary-color);
+             box-shadow: 0 0 0 2px rgba(106, 90, 249, 0.25);
+         }
          .payment-icon { font-size: 1.5rem; margin-right: 0.5rem;}
          #credit-card-form {
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            margin-top: 1rem;
-            border-radius: var(--bs-border-radius);
+             border: 1px solid var(--border-color);
+             padding: 1.5rem;
+             margin-top: 1rem;
+             border-radius: var(--bs-border-radius);
          }
 
         /* --- Confirmation View --- */
@@ -398,13 +398,13 @@
              transition: opacity 0.2s ease, box-shadow 0.2s ease;
         }
         .checkout-button:hover {
-            opacity: 0.9;
-            box-shadow: 0 4px 10px rgba(106, 90, 249, 0.3);
+             opacity: 0.9;
+             box-shadow: 0 4px 10px rgba(106, 90, 249, 0.3);
         }
         .checkout-button:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-            box-shadow: none;
+             opacity: 0.65;
+             cursor: not-allowed;
+             box-shadow: none;
         }
         .back-button {
             color: var(--primary-color);
@@ -467,7 +467,9 @@
 
     <header class="app-header">
         <div class="container d-flex justify-content-between align-items-center">
-             <a class="navbar-brand" href="catalogo.html">Golden Feets</a> <div class="header-cart-icon" id="headerCartIcon" onclick="cartApp.showStep('review')"> <i class="bi bi-cart3"></i>
+             <a class="navbar-brand" href="catalogo.html">Golden Feets</a>
+             <div class="header-cart-icon" id="headerCartIcon" onclick="cartApp.showStep('review')">
+                 <i class="bi bi-cart3"></i>
                  <span class="cart-count-badge" id="cartCountBadge">0</span>
              </div>
         </div>
@@ -510,7 +512,7 @@
                         </div>
                          <div class="continue-shopping-link text-center mt-3">
                              <a href="catalogo.html" class="back-button"><i class="bi bi-arrow-left"></i> Continuar Comprando</a>
-                          </div>
+                         </div>
                     </div>
                 </div>
 
@@ -534,10 +536,10 @@
                                 <div class="invalid-feedback">Por favor ingresa un correo válido.</div>
                             </div>
                              <div class="col-12">
-                                <label for="phone" class="form-label">Teléfono</label>
-                                <input type="tel" class="form-control" id="phone" placeholder="3001234567" required>
-                                <div class="invalid-feedback">Por favor ingresa un teléfono válido.</div>
-                            </div>
+                                 <label for="phone" class="form-label">Teléfono</label>
+                                 <input type="tel" class="form-control" id="phone" placeholder="3001234567" required>
+                                 <div class="invalid-feedback">Por favor ingresa un teléfono válido.</div>
+                             </div>
                             <div class="col-12">
                                 <label for="address" class="form-label">Dirección</label>
                                 <input type="text" class="form-control" id="address" placeholder="Calle 123 # 45-67" required>
@@ -551,8 +553,7 @@
                                 <label for="country" class="form-label">País</label>
                                 <select class="form-select" id="country" required>
                                     <option value="">Seleccionar...</option>
-                                    <option>Colombia</option>
-                                    </select>
+                                    <option selected>Colombia</option> </select>
                                 <div class="invalid-feedback">País es requerido.</div>
                             </div>
                             <div class="col-md-4">
@@ -561,15 +562,15 @@
                                 <div class="invalid-feedback">Departamento/Estado es requerido.</div>
                             </div>
                              <div class="col-md-3">
-                                <label for="city" class="form-label">Ciudad</label>
-                                <input type="text" class="form-control" id="city" placeholder="Bogotá" required>
-                                <div class="invalid-feedback">Ciudad es requerida.</div>
+                                 <label for="city" class="form-label">Ciudad</label>
+                                 <input type="text" class="form-control" id="city" placeholder="Bogotá" required>
+                                 <div class="invalid-feedback">Ciudad es requerida.</div>
                              </div>
                              <div class="col-md-3">
-                                <label for="zip" class="form-label">Código Postal</label>
-                                <input type="text" class="form-control" id="zip" placeholder="110111">
-                                <div class="invalid-feedback">Código postal requerido.</div>
-                            </div>
+                                 <label for="zip" class="form-label">Código Postal</label>
+                                 <input type="text" class="form-control" id="zip" placeholder="110111">
+                                 <div class="invalid-feedback">Código postal requerido.</div>
+                             </div>
                         </div>
 
                         <hr class="my-4">
@@ -586,23 +587,22 @@
                     <h2 class="form-section-title">Información de Pago</h2>
                     <form class="needs-validation" id="paymentDetailsForm" novalidate>
                         <div class="my-3">
-                             <div class="payment-option" data-payment-method="credit-card">
-                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" value="credit-card" checked required>
-                                <label class="form-check-label ms-2 flex-grow-1" for="credit">
-                                    <i class="bi bi-credit-card payment-icon"></i> Tarjeta de Crédito/Débito
-                                </label>
+                             <div class="payment-option active" data-payment-method="credit-card"> <input id="credit" name="paymentMethod" type="radio" class="form-check-input" value="credit-card" checked required>
+                                 <label class="form-check-label ms-2 flex-grow-1" for="credit">
+                                     <i class="bi bi-credit-card payment-icon"></i> Tarjeta de Crédito/Débito
+                                 </label>
                              </div>
                             <div class="payment-option" data-payment-method="paypal">
-                                <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" value="paypal" required>
-                                <label class="form-check-label ms-2 flex-grow-1" for="paypal">
-                                    <i class="bi bi-paypal payment-icon" style="color: #00457C;"></i> PayPal
-                                </label>
-                            </div>
+                                 <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" value="paypal" required>
+                                 <label class="form-check-label ms-2 flex-grow-1" for="paypal">
+                                     <i class="bi bi-paypal payment-icon" style="color: #00457C;"></i> PayPal
+                                 </label>
+                             </div>
                              <div class="payment-option" data-payment-method="pse">
-                                <input id="pse" name="paymentMethod" type="radio" class="form-check-input" value="pse" required>
-                                <label class="form-check-label ms-2 flex-grow-1" for="pse">
-                                    <img src="https://www.pse.com.co/wp-content/themes/twentytwenty-child/assets/images/logo-pse.png" alt="PSE" height="20" class="me-2"> PSE (Transferencia Bancaria)
-                                </label>
+                                 <input id="pse" name="paymentMethod" type="radio" class="form-check-input" value="pse" required>
+                                 <label class="form-check-label ms-2 flex-grow-1" for="pse">
+                                     <img src="https://www.pse.com.co/wp-content/themes/twentytwenty-child/assets/images/logo-pse.png" alt="PSE" height="20" class="me-2"> PSE (Transferencia Bancaria)
+                                 </label>
                              </div>
                              <div class="invalid-feedback d-block hidden" id="payment-method-error">Selecciona un método de pago.</div>
                         </div>
@@ -623,7 +623,7 @@
                                 <div class="col-md-3">
                                     <label for="cc-expiration" class="form-label">Expiración</label>
                                     <input type="text" class="form-control" id="cc-expiration" placeholder="MM/AA" required pattern="(0[1-9]|1[0-2])\/\d{2}">
-                                    <div class="invalid-feedback">Fecha de expiración requerida.</div>
+                                    <div class="invalid-feedback">Fecha de expiración requerida (MM/AA).</div>
                                 </div>
                                 <div class="col-md-3">
                                     <label for="cc-cvv" class="form-label">CVV</label>
@@ -631,16 +631,16 @@
                                     <div class="invalid-feedback">Código de seguridad requerido.</div>
                                 </div>
                             </div>
-                        </div>
+                         </div>
 
-                        <div id="paypal-info" class="mt-4 text-center hidden">
+                         <div id="paypal-info" class="mt-4 text-center hidden">
                              <p>Serás redirigido a PayPal para completar tu pago de forma segura.</p>
                              <i class="bi bi-paypal" style="font-size: 3rem; color: #00457C;"></i>
-                        </div>
-                        <div id="pse-info" class="mt-4 text-center hidden">
+                         </div>
+                         <div id="pse-info" class="mt-4 text-center hidden">
                              <p>Serás redirigido a PSE para completar tu pago desde tu banco.</p>
                              <img src="https://www.pse.com.co/wp-content/themes/twentytwenty-child/assets/images/logo-pse.png" alt="PSE" height="40">
-                        </div>
+                         </div>
 
                          <hr class="my-4">
                          <div class="form-check">
@@ -653,7 +653,7 @@
                 <div id="confirmation-view" class="checkout-section hidden text-center">
                     <div class="confirmation-icon">
                          <i class="bi bi-check2-circle animate__animated animate__bounceIn"></i>
-                     </div>
+                    </div>
                     <h2 class="form-section-title mb-3">¡Pedido Confirmado!</h2>
                     <p class="lead">Gracias por tu compra, <span id="confirmation-customer-name">[Nombre Cliente]</span>.</p>
                     <p>Tu número de pedido es <strong id="confirmation-order-id">[ID Pedido]</strong>. Hemos enviado un correo de confirmación a <strong id="confirmation-email">[Email Cliente]</strong>.</p>
@@ -676,7 +676,7 @@
                     <a href="catalogo.html" class="btn checkout-button mt-4">Volver a la Tienda</a>
                 </div>
 
-            </div><div class="col-lg-4">
+            </div> <div class="col-lg-4">
                 <div class="order-summary-card">
                     <h4 class="summary-title">Resumen del Pedido</h4>
                     <table class="summary-table">
@@ -718,56 +718,52 @@
                     </div>
 
                 </div>
-             </div></div></main>
+            </div> </div> </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
         // --- Cart Application Logic ---
 
-        // MODIFIED: Product Catalog as per Step 4 instructions
         const productCatalog = {
             "P1": {
                 name: "Zapato Casual Oxford",
-                price: 899900, // Asegúrate que este precio es el correcto
+                price: 899900,
                 image: "https://i.pinimg.com/736x/ca/28/fa/ca28fa99e8d2754c8b119d7d19852592.jpg"
             },
             "P2": {
                 name: "Zapatilla Running Pro",
-                price: 1299900, // Asegúrate que este precio es el correcto
+                price: 1299900,
                 image: "https://i.pinimg.com/736x/93/67/f8/9367f8ff6181f322823cac9d7ef6eb06.jpg"
             },
             "P3": {
                 name: "Zapatilla Daily Comfort",
-                price: 999900, // Asegúrate que este precio es el correcto
+                price: 999900,
                 image: "https://i.pinimg.com/736x/8a/37/f6/8a37f65d01bb8ae132411a19eb3c5cec.jpg"
             },
             "P4": {
                 name: "Tacón Elegante",
-                price: 799900, // Asegúrate que este precio es el correcto
+                price: 799900,
                 image: "https://i.pinimg.com/736x/1b/04/05/1b040589e2335d668eeddb51a3c2173c.jpg"
             },
             "P5": {
                 name: "Zapato Infantil",
-                price: 499900, // Asegúrate que este precio es el correcto
+                price: 499900,
                 image: "https://i.pinimg.com/736x/d0/8c/07/d08c071136d14f88c1e943d6fbaed59f.jpg"
             },
             "P6": {
                 name: "Deportiva Juvenil",
-                price: 699900, // Asegúrate que este precio es el correcto
+                price: 699900,
                 image: "https://i.pinimg.com/736x/e1/92/50/e192502f5aad784df5e0597701a3a5e1.jpg"
             }
-        
         };
 
-        // Sample Shipping Options (Replace with actual options/API)
         const shippingOptions = [
             { id: "standard", name: "Envío Estándar (5-7 días)", cost: 12000 },
             { id: "express", name: "Envío Express (2-3 días)", cost: 25000 },
             { id: "pickup", name: "Recoger en Tienda", cost: 0 },
         ];
 
-        // Sample Valid Promo Codes (Replace or fetch from backend)
         const validPromoCodes = {
             "GOLDEN10": { type: "percentage", value: 10 }, // 10% off
             "ENVIOFREE": { type: "shipping", value: 0 }, // Free shipping
@@ -775,129 +771,49 @@
         };
 
         class ShoppingCartApp {
-    constructor() {
-        console.log("ShoppingCartApp: Initializing..."); // LOG 1
-        this.cart = this.loadCart();
-        this.currentStep = 'review';
-        this.shippingAddress = {};
-        this.selectedShipping = null;
-        this.paymentMethod = 'credit-card';
-        this.appliedPromo = null;
-        this.currencyFormatter = new Intl.NumberFormat('es-CO', {
-            style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0
-        });
-        this.init();
-    }
-
-    loadCart() {
-        const savedCart = localStorage.getItem('goldenFeetsCart');
-        console.log("ShoppingCartApp: Loading cart from localStorage. Found:", savedCart); // LOG 2
-        try {
-            // Intentar parsear el JSON
-            const parsedCart = savedCart ? JSON.parse(savedCart) : {};
-            console.log("ShoppingCartApp: Parsed cart data:", parsedCart); // LOG 3
-            // Asegurarse que lo que retornamos es siempre un objeto
-            if (typeof parsedCart === 'object' && parsedCart !== null) {
-                return parsedCart;
-            } else {
-                 console.warn("ShoppingCartApp: Parsed data is not an object, returning empty cart.");
-                 // Si por alguna razón no es un objeto (ej. parseó a string o número), retornar vacío
-                 localStorage.removeItem('goldenFeetsCart'); // Limpiar dato inválido
-                 return {};
-            }
-        } catch (error) {
-            // Si JSON.parse falla (dato corrupto)
-            console.error("ShoppingCartApp: Error parsing cart data from localStorage!", error);
-            // Limpiar el dato corrupto para evitar futuros errores
-            localStorage.removeItem('goldenFeetsCart');
-            // Devolver un carrito vacío para que la app pueda continuar
-            return {};
-        }
-    }
-
-    renderCartItems() {
-        const container = document.getElementById('cart-items-container');
-        container.innerHTML = '<div class="text-center py-5 text-muted">Renderizando carrito...</div>'; // Mensaje temporal
-
-        console.log("ShoppingCartApp: Rendering cart items. Cart data:", this.cart); // LOG 4
-
-        if (Object.keys(this.cart).length === 0) {
-            console.log("ShoppingCartApp: Cart is empty, showing empty message."); // LOG 5
-            container.innerHTML = ''; // Limpiar mensaje temporal
-            document.querySelector('.empty-cart-message').classList.remove('hidden');
-            document.querySelector('.continue-shopping-link').classList.add('hidden');
-            return;
-        }
-
-        document.querySelector('.empty-cart-message').classList.add('hidden');
-        document.querySelector('.continue-shopping-link').classList.remove('hidden');
-        container.innerHTML = ''; // Limpiar mensaje temporal antes de añadir items
-
-        let itemsRendered = 0; // Contador para ver si se renderiza algo
-        for (const productId in this.cart) { // productId aquí será "P1", "P2", etc.
-            const item = this.cart[productId];
-            console.log(`ShoppingCartApp: Processing cart item - ID: ${productId}, Data:`, item); // LOG 6
-
-            const product = productCatalog[productId]; // Buscar en el catálogo con "P1", "P2"...
-            console.log(`ShoppingCartApp: Looking up product details for ${productId}. Found:`, product); // LOG 7
-
-            if (!product) {
-                console.error(`ShoppingCartApp: Product details NOT FOUND in productCatalog for ID: ${productId}. Skipping item.`); // LOG 8 (Error)
-                continue; // Saltar este item si no hay detalles
+            constructor() {
+                console.log("ShoppingCartApp: Initializing...");
+                this.cart = this.loadCart();
+                this.currentStep = 'review';
+                this.shippingAddress = {};
+                this.selectedShipping = null;
+                this.paymentMethod = 'credit-card';
+                this.appliedPromo = null;
+                this.currencyFormatter = new Intl.NumberFormat('es-CO', {
+                    style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0
+                });
+                this.init();
             }
 
-            // Si encontramos el producto, construimos el HTML
-            const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item';
-            itemElement.dataset.productId = productId;
-
-            itemElement.innerHTML = `
-                <div class="cart-item-image">
-                    <img src="${product.image}" alt="${product.name}">
-                </div>
-                <div class="cart-item-details">
-                    <h6 class="cart-item-title">${product.name}</h6>
-                    ${item.variant ? `<p class="cart-item-variant">Color: ${item.variant.color} / Talla: ${item.variant.size}</p>` : ''}
-                </div>
-                <div class="cart-item-actions">
-                    <div class="cart-item-price">${this.currencyFormatter.format(product.price)}</div>
-                    <div class="quantity-selector">
-                        <button class="quantity-btn minus" aria-label="Disminuir cantidad">-</button>
-                        <input type="number" class="quantity-input form-control form-control-sm" value="${item.quantity}" min="1" max="99" aria-label="Cantidad">
-                        <button class="quantity-btn plus" aria-label="Aumentar cantidad">+</button>
-                    </div>
-                    <button class="remove-item-btn"><i class="bi bi-trash3"></i> Eliminar</button>
-                </div>
-            `;
-            container.appendChild(itemElement);
-            itemsRendered++; // Incrementar contador
-            console.log(`ShoppingCartApp: Successfully rendered item ${productId}`); // LOG 9
-        }
-        if (itemsRendered === 0 && Object.keys(this.cart).length > 0) {
-             console.warn("ShoppingCartApp: Cart has items but none were rendered. Check productCatalog consistency."); // LOG 10 (Warning)
-             // Podrías mostrar un mensaje diferente si todos los items fallaron la búsqueda del catálogo
-             container.innerHTML = '<div class="alert alert-warning">Error al mostrar los productos del carrito. Verifique la consola.</div>';
-        }
-    }
-
-    // ... (resto de la clase ShoppingCartApp sin cambios) ...
-
-    init() {
-        console.log("ShoppingCartApp: init() called."); // LOG 11
-        this.updateCartCountBadge();
-        this.renderCartItems(); // <- Aquí se llama a la función clave
-        this.renderShippingOptions();
-        this.updateOrderSummary();
-        this.setupEventListeners();
-        this.showStep(this.currentStep);
-    }
+            init() {
+                console.log("ShoppingCartApp: init() called.");
+                this.updateCartCountBadge();
+                this.renderCartItems();
+                this.renderShippingOptions();
+                this.updateOrderSummary();
+                this.setupEventListeners();
+                this.showStep(this.currentStep);
+            }
 
 
             loadCart() {
-                // Load from localStorage
                 const savedCart = localStorage.getItem('goldenFeetsCart');
-                // Si no hay nada guardado, devuelve un objeto vacío en lugar de datos de ejemplo
-                return savedCart ? JSON.parse(savedCart) : {};
+                console.log("ShoppingCartApp: Loading cart from localStorage. Found:", savedCart);
+                try {
+                    const parsedCart = savedCart ? JSON.parse(savedCart) : {};
+                    console.log("ShoppingCartApp: Parsed cart data:", parsedCart);
+                    if (typeof parsedCart === 'object' && parsedCart !== null) {
+                        return parsedCart;
+                    } else {
+                        console.warn("ShoppingCartApp: Parsed data is not an object, returning empty cart.");
+                        localStorage.removeItem('goldenFeetsCart');
+                        return {};
+                    }
+                } catch (error) {
+                    console.error("ShoppingCartApp: Error parsing cart data from localStorage!", error);
+                    localStorage.removeItem('goldenFeetsCart');
+                    return {};
+                }
             }
 
             saveCart() {
@@ -909,7 +825,7 @@
                 const count = Object.values(this.cart).reduce((sum, item) => sum + item.quantity, 0);
                 const badgeElement = document.getElementById('cartCountBadge');
                 if(badgeElement) {
-                   badgeElement.textContent = count;
+                    badgeElement.textContent = count;
                 }
             }
 
@@ -919,7 +835,8 @@
 
                 if (Object.keys(this.cart).length === 0) {
                     document.querySelector('.empty-cart-message').classList.remove('hidden');
-                    document.querySelector('.continue-shopping-link').classList.add('hidden'); // Hide continue link if empty
+                    document.querySelector('.continue-shopping-link').classList.add('hidden');
+                    this.updateOrderSummary(); // Ensure summary shows $0 when cart is emptied
                     return;
                 }
 
@@ -928,15 +845,15 @@
 
                 for (const productId in this.cart) {
                     const item = this.cart[productId];
-                    const product = productCatalog[productId]; // Usa el productCatalog actualizado
+                    const product = productCatalog[productId];
                     if (!product) {
                         console.warn(`Detalles no encontrados en productCatalog para ${productId}`);
-                        continue; // Skip if product details not found
+                        continue;
                     }
 
                     const itemElement = document.createElement('div');
                     itemElement.className = 'cart-item';
-                    itemElement.dataset.productId = productId; // Usa el ID del catálogo (ej: P1)
+                    itemElement.dataset.productId = productId;
 
                     itemElement.innerHTML = `
                         <div class="cart-item-image">
@@ -962,7 +879,7 @@
 
             renderShippingOptions() {
                 const container = document.getElementById('shipping-options-container');
-                container.innerHTML = ''; // Clear previous
+                container.innerHTML = '';
                 shippingOptions.forEach((option, index) => {
                     const optionElement = document.createElement('div');
                     optionElement.className = `shipping-option form-check ${this.selectedShipping?.id === option.id ? 'active' : ''}`;
@@ -1006,22 +923,21 @@
                         discount = this.appliedPromo.value;
                         discountText = `- ${this.currencyFormatter.format(discount)}`;
                     } else if (this.appliedPromo.type === "shipping") {
-                        shippingCost = 0; // Apply free shipping
-                        discountRow.classList.add('hidden'); // Hide discount row for free shipping type
+                        shippingCost = 0;
+                        discountRow.classList.add('hidden');
                     }
                     discountAmountEl.textContent = discountText;
                 } else {
                     discountRow.classList.add('hidden');
                 }
 
-                // Ensure discount doesn't exceed subtotal
                 discount = Math.min(discount, subtotal);
                 const total = subtotal + shippingCost - discount;
 
                 document.getElementById('summary-item-count').textContent = itemCount;
                 document.getElementById('summary-subtotal').textContent = this.currencyFormatter.format(subtotal);
                 document.getElementById('summary-shipping-cost').textContent = (this.currentStep === 'review' || !this.selectedShipping)
-                    ? (Object.keys(this.cart).length > 0 ? "Selecciona en el siguiente paso" : "$0") // Show $0 if cart is empty
+                    ? (itemCount > 0 ? "Selecciona en el siguiente paso" : "$0") // Show $0 if cart is empty
                     : (shippingCost === 0 ? 'Gratis' : this.currencyFormatter.format(shippingCost));
                 document.getElementById('summary-total').textContent = this.currencyFormatter.format(total < 0 ? 0 : total);
 
@@ -1029,92 +945,80 @@
                  const nextButton = document.getElementById('btn-next-step');
                  if (this.currentStep === 'review') {
                      nextButton.disabled = itemCount === 0;
+                 } else {
+                     nextButton.disabled = false; // Ensure enabled for other steps unless explicitly disabled elsewhere
                  }
             }
 
             // --- Event Handling ---
             setupEventListeners() {
-                // Cart Item interactions (Event Delegation)
                 const cartContainer = document.getElementById('cart-items-container');
                  cartContainer.addEventListener('click', (e) => {
-                    // Botones +/-
-                    if (e.target.classList.contains('quantity-btn')) {
-                        const button = e.target;
-                        const itemElement = button.closest('.cart-item');
-                        const productId = itemElement.dataset.productId;
-                        const input = itemElement.querySelector('.quantity-input');
-                        let quantity = parseInt(input.value);
-
-                        if (button.classList.contains('minus')) {
-                            if (quantity > 1) {
-                                quantity--;
-                                input.value = quantity;
-                                this.updateQuantity(productId, quantity);
-                            } else {
-                                // Opcional: Confirmar antes de eliminar si llega a 0/1
-                                // Podrías llamar a removeItem aquí si quieres eliminar al llegar a 0
-                                // this.removeItem(productId, itemElement);
-                            }
-                        } else if (button.classList.contains('plus')) {
-                            quantity++;
-                            input.value = quantity; // Actualiza UI primero
-                            this.updateQuantity(productId, quantity);
-                        }
-                    }
-                    // Botón Eliminar
-                    else if (e.target.classList.contains('remove-item-btn') || e.target.closest('.remove-item-btn')) {
-                         const itemElement = e.target.closest('.cart-item');
+                     if (e.target.classList.contains('quantity-btn')) {
+                         const button = e.target;
+                         const itemElement = button.closest('.cart-item');
                          const productId = itemElement.dataset.productId;
-                         this.removeItem(productId, itemElement);
-                    }
-                });
-
-                 // Handle direct input change (si el usuario escribe en el input de cantidad)
-                 cartContainer.addEventListener('change', (e) => {
-                     if (e.target.classList.contains('quantity-input')) {
-                         const input = e.target;
-                         const itemElement = input.closest('.cart-item');
-                         const productId = itemElement.dataset.productId;
+                         const input = itemElement.querySelector('.quantity-input');
                          let quantity = parseInt(input.value);
-                         if (isNaN(quantity) || quantity < 1) {
-                            quantity = 1; // Reset a 1 si no es válido
-                            input.value = 1;
+
+                         if (button.classList.contains('minus')) {
+                             if (quantity > 1) {
+                                 quantity--;
+                                 input.value = quantity;
+                                 this.updateQuantity(productId, quantity);
+                             }
+                         } else if (button.classList.contains('plus')) {
+                             quantity++;
+                             input.value = quantity;
+                             this.updateQuantity(productId, quantity);
                          }
-                         // Opcional: Añadir chequeo de cantidad máxima si tienes stock
-                         this.updateQuantity(productId, quantity);
+                     }
+                     else if (e.target.classList.contains('remove-item-btn') || e.target.closest('.remove-item-btn')) {
+                          const itemElement = e.target.closest('.cart-item');
+                          const productId = itemElement.dataset.productId;
+                          this.removeItem(productId, itemElement);
                      }
                  });
 
-                // Promo Code
+                 cartContainer.addEventListener('change', (e) => {
+                      if (e.target.classList.contains('quantity-input')) {
+                          const input = e.target;
+                          const itemElement = input.closest('.cart-item');
+                          const productId = itemElement.dataset.productId;
+                          let quantity = parseInt(input.value);
+                          if (isNaN(quantity) || quantity < 1) {
+                              quantity = 1;
+                              input.value = 1;
+                          }
+                          this.updateQuantity(productId, quantity);
+                      }
+                 });
+
                 document.getElementById('applyPromoBtn').addEventListener('click', this.applyPromoCode.bind(this));
 
-                // Shipping Options
                 document.getElementById('shipping-options-container').addEventListener('change', (e) => {
                     if (e.target.name === 'shippingOption') {
                         const selectedId = e.target.value;
                         this.selectedShipping = shippingOptions.find(opt => opt.id === selectedId) || null;
-                         // Visually update selected option
-                         document.querySelectorAll('.shipping-option').forEach(el => {
+                        document.querySelectorAll('.shipping-option').forEach(el => {
                             el.classList.toggle('active', el.dataset.optionId === selectedId);
-                         });
-                         document.getElementById('shipping-error').classList.add('hidden'); // Hide error if shown
+                        });
+                        document.getElementById('shipping-error').classList.add('hidden');
                         this.updateOrderSummary();
                     }
-                 });
+                });
 
-                 // Payment Options
                  document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
                      radio.addEventListener('change', (e) => {
                          this.paymentMethod = e.target.value;
                          this.updatePaymentFormUI();
-                          document.getElementById('payment-method-error').classList.add('hidden'); // Hide error
+                          document.getElementById('payment-method-error').classList.add('hidden');
                      });
                  });
 
-                // Step Navigation
                 document.getElementById('btn-next-step').addEventListener('click', this.goToNextStep.bind(this));
                 document.getElementById('btn-prev-step').addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevenir comportamiento default del link #
+                    e.preventDefault();
                     this.goToPrevStep();
                 });
             }
@@ -1129,20 +1033,18 @@
             }
 
             removeItem(productId, element) {
-                 // Opcional: Confirmación
-                 if (!confirm(`¿Eliminar ${productCatalog[productId]?.name || 'este producto'} del carrito?`)) {
-                     return;
-                 }
+                if (!confirm(`¿Eliminar ${productCatalog[productId]?.name || 'este producto'} del carrito?`)) {
+                    return;
+                }
 
-                 // Animar salida (opcional)
-                 element.classList.add('animate__animated', 'animate__fadeOut');
-                 element.addEventListener('animationend', () => {
-                     delete this.cart[productId];
-                     this.saveCart();
-                     this.renderCartItems(); // Re-render para manejar estado vacío correctamente
-                     this.updateCartCountBadge();
-                     this.updateOrderSummary();
-                 }, { once: true }); // Ejecutar el listener solo una vez
+                element.classList.add('animate__animated', 'animate__fadeOut');
+                element.addEventListener('animationend', () => {
+                    delete this.cart[productId];
+                    this.saveCart();
+                    this.renderCartItems(); // Re-render crucial here
+                    this.updateCartCountBadge();
+                    this.updateOrderSummary();
+                }, { once: true });
             }
 
             applyPromoCode() {
@@ -1152,9 +1054,9 @@
                 const applyBtn = document.getElementById('applyPromoBtn');
 
                 feedbackEl.textContent = '';
-                feedbackEl.className = 'promo-feedback mt-2'; // Reset classes
+                feedbackEl.className = 'promo-feedback mt-2';
                 input.classList.remove('is-invalid', 'is-valid');
-                applyBtn.disabled = true; // Disable button during check
+                applyBtn.disabled = true;
 
                 if (!code) {
                     feedbackEl.textContent = 'Por favor ingresa un código.';
@@ -1164,26 +1066,25 @@
                     return;
                 }
 
-                 // Simulate check (replace with actual backend validation if needed)
                  setTimeout(() => {
-                     const promo = validPromoCodes[code];
-                     if (promo) {
-                         this.appliedPromo = { code, ...promo };
-                         feedbackEl.textContent = `Código "${code}" aplicado!`;
-                         feedbackEl.classList.add('text-success');
-                         input.classList.add('is-valid');
-                         input.disabled = true; // Disable after applying
-                         applyBtn.disabled = true; // Keep disabled
-                         applyBtn.textContent = 'Aplicado';
-                     } else {
-                         this.appliedPromo = null;
-                         feedbackEl.textContent = 'Código inválido.';
-                         feedbackEl.classList.add('text-danger');
-                         input.classList.add('is-invalid');
-                         applyBtn.disabled = false; // Re-enable if invalid
-                     }
-                     this.updateOrderSummary(); // Update summary with/without discount
-                 }, 500); // Simulate network delay
+                    const promo = validPromoCodes[code];
+                    if (promo) {
+                        this.appliedPromo = { code, ...promo };
+                        feedbackEl.textContent = `Código "${code}" aplicado!`;
+                        feedbackEl.classList.add('text-success');
+                        input.classList.add('is-valid');
+                        input.disabled = true;
+                        applyBtn.disabled = true;
+                        applyBtn.textContent = 'Aplicado';
+                    } else {
+                        this.appliedPromo = null;
+                        feedbackEl.textContent = 'Código inválido.';
+                        feedbackEl.classList.add('text-danger');
+                        input.classList.add('is-invalid');
+                        applyBtn.disabled = false;
+                    }
+                    this.updateOrderSummary();
+                 }, 500);
             }
 
             updatePaymentFormUI() {
@@ -1191,23 +1092,27 @@
                 document.getElementById('paypal-info').classList.toggle('hidden', this.paymentMethod !== 'paypal');
                 document.getElementById('pse-info').classList.toggle('hidden', this.paymentMethod !== 'pse');
 
-                 // Make credit card fields required only when visible
                  const ccForm = document.getElementById('credit-card-form');
                  ccForm.querySelectorAll('input').forEach(input => {
                      input.required = (this.paymentMethod === 'credit-card');
+                 });
+
+                 // Update active state for visual feedback
+                 document.querySelectorAll('.payment-option').forEach(el => {
+                     el.classList.toggle('active', el.dataset.paymentMethod === this.paymentMethod);
                  });
             }
 
 
             // --- Step Navigation & Validation ---
             showStep(stepId) {
-                // Hide all sections
                 document.querySelectorAll('.checkout-section').forEach(sec => sec.classList.add('hidden'));
 
-                // Show target section
                 let targetSection;
                 if (stepId === 'review') {
                     targetSection = document.getElementById('cart-review');
+                    // IMPORTANT: Re-render cart items when going back to review
+                    this.renderCartItems();
                 } else if (stepId === 'confirmation') {
                     targetSection = document.getElementById('confirmation-view');
                 } else {
@@ -1218,25 +1123,22 @@
                     targetSection.classList.remove('hidden');
                 } else {
                     console.error("Target section not found for step:", stepId);
-                    return; // Exit if section not found
+                    return;
                 }
 
-
-                // Update step indicator UI
                 let stepReached = false;
                 const steps = ['review', 'shipping', 'payment', 'confirmation'];
                 document.querySelectorAll('.checkout-steps .step').forEach(stepEl => {
                     const currentStepData = stepEl.dataset.step;
                     stepEl.classList.remove('active', 'completed');
                     if (currentStepData === stepId) {
-                       stepEl.classList.add('active');
-                        stepReached = true;
+                        stepEl.classList.add('active');
+                         stepReached = true;
                     } else if (!stepReached) {
-                        stepEl.classList.add('completed');
+                         stepEl.classList.add('completed');
                     }
                  });
 
-                // Update navigation buttons visibility and text
                 const btnNext = document.getElementById('btn-next-step');
                 const btnPrev = document.getElementById('btn-prev-step');
                 const btnNextText = document.getElementById('btn-next-text');
@@ -1247,11 +1149,8 @@
                 if (stepId === 'review') btnNextText.textContent = 'Continuar a Envío';
                 else if (stepId === 'shipping') btnNextText.textContent = 'Continuar a Pago';
                 else if (stepId === 'payment') btnNextText.textContent = 'Realizar Pedido';
-                // No text needed for confirmation step
 
-                 // Ensure summary is updated when switching steps (esp. for shipping cost)
                  this.updateOrderSummary();
-                 // Recalcular badge en cabecera por si acaso
                  this.updateCartCountBadge();
             }
 
@@ -1265,129 +1164,118 @@
                  if (stepId === 'shipping') {
                      formId = 'shippingAddressForm';
                  } else if (stepId === 'payment') {
-                     // Check which payment method is selected to decide which part to validate
                      const paymentMethodSelected = document.querySelector('input[name="paymentMethod"]:checked');
                      if (paymentMethodSelected && paymentMethodSelected.value === 'credit-card') {
-                         formId = 'paymentDetailsForm'; // Only validate CC part of the form
+                         formId = 'paymentDetailsForm'; // Only validate CC part
                      }
-                     // For PayPal/PSE, no client-side form validation is needed here beyond selection
+                     // No form validation for PayPal/PSE here beyond selection check below
                  }
 
                  if (formId) {
-                    const form = document.getElementById(formId);
-                    form.classList.remove('was-validated'); // Reset validation state
-                    if (!form.checkValidity()) {
-                        form.classList.add('was-validated'); // Show Bootstrap validation styles
-                        // Find first invalid element within the *correct* form part
-                        let firstInvalid = null;
-                        if (formId === 'paymentDetailsForm' && this.paymentMethod === 'credit-card') {
-                            // Only look within the credit card fields
-                             firstInvalid = form.querySelector('#credit-card-form :invalid');
-                         } else if (formId === 'shippingAddressForm') {
-                            firstInvalid = form.querySelector(':invalid');
-                         }
+                     const form = document.getElementById(formId);
+                     form.classList.remove('was-validated'); // Reset
+                      let fieldsToValidate;
+                      // Important: Select only relevant fields within the correct container
+                      if (formId === 'paymentDetailsForm' && this.paymentMethod === 'credit-card') {
+                           fieldsToValidate = form.querySelectorAll('#credit-card-form input'); // Target only CC inputs
+                      } else if (formId === 'shippingAddressForm') {
+                           fieldsToValidate = form.querySelectorAll('input:required, select:required'); // Target all required in shipping
+                      } else {
+                           fieldsToValidate = []; // No specific form fields for other payment methods
+                      }
 
-                        if (firstInvalid) {
-                             firstInvalid.focus();
-                             // Optional: Add shake animation
-                             // firstInvalid.classList.add('animate__animated', 'animate__headShake');
-                             // setTimeout(() => firstInvalid.classList.remove('animate__animated', 'animate__headShake'), 1000);
-                         }
-                         isValid = false; // Mark step as invalid
-                    }
+                     let firstInvalid = null;
+                     fieldsToValidate.forEach(field => {
+                          if (!field.checkValidity()) {
+                              isValid = false;
+                              if (!firstInvalid) firstInvalid = field; // Track the first invalid field
+                          }
+                     });
+
+
+                     if (!isValid) {
+                          form.classList.add('was-validated'); // Add validation class to the *main* form wrapper
+                           if (firstInvalid) {
+                                firstInvalid.focus(); // Focus the first invalid field
+                           }
+                     }
                  }
 
                 // 2. Validate other conditions (non-form elements)
-                 if (stepId === 'shipping' && isValid) { // Only check shipping if form was valid
+                if (stepId === 'shipping' && isValid) {
                     if (!this.selectedShipping) {
-                         isValid = false;
-                         errorElementId = 'shipping-error';
-                         errorMessage = 'Por favor selecciona una opción de envío.';
-                     }
-                 } else if (stepId === 'payment' && isValid) { // Only check payment if form was valid (or not applicable)
-                     const paymentMethodSelected = document.querySelector('input[name="paymentMethod"]:checked');
-                    if (!paymentMethodSelected) {
-                         isValid = false;
-                         errorElementId = 'payment-method-error';
-                         errorMessage = 'Selecciona un método de pago.';
+                        isValid = false;
+                        errorElementId = 'shipping-error';
+                        errorMessage = 'Por favor selecciona una opción de envío.';
                     }
-                 }
+                } else if (stepId === 'payment' && isValid) {
+                    const paymentMethodSelected = document.querySelector('input[name="paymentMethod"]:checked');
+                   if (!paymentMethodSelected) {
+                       isValid = false;
+                       errorElementId = 'payment-method-error';
+                       errorMessage = 'Selecciona un método de pago.';
+                   }
+                }
 
-
-                // Show specific non-form errors (like shipping/payment method selection)
                  if (!isValid && errorElementId) {
-                     const errorEl = document.getElementById(errorElementId);
-                     if (errorEl) {
-                         errorEl.textContent = errorMessage;
-                         errorEl.classList.remove('hidden');
-                     }
+                    const errorEl = document.getElementById(errorElementId);
+                    if (errorEl) {
+                        errorEl.textContent = errorMessage;
+                        errorEl.classList.remove('hidden');
+                    }
                  }
 
                  return isValid;
             }
 
-            // Dentro de la clase ShoppingCartApp en carrito.html
+            // --- MODIFIED goToNextStep ---
+            goToNextStep() {
+                // Validar el paso actual PRIMERO
+                if (!this.validateStep(this.currentStep)) {
+                    console.log("Validation failed for step:", this.currentStep);
+                    return; // Detener si la validación falla
+                }
 
-goToNextStep() {
-    // Validar el paso actual PRIMERO
-    if (!this.validateStep(this.currentStep)) {
-        console.log("Validation failed for step:", this.currentStep);
-        return; // Detener si la validación falla
-    }
+                // Guardar datos del paso actual
+                if (this.currentStep === 'shipping') {
+                    this.saveShippingData();
+                    // Simplemente logueamos que avanzamos, ya no hay chequeo de login
+                    console.log("Proceeding from shipping to payment (login check removed).");
 
-    // Guardar datos del paso actual ANTES de la verificación de login
-    if (this.currentStep === 'shipping') {
-        this.saveShippingData();
+                } else if (this.currentStep === 'payment') {
+                    // Lógica para procesar el pago
+                    this.placeOrder();
+                    return; // placeOrder maneja el cambio a 'confirmation'
+                }
 
-        // --- NUEVA VERIFICACIÓN DE LOGIN ---
-        if (!isUserLoggedIn()) {
-            // Si el usuario NO está logueado:
-            alert("Por favor, inicia sesión o regístrarte para continuar con el pago.");
+                // --- Lógica para avanzar al siguiente paso ---
+                const steps = ['review', 'shipping', 'payment', 'confirmation'];
+                const currentIndex = steps.indexOf(this.currentStep);
 
-            // Guardar la URL actual para redirigir de vuelta aquí después del login
-            // Guardamos la URL base del carrito, podrías refinar esto si usas # para los pasos
-            localStorage.setItem('redirectAfterLogin', window.location.pathname); // Guarda solo la ruta, ej: /carrito.html
+                if (currentIndex < steps.length - 1) { // Asegurarse de no ir más allá de 'payment' aquí
+                    const nextStep = steps[currentIndex + 1];
+                    // Solo avanzamos si no estamos ya en el paso de pago (manejado arriba)
+                    if(this.currentStep !== 'payment') {
+                        this.currentStep = nextStep;
+                        this.showStep(this.currentStep);
+                        window.scrollTo(0, 0); // Scroll to top of new step
+                    }
+                }
+            }
+            // --- End of MODIFIED goToNextStep ---
 
-            // Redirigir a la página de login (¡Asegúrate que 'formulario.html' es la ruta correcta!)
-            window.location.href = 'formulario.html';
 
-            return; // Detener la ejecución para no pasar al siguiente paso
-        }
-        // Si el usuario SÍ está logueado, la ejecución continúa normalmente...
-        console.log("User is logged in, proceeding from shipping to payment.");
-
-    } else if (this.currentStep === 'payment') {
-        // Lógica para procesar el pago (si ya pasó la verificación de login antes)
-        this.placeOrder();
-        return; // placeOrder maneja el cambio a 'confirmation'
-    }
-
-    // --- Lógica para avanzar al siguiente paso (si pasó validación y login check) ---
-    const steps = ['review', 'shipping', 'payment', 'confirmation'];
-    const currentIndex = steps.indexOf(this.currentStep);
-
-    if (currentIndex < steps.length - 1) { // Asegurarse de no ir más allá de 'payment' aquí
-         const nextStep = steps[currentIndex + 1];
-         // Solo avanzamos si no estamos ya en el paso de pago (manejado arriba)
-         if(this.currentStep !== 'payment') {
-            this.currentStep = nextStep;
-            this.showStep(this.currentStep);
-            window.scrollTo(0, 0); // Scroll to top of new step
-         }
-    }
-}
-             goToPrevStep() {
+            goToPrevStep() {
                 const steps = ['review', 'shipping', 'payment', 'confirmation'];
                 const currentIndex = steps.indexOf(this.currentStep);
                 if (currentIndex > 0) {
                     this.currentStep = steps[currentIndex - 1];
                     this.showStep(this.currentStep);
-                     window.scrollTo(0, 0); // Scroll to top
+                    window.scrollTo(0, 0);
                 }
             }
 
-             saveShippingData() {
-                // Gather data from shipping form
+            saveShippingData() {
                 this.shippingAddress = {
                     firstName: document.getElementById('firstName').value,
                     lastName: document.getElementById('lastName').value,
@@ -1400,12 +1288,12 @@ goToNextStep() {
                     city: document.getElementById('city').value,
                     zip: document.getElementById('zip').value,
                 };
-                // Optional: Save to localStorage for persistence if user navigates away
-                // localStorage.setItem('goldenFeetsShipping', JSON.stringify(this.shippingAddress));
-             }
+                console.log("Shipping data saved:", this.shippingAddress);
+                // Optional: localStorage.setItem('goldenFeetsShipping', JSON.stringify(this.shippingAddress));
+            }
 
-             // --- Order Placement (Simulation) ---
-             placeOrder() {
+            // --- Order Placement (Simulation) ---
+            placeOrder() {
                 const btnNext = document.getElementById('btn-next-step');
                 const btnSpinner = btnNext.querySelector('.spinner-border');
                 const btnText = document.getElementById('btn-next-text');
@@ -1414,23 +1302,24 @@ goToNextStep() {
                 btnText.textContent = 'Procesando...';
                 btnNext.disabled = true;
 
-                // Simulate API call / processing delay
-                 setTimeout(() => {
-                    // Simulate success
-                    const orderId = `GF-${Date.now().toString().slice(-6)}`; // Generate simple order ID
-                    this.populateConfirmationScreen(orderId);
+                setTimeout(() => {
+                    const orderId = `GF-${Date.now().toString().slice(-6)}`;
+                    // Capture current state *before* clearing cart for confirmation screen
+                    const finalCartState = JSON.parse(JSON.stringify(this.cart)); // Deep copy
+                    const finalShipping = this.selectedShipping ? JSON.parse(JSON.stringify(this.selectedShipping)) : null;
+                    const finalPromo = this.appliedPromo ? JSON.parse(JSON.stringify(this.appliedPromo)) : null;
+
+                    this.populateConfirmationScreen(orderId, finalCartState, finalShipping, finalPromo);
 
                     this.currentStep = 'confirmation';
                     this.showStep(this.currentStep);
                     window.scrollTo(0, 0);
 
                     // --- POST-ORDER ACTIONS ---
-                    // 1. Clear the cart from localStorage and internal state
                     this.cart = {};
                     this.saveCart();
-
-                    // 2. Reset promo code state (optional, good practice)
                     this.appliedPromo = null;
+                    // Reset promo UI elements
                     const promoInput = document.getElementById('promoCodeInput');
                     const promoFeedback = document.querySelector('.promo-feedback');
                     const applyBtn = document.getElementById('applyPromoBtn');
@@ -1445,94 +1334,78 @@ goToNextStep() {
                        applyBtn.textContent = 'Aplicar';
                     }
 
+                    this.updateCartCountBadge(); // Update header badge
 
-                    // 3. Update UI elements reflecting the now empty cart
-                    this.updateCartCountBadge(); // Should show 0
-                    // No need to update order summary as we are on confirmation screen
-
-
-                    // Reset button state (though it will be hidden on confirmation screen)
+                    // Reset button state
                     btnSpinner.classList.add('hidden');
-                    btnText.textContent = 'Realizar Pedido'; // Reset text for future use if needed
-                    btnNext.disabled = false;
+                    btnText.textContent = 'Realizar Pedido';
+                    btnNext.disabled = false; // Re-enable (though hidden on confirm screen)
 
-                }, 1500); // Simulate 1.5 second delay
-             }
+                }, 1500);
+            }
 
-             populateConfirmationScreen(orderId) {
-                 // Calculate final details based on state *before* clearing cart
+            // Modified to accept final state as arguments
+            populateConfirmationScreen(orderId, finalCart, finalShippingOption, finalPromoCode) {
                 let subtotal = 0;
-                for (const productId in this.cart) { // Iterate using the cart *before* clearing
-                    const item = this.cart[productId];
+                for (const productId in finalCart) {
+                    const item = finalCart[productId];
                     const product = productCatalog[productId];
                     if (product) {
-                         subtotal += product.price * item.quantity;
+                        subtotal += product.price * item.quantity;
                     }
                 }
-                const shippingCost = this.selectedShipping?.cost || 0;
+                const shippingCost = finalShippingOption?.cost || 0;
                  let discount = 0;
-                 let finalShippingCost = shippingCost; // Use a temp variable for shipping cost
+                 let finalShippingCost = shippingCost;
 
-                 if (this.appliedPromo) {
-                    if(this.appliedPromo.type === 'percentage') {
-                        discount = subtotal * (this.appliedPromo.value / 100);
-                    } else if (this.appliedPromo.type === 'fixed') {
-                        discount = this.appliedPromo.value;
-                    } else if (this.appliedPromo.type === 'shipping') {
-                        // Here we just record that shipping should be free, but don't apply discount value
-                        finalShippingCost = 0;
-                    }
+                 if (finalPromoCode) {
+                     if(finalPromoCode.type === 'percentage') {
+                         discount = subtotal * (finalPromoCode.value / 100);
+                     } else if (finalPromoCode.type === 'fixed') {
+                         discount = finalPromoCode.value;
+                     } else if (finalPromoCode.type === 'shipping') {
+                         finalShippingCost = 0;
+                     }
                  }
-                 discount = Math.min(discount, subtotal); // Ensure discount isn't > subtotal
-                 const total = subtotal + finalShippingCost - discount; // Use finalShippingCost
+                 discount = Math.min(discount, subtotal);
+                 const total = subtotal + finalShippingCost - discount;
 
-                // Populate Confirmation Screen Elements
                 document.getElementById('confirmation-customer-name').textContent = this.shippingAddress.firstName || 'Cliente';
                 document.getElementById('confirmation-order-id').textContent = orderId;
                 document.getElementById('confirmation-email').textContent = this.shippingAddress.email || '';
 
-                // Populate summary details on confirmation screen
-                 document.getElementById('conf-subtotal').textContent = this.currencyFormatter.format(subtotal);
-                 document.getElementById('conf-shipping-method').textContent = this.selectedShipping?.name || 'N/A';
-                 document.getElementById('conf-shipping-cost').textContent = finalShippingCost === 0 ? 'Gratis' : this.currencyFormatter.format(finalShippingCost);
+                document.getElementById('conf-subtotal').textContent = this.currencyFormatter.format(subtotal);
+                document.getElementById('conf-shipping-method').textContent = finalShippingOption?.name || 'N/A';
+                document.getElementById('conf-shipping-cost').textContent = finalShippingCost === 0 ? 'Gratis' : this.currencyFormatter.format(finalShippingCost);
 
-                 const discountRow = document.getElementById('conf-discount-row');
-                 if (discount > 0) { // Show discount only if there was a percentage or fixed amount off
-                     document.getElementById('conf-discount-amount').textContent = `- ${this.currencyFormatter.format(discount)}`;
-                     discountRow.classList.remove('hidden');
-                 } else {
-                     discountRow.classList.add('hidden');
-                 }
+                const discountRow = document.getElementById('conf-discount-row');
+                if (discount > 0) {
+                    document.getElementById('conf-discount-amount').textContent = `- ${this.currencyFormatter.format(discount)}`;
+                    discountRow.classList.remove('hidden');
+                } else {
+                    discountRow.classList.add('hidden');
+                }
 
-                 document.getElementById('conf-total').textContent = this.currencyFormatter.format(total < 0 ? 0 : total);
+                document.getElementById('conf-total').textContent = this.currencyFormatter.format(total < 0 ? 0 : total);
 
-                 // Populate shipping address on confirmation screen
-                 document.getElementById('conf-shipping-address').textContent = `${this.shippingAddress.address || ''} ${this.shippingAddress.address2 || ''}`.trim();
-                 document.getElementById('conf-shipping-city-state').textContent = `${this.shippingAddress.city || ''}, ${this.shippingAddress.state || ''} ${this.shippingAddress.zip || ''} (${this.shippingAddress.country || ''})`.trim();
-             }
+                document.getElementById('conf-shipping-address').textContent = `${this.shippingAddress.address || ''} ${this.shippingAddress.address2 || ''}`.trim();
+                document.getElementById('conf-shipping-city-state').textContent = `${this.shippingAddress.city || ''}, ${this.shippingAddress.state || ''} ${this.shippingAddress.zip || ''} (${this.shippingAddress.country || ''})`.trim();
+            }
 
-             
 
         } // End of ShoppingCartApp class
-/**
- * Verifica si el usuario ha iniciado sesión basado en localStorage.
- * @returns {boolean} True si el usuario está logueado, false en caso contrario.
- */
- function isUserLoggedIn() {
-    // Comprueba si existe el item 'isUserLoggedIn' y si su valor es 'true'
-    const loggedIn = localStorage.getItem('isUserLoggedIn') === 'true';
-    console.log("Checking login status:", loggedIn); // Log para depuración
-    return loggedIn;
-}
+
+        // Function to check login status (if needed elsewhere, keep it)
+        // function isUserLoggedIn() { ... } // Removed call from goToNextStep
+
         // Initialize the app once the DOM is ready
-        // Make sure this runs only once
         let cartApp;
-document.addEventListener('DOMContentLoaded', () => {
-  if (!cartApp) {
-     console.log("DOM Loaded, creating ShoppingCartApp instance."); // LOG 12
-     cartApp = new ShoppingCartApp();
-  }
-});
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!cartApp) {
+                 console.log("DOM Loaded, creating ShoppingCartApp instance.");
+                 cartApp = new ShoppingCartApp();
+            }
+        });
 
     </script>
 
